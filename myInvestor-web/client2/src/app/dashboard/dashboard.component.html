@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="dashboard-grid-list">
+        <md-grid-list cols="{{exchangeCount}}" rowHeight="200px">
+            <md-grid-tile *ngFor="let summary of exchangeSummaries; let i = index">
+                <md-card>
+                    <md-card-header>
+                        <div md-card-avatar class="{{summary.name}}"></div>
+                        <md-card-title>
+                            <h3>{{summary.name}}</h3>
+                        </md-card-title>
+                        <md-card-subtitle>{{summary.count}} stocks</md-card-subtitle>
+                    </md-card-header>
+                    <md-card-content>
+                        <p> </p>
+                    </md-card-content>
+                    <md-card-actions>
+                        <button md-button (click)="getStocks(summary.name)">
+                    <i class="material-icons md-18">toc</i> View <span class='fa fa-spin fa-circle-o-notch' *ngIf="showingStocks"> </span>
+                </button>
+                        <a [routerLink]=" ['./analysis', summary.name] " routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <button md-button>
+                        <i class="material-icons md-18">trending_up</i> Analyze
+                    </button>
+                        </a>
+                    </md-card-actions>
+                </md-card>
+            </md-grid-tile>
+        </md-grid-list>
+    </div>
+</div>
+
+
+<div class='row' *ngIf="showGrid">
+    <div class="col-lg-12">
+        <div class='row-fluid'>
+            <h2 class="page-header">{{exchangeName}}</h2>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class='pull-right'>
+            <button type="button" title="Close" (click)="hideStocks()">
+            <span aria-hidden="true">&times;</span>
+            <span class="hide">Close</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <ag-grid-angular style="width: 60%; height: 450px;" class="ag-fresh" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [showToolPanel]="showToolPanel" [rowData]="rowData" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection
+            toolPanelSuppressGroups toolPanelSuppressValues rowHeight="22" rowSelection="multiple" (modelUpdated)="onModelUpdated()" (cellClicked)="onCellClicked($event)" (cellDoubleClicked)="onCellDoubleClicked($event)" (cellContextMenu)="onCellContextMenu($event)"
+            (cellValueChanged)="onCellValueChanged($event)" (cellFocused)="onCellFocused($event)" (rowSelected)="onRowSelected($event)" (selectionChanged)="onSelectionChanged()" (beforeFilterChanged)="onBeforeFilterChanged()" (afterFilterChanged)="onAfterFilterChanged()"
+            (filterModified)="onFilterModified()" (beforeSortChanged)="onBeforeSortChanged()" (afterSortChanged)="onAfterSortChanged()" (virtualRowRemoved)="onVirtualRowRemoved($event)" (rowClicked)="onRowClicked($event)" (gridReady)="onReady($event)" (columnEverythingChanged)="onColumnEvent($event)"
+            (columnRowGroupChanged)="onColumnEvent($event)" (columnValueChanged)="onColumnEvent($event)" (columnMoved)="onColumnEvent($event)" (columnVisible)="onColumnEvent($event)" (columnGroupOpened)="onColumnEvent($event)" (columnResized)="onColumnEvent($event)"
+            (columnPinnedCountChanged)="onColumnEvent($event)">
+        </ag-grid-angular>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

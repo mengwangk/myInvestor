@@ -1,0 +1,29 @@
+<div id="wrapper">
+
+    <md-toolbar color="primary">
+        <span>myInvestor</span>
+        <span class="spacer"></span>
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+      <md-icon>more_vert</md-icon>
+    </button>
+        <md-menu #menu="mdMenu">
+            <button md-menu-item>
+                <md-icon>person</md-icon>
+                <span>Login&nbsp;&nbsp;&nbsp;</span>
+            </button>
+        </md-menu>
+    </md-toolbar>
+
+    <nav md-tab-nav-bar>
+        <a md-tab-link [routerLink]=" ['./']" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+        <a md-tab-link [routerLink]=" ['./portfolio']" routerLinkActive #rla3="routerLinkActive" [active]="rla3.isActive" [routerLinkActiveOptions]="{exact: true}">Portfolio</a>
+        <a md-tab-link [routerLink]=" ['./scheduler']" routerLinkActive #rla4="routerLinkActive" [active]="rla4.isActive" [routerLinkActiveOptions]="{exact: true}">Scheduler</a>
+    </nav>
+
+    <div id="page-wrapper">
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+
+</div>

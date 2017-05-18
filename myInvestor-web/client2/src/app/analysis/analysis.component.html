@@ -1,0 +1,70 @@
+<div class="row">
+
+    <div class="col-lg-12">
+        <h1 class="page-header">{{exchangeName}} - Dividend Achievers</h1>
+    </div>
+
+    <div class="col-lg-12">
+
+        <form class="analysis-form">
+            <md-input-container class="analysis-full-width">
+                <input mdInput type="number" placeholder="Dividend Yield %" name="dividendYield" [(ngModel)]="dividendYield">
+            </md-input-container>
+            <md-input-container class="analysis-full-width">
+                <input mdInput type="number" placeholder="Number of years" name="numberOfYears" [(ngModel)]="numberOfYears">
+            </md-input-container>
+            <md-input-container class="analysis-full-width">
+                <input mdInput type="number" placeholder="Last x years" name="scopeOfYears" [(ngModel)]="scopeOfYears">
+            </md-input-container>
+
+            <section class="analysis-section">
+                <md-radio-group [(ngModel)]="yearOption" name="yearOption">
+                    <md-radio-button class="analysis-margin" value="1">
+                        Most recent years (exclude current)
+                    </md-radio-button>
+                    <md-radio-button class="analysis-margin" value="2">
+                        Any years
+                    </md-radio-button>
+                </md-radio-group>
+            </section>
+
+            <button md-raised-button (click)="runAnalysis()">Run</button>
+        </form>
+
+        <div class="row" *ngIf="showProgress">
+            <p><br/>
+                <md-card>
+                    <md-card-content>
+                        <h3 class="analysis-margin">{{statusMessage}}</h3>
+                        <section class="analysis-section">
+                            <md-progress-bar class="analysis-margin" [color]="primary" [mode]="determinate" [value]="progressValue" [bufferValue]="progressBufferValue">
+                            </md-progress-bar>
+                        </section>
+                    </md-card-content>
+                </md-card>
+            </p>
+        </div>
+
+
+
+        <div class="row" *ngIf="showResults">
+            <md-card>
+                <md-card-title>{{dividendAchievers.length}} stocks</md-card-title>
+                <md-card-content>
+                    <md-grid-list cols="3" rowHeight="50px">
+                        <md-grid-tile *ngFor="let stock of dividendAchievers; let i = index" style="background:lightblue">
+                            <md-grid-tile-header>
+                                <!-- <button md-button #tooltip="mdTooltip" class='tooltip-host' (mouseover)='showDividendDetails(stock.stockSymbol)' (click)='showDividendDetails(stock.stockSymbol)' [mdTooltip]="dividendDetails" mdTooltipPosition="above"> -->
+                                <button md-button (mouseover)='showDividendDetails(stock.stockSymbol)' (click)='showDividendDetails(stock.stockSymbol)'>
+                                <md-icon md-grid-avatar>info_outline</md-icon>
+                                {{stock.stockSymbol}} - {{stock.stockName}}
+                                </button>
+                            </md-grid-tile-header>
+                        </md-grid-tile>
+                    </md-grid-list>
+                </md-card-content>
+            </md-card>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,1 @@
+export { MyInvestorService } from './myinvestor.service';

@@ -1,0 +1,35 @@
+.dashboard-grid-list {
+    margin: 10px;
+    width: 720px;
+    .mat-card {
+        margin: 16px 0;
+    }
+    p {
+        margin: 16px;
+    }
+    .dashboard-basic-list .mat-grid-tile {
+        background: rgba(0, 0, 0, 0.32);
+    }
+    img {
+        width: 700px;
+    }
+}
+
+.ag-cell {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
+
+.ag-menu {
+    z-index: 50;
+}
+
+.KLSE {
+    background-image: url('./../../assets/images/KLSE.png');
+    background-size: cover;
+}
+
+.NASDAQ {
+    background-image: url('./../../assets/images/NASDAQ.png');
+    background-size: cover;
+}

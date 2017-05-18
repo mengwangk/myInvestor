@@ -1,0 +1,66 @@
+<!--
+<div class="row">
+    <app-candlestick></app-candlestick>
+</div>
+-->
+<!--<app-bollingerbands *ngIf="chartData" [data]="chartData"></app-bollingerbands>-->
+
+<!--
+    <app-barchart *ngIf="chartData" [data]="chartData"></app-barchart>
+-->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Dashboard</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-6" *ngFor="let summary of exchangeSummaries; let i = index">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-line-chart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-5 text-right">
+                        <div class="huge"> {{summary.name}}</div>
+                        <div>{{summary.count}} stocks</div>
+                    </div>
+                </div>
+            </div>
+            <a (click)="getStocks(summary.name)" href="javascript:void(0)">
+                <div class="panel-footer">
+                    <span class="pull-left"><span class='fa fa-spin fa-circle-o-notch' *ngIf="progressing"> </span> More Info</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class='row' *ngIf="showStocks">
+    <div class="col-lg-12">
+        <div class='row-fluid'>
+            <h2 class="page-header">{{exchangeName}}</h2>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class='pull-right'>
+            <button type="button" title="Close" (click)="hideStocks()">
+            <span aria-hidden="true">&times;</span>
+            <span class="hide">Close</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <!--
+        <hot-table [data]="stockTableData" (after-change)="afterChange($event)" (after-on-cell-mouse-down)="afterOnCellMouseDown($event)" [col-headers]="stockTableColHeaders" [columns]="stockTableColumns" [options]="options" [col-widths]="stockTableColWidths">
+        </hot-table>
+        -->
+    </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,1 @@
+export { FundamentalService } from './fundamental.service';
