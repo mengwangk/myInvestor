@@ -2,6 +2,10 @@
  * Node.js script to map Google Finance stock symbols to Yahoo Finance.
  * 
  * node g2yfinance_mapper.js <google finance exchange symbol> <yahoo finance exchange symbol> <S|N>
+ * 
+ * e.g.node g2yfinance_mapper.js NASDAQ NMS S
+ * 
+ * 
  */
 "use strict";
 
