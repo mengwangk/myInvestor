@@ -48,6 +48,7 @@ Temporary Items
 
 node_modules/
 KLSE/
+NASDAQ/
 .vscode/
 .metadata/
 .bin/

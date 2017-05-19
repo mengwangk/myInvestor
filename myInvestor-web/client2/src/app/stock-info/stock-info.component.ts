@@ -50,7 +50,7 @@ export class StockInfoComponent implements OnInit {
   private createColumnDefs() {
     this.columnDefs = [
       {
-        headerName: 'Stock history for last ' + (this.rowData? this.rowData.length: 0) + ' trading days',
+        headerName: 'Stock history for last ' + (this.rowData ? this.rowData.length : 0) + ' trading days',
         headerGroupComponentFramework: HeaderGroupComponent,
         children: [
           { headerName: "Date", field: 'history_date', width: 100, filter: 'text' },
