@@ -39,8 +39,14 @@ function processStock(counter) {
     var current = counter + 1;
     console.log('[' + current + "/" + stocks.length + "] - " + stock.stock_symbol);
     var filePath = exchangeName + path.sep + stock.stock_symbol + ".csv";
-    var stats = fs.statSync(filePath);
-    if (stats.isFile()) {
+
+    var stats;
+    try {
+        stats = fs.statSync(filePath);
+    } catch (err) {
+        stats = null;
+    }
+    if (stats && stats.isFile()) {
         // Read the file
         var content = fs.readFileSync(filePath, "utf-8");
         var histories = csvToArray(content);
