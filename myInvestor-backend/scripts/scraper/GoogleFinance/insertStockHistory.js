@@ -1,7 +1,7 @@
 /**
  * Node.js script to insert stock history into Cassandra database.
  * 
- * node insertStockHistory
+ * node insertStockHistory <EXCHANGE NAME>
  */
 
 "use strict";
@@ -14,7 +14,7 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 const async = require('async');
-var sleep = require('sleep');
+//var sleep = require('sleep');
 
 if (process.argv.length !== 3) {
     console.error("Please pass in the exchange name");
