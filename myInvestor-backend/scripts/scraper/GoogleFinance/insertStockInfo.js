@@ -75,7 +75,8 @@ function processStock(counter) {
                 'info_time,' +
                 'info_volume,' +
                 'info_extracted_timestamp' +
-                ') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) IF NOT EXISTS';
+                ') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                //') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) IF NOT EXISTS';
 
 
             var params = [exchangeName, stock.stock_symbol, getNumberFromArr(info._52Weeks, 0), getNumberFromArr(info._52Weeks, 1),
