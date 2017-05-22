@@ -19,10 +19,10 @@ class TechnicalAnalysisActor(settings: AppSettings) extends ActorBase with Actor
   def performTechnicalAnalysis(exchangeName: String, symbol: String, requester: ActorRef): Unit = {
     log.info("Perform technical analysis for " + symbol)
 
-    val sma: Future[MovingAverage10] = Future {
+    val result: Future[MovingAverage10] = Future {
       MovingAverage10("KLSE", "YTLPOWR")
     }
-    sma pipeTo requester
+    result pipeTo requester
   }
 
 }

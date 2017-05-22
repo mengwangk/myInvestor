@@ -1,8 +1,13 @@
 package com.myinvestor.scraper.google
 
+import shapeless.ops.nat.LT.<
+
+
 /**
-  * Created by MEKOH on 5/22/2017.
+  * Grab stock information
   */
-class StockInfo {
+class StockInfo (val exchangeName: String, val symbols: Seq[String]) {
+
+
 
 }

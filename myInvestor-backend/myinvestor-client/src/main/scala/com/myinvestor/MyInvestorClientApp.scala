@@ -1,9 +1,9 @@
 package com.myinvestor
 
-import akka.actor.{Actor, ActorLogging, ActorSystem, Cancellable, PoisonPill, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Cancellable, PoisonPill, Props}
 import akka.cluster.Cluster
 import com.myinvestor.TradeEvent.{PerformTechnicalAnalysis, QueryTask}
-import com.myinvestor.TradeSchema.{TradeAnalysis, TradeModel}
+import com.myinvestor.TradeSchema.{Analysis, ObjectModel}
 import com.myinvestor.cluster.ClusterAwareNodeGuardian
 import com.typesafe.config.ConfigFactory
 
@@ -15,6 +15,7 @@ import scala.concurrent.duration._
 object MyInvestorClientApp extends App {
 
   val settings = new ClientSettings
+
   import settings._
 
   // Creates the ActorSystem.
@@ -36,7 +37,7 @@ final class ApiNodeGuardian extends ClusterAwareNodeGuardian {
   import context.dispatcher
   import TradeEvent._
 
-  val api = context.actorOf(Props[AutomatedApiActor], "automated-api")
+  val api: ActorRef = context.actorOf(Props[AutomatedApiActor], "automated-api")
 
   var task: Option[Cancellable] = None
 
@@ -75,9 +76,9 @@ private[myinvestor] class AutomatedApiActor extends Actor with ActorLogging {
   override def preStart(): Unit = log.info("Starting...")
 
   def receive: Actor.Receive = {
-    case e: TradeAnalysis =>
+    case e: Analysis =>
       log.debug("Received {} from {}", e, sender)
-    case e: TradeModel =>
+    case e: ObjectModel =>
       log.debug("Received {} from {}", e, sender)
     case QueryTask => queries()
   }

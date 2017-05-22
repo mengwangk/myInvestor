@@ -1,6 +1,7 @@
 resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
+// resolvers += "BFil Nexus Releases" at "http://nexus.b-fil.com/nexus/content/repositories/releases/"
 
 addSbtPlugin("org.typelevel" % "sbt-typelevel" % "0.3.1")
 

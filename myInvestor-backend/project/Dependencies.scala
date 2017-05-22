@@ -62,6 +62,10 @@ object Dependencies {
 
     // For Akka 2.5.x and Scala 2.12.x
     val akkaQuartzScheduler: ModuleID = "com.enragedginger" %% "akka-quartz-scheduler" % AkkaQuartzScheduler
+
+    // For Web scraping
+    //val scaleScrape: ModuleID = "com.bfil" %% "scalescrape" % ScraperVersion
+    val jSoup: ModuleID = "org.jsoup" % "jsoup" % JSoup
   }
 
   object Test {
@@ -86,6 +90,8 @@ object Dependencies {
 
   val config = Seq(scalaConfig)
 
+  val scheduler = Seq(akkaQuartzScheduler, jSoup)
+
   val akka = Seq(akkaActor, akkaAgent, akkaCluster, akkaClusterMetrics, akkaSlf4j, akkaStream, akkaRemote, akkaPersistence, akkaHttp, akkaHttpCore, akkaHttpJson)
 
   val test = Seq(Test.akkaTestKit, Test.scalatest, Test.scalactic, Test.supersafe, Test.log4j)
@@ -95,7 +101,7 @@ object Dependencies {
 
   val client = spark ++ ta ++ akka ++ test
 
-  val app = spark ++ ta ++ akka ++ Seq(kafka, kafkaStream) ++ test
+  val app = spark ++ ta ++ akka ++ Seq(kafka, kafkaStream) ++ test ++ scheduler
 
   val example = spark ++ ta
 

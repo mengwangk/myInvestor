@@ -20,10 +20,11 @@ class NodeGuardian(kafkaParams: Map[String, Object], settings: AppSettings) exte
 
   import TradeEvent._
 
-  val KafkaStreamActorName = "kafka-stream"
+  // val KafkaStreamActorName = "kafka-stream"
 
+  // ------ COMMENTED - remove Kafka integration May 22nd 2017 ---
   // Creates the Kafka stream saving data and aggregated data to cassandra.
-  context.actorOf(Props(new KafkaStreamActor(kafkaParams, settings, self)), KafkaStreamActorName)
+  // context.actorOf(Props(new KafkaStreamActor(kafkaParams, settings, self)), KafkaStreamActorName)
 
   // The Spark Cassandra computation actor
   val technicalAnalysis: ActorRef = context.actorOf(Props(new TechnicalAnalysisActor(settings)), "technical-analysis")
@@ -49,7 +50,7 @@ class NodeGuardian(kafkaParams: Map[String, Object], settings: AppSettings) exte
 
   // This node guardian's customer behavior once initialized.
   def initialized: Actor.Receive = {
-    case e: TechnicalAnalysisRequest => {
+    case e: TARequest => {
       log.info("Received technical analysis request")
       technicalAnalysis forward e
     }

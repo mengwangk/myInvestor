@@ -35,6 +35,9 @@ object Versions {
 
   val AkkaQuartzScheduler = "1.6.0-akka-2.4.x"
 
+  //val ScraperVersion = "0.3.0"
+  val JSoup = "1.10.2"
+
   // Plugins
 
 }
