@@ -6,3 +6,12 @@ Stock market data analytics using Scala, Kafka, Akka Apache Spark and Cassandra.
 https://spark.apache.org/docs/1.2.0/job-scheduling.html
 http://doc.akka.io/docs/akka/current/java/scheduler.html
 https://github.com/enragedginger/akka-quartz-scheduler
+
+https://github.com/bfil/scalescrape
+https://github.com/ruippeixotog/scala-scraper
+https://github.com/Foat/articles/tree/master/akka-web-crawler
+
+http://stackoverflow.com/questions/21600297/how-to-execute-tests-in-a-single-project-only-in-multi-module-build
+
+
+sbt "project client" "runMain com.myinvestor.SchedulerApp"

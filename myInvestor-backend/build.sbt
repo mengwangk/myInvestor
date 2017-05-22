@@ -1,8 +1,10 @@
-libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
+libraryDependencies ~= {
+  _.map(_.exclude("org.slf4j", "slf4j-log4j12"))
+}
 
 lazy val appSettings = Seq(
-  name := Versions.name, 
-  organization := Versions.organization, 
+  name := Versions.name,
+  organization := Versions.organization,
   promptTheme := ScalapenosTheme,
   homepage := Some(url(Versions.homePage)),
   licenses := Seq((Versions.apacheLicense, url(Versions.apacheLicenseUrl)))
@@ -13,7 +15,7 @@ lazy val compileSettings = Seq(
   scalaVersion := Versions.Scala,
   scalacOptions ++= Seq("-encoding", "UTF-8", s"-target:jvm-${Versions.JDK}", "-feature", "-language:_", "-deprecation", "-unchecked", "-Xlint"),
   javacOptions in Compile ++= Seq("-encoding", "UTF-8", "-source", Versions.JDK, "-target", Versions.JDK, "-Xlint:deprecation", "-Xlint:unchecked"),
-  run in Compile := Defaults.runTask(fullClasspath in Compile, mainClass in (Compile, run), runner in (Compile, run))
+  run in Compile := Defaults.runTask(fullClasspath in Compile, mainClass in(Compile, run), runner in(Compile, run))
 )
 
 lazy val myinvestor = (project in file(".")).
@@ -48,8 +50,10 @@ lazy val client = (project.dependsOn(core) in file("./myinvestor-client")).
   settings(
     name := "client",
     libraryDependencies ++= Dependencies.client,
-    assemblyJarName in assembly := "myinvestor-client.jar"
-    // mainClass in assembly := Some("com.myinvestor.XX")
+    assemblyJarName in assembly := "myinvestor-client.jar",
+    mainClass in assembly  := Some ("com.myinvestor.SchedulerApp"),
+    mainClass in (Compile, run)  := Some ("com.myinvestor.SchedulerApp"),
+    mainClass in (Compile, packageBin) := Some ("com.myinvestor.SchedulerApp")
   ).dependsOn(core)
 
 lazy val example = (project in file("./myinvestor-example")).
