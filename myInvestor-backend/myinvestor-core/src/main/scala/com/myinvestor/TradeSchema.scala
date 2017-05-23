@@ -76,6 +76,8 @@ object TradeSchema {
   }
 
   // Web scraping request
+  trait WebScraping extends ObjectModel
+  case class WebScrapingResult(status: Boolean) extends WebScraping
 
 
   // ----- Processed trade analysis results

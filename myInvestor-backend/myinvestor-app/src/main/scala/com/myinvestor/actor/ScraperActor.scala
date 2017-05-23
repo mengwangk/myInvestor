@@ -4,14 +4,14 @@ import akka.actor.{Actor, ActorLogging, ActorRef}
 import akka.pattern.pipe
 import com.myinvestor.AppSettings
 import com.myinvestor.TradeEvent.{ScrapStockInfo, SummarizeDividendHistories}
-import com.myinvestor.TradeSchema.MovingAverage10
+import com.myinvestor.TradeSchema.WebScrapingResult
 
 import scala.concurrent.Future
 
 /**
   * Perform web scraping
   */
-class WebScraperActor (settings: AppSettings) extends ActorBase with ActorLogging {
+class ScraperActor(settings: AppSettings) extends ActorBase with ActorLogging {
 
   def receive: Actor.Receive = {
     case e: ScrapStockInfo => scrapStockInfo(e.exchangeName, e.symbols, sender)
@@ -20,16 +20,18 @@ class WebScraperActor (settings: AppSettings) extends ActorBase with ActorLoggin
 
   def scrapStockInfo(exchangeName: String, symbols: List[String], requester: ActorRef): Unit = {
 
-    val sma: Future[MovingAverage10] = Future {
-      MovingAverage10("KLSE", "YTLPOWR")
+    val scrapingResult: Future[WebScrapingResult] = Future {
+      val stockInfoScraper = StockInfoScraper(exchangeName, symbols)
+      stockInfoScraper.run
+      WebScrapingResult(true)
     }
-    sma pipeTo requester
+    scrapingResult pipeTo requester
   }
 
   def summarizeDividendHistories(exchangeName: String, requester: ActorRef): Unit = {
 
-    val sma: Future[MovingAverage10] = Future {
-      MovingAverage10("KLSE", "YTLPOWR")
+    val sma: Future[WebScrapingResult] = Future {
+      WebScrapingResult(true)
     }
     sma pipeTo requester
   }

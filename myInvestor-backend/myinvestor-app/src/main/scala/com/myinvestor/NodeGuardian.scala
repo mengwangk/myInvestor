@@ -50,7 +50,7 @@ class NodeGuardian(kafkaParams: Map[String, Object], settings: AppSettings) exte
 
   // This node guardian's customer behavior once initialized.
   def initialized: Actor.Receive = {
-    case e: TARequest => {
+    case e: TechnicalAnalysis => {
       log.info("Received technical analysis request")
       technicalAnalysis forward e
     }

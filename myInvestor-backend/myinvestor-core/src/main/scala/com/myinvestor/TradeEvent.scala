@@ -6,9 +6,9 @@ package com.myinvestor
 object TradeEvent {
 
   @SerialVersionUID(1L)
-  sealed trait Activity extends Serializable
+  sealed trait TradeActivity extends Serializable
 
-  sealed trait LifeCycleEvent extends Activity
+  sealed trait LifeCycleEvent extends TradeActivity
   case object OutputStreamInitialized extends LifeCycleEvent
   case object NodeInitialized extends LifeCycleEvent
   case object Start extends LifeCycleEvent
@@ -22,13 +22,13 @@ object TradeEvent {
 
 
   // Technical analysis request
-  trait TARequest extends Activity
-  case class PerformTechnicalAnalysis(exchangeName: String, symbol: String) extends TARequest
+  trait TechnicalAnalysis extends TradeActivity
+  case class PerformTechnicalAnalysis(exchangeName: String, symbol: String) extends TechnicalAnalysis
 
   // Web scraping request
-  trait WebScrapingRequest extends Activity
-  case class ScrapStockInfo(exchangeName: String, symbol: List[String]) extends WebScrapingRequest
-  case class SummarizeDividendHistory(exchangeName: String) extends WebScrapingRequest
+  trait WebScrapingRequest extends TradeActivity
+  case class ScrapStockInfo(exchangeName: String, symbols: List[String]) extends WebScrapingRequest
+  case class SummarizeDividendHistories(exchangeName: String) extends WebScrapingRequest
 
 
 }

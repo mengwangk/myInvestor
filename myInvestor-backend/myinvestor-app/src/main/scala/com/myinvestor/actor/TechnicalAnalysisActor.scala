@@ -12,6 +12,7 @@ import scala.concurrent.Future
   * Perform technical analysis.
   */
 class TechnicalAnalysisActor(settings: AppSettings) extends ActorBase with ActorLogging {
+
   def receive: Actor.Receive = {
     case e: PerformTechnicalAnalysis => performTechnicalAnalysis(e.exchangeName, e.symbol, sender)
   }
