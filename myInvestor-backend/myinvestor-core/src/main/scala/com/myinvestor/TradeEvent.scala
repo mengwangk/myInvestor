@@ -27,7 +27,7 @@ object TradeEvent {
 
   // Web scraping request
   trait WebScrapingRequest extends TradeActivity
-  case class ScrapStockInfo(exchangeName: String, symbols: List[String]) extends WebScrapingRequest
+  case class ScrapStockInfo(exchangeName: String, symbols: Array[String]) extends WebScrapingRequest
   case class SummarizeDividendHistories(exchangeName: String) extends WebScrapingRequest
 
 

@@ -1,8 +1,16 @@
-package com.myinvestor.scraper.google
+package com.myinvestor.scraper.yahoo
+
+import com.myinvestor.scraper.{ParserImplicits, ParserUtils}
 
 /**
-  * Created by MEKOH on 5/24/2017.
+  * Dividend history scraper.
   */
-class DividendHistoryScraper {
+class DividendHistoryScraper (val exchangeName: String, val symbols: Option[Array[String]]) extends ParserUtils with ParserImplicits {
 
+  def run: Boolean = {
+    var status = true
+
+    status
+  }
 }
+

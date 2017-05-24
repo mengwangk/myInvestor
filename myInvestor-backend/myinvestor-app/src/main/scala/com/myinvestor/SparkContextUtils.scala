@@ -1,5 +1,6 @@
 package com.myinvestor
 
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming.{Milliseconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -20,6 +21,8 @@ object SparkContextUtils {
     .set("spark.cassandra.auth.password", CassandraAuthPassword.toString)
 
   val sparkContext: SparkContext = new SparkContext(sparkConf)
+
+  val sparkSession: SparkSession = SparkSession.builder.config(sparkConf).appName(AppName).getOrCreate()
 
   val streamingContext: StreamingContext = new StreamingContext(sparkContext, Milliseconds(SparkStreamingBatchInterval))
 

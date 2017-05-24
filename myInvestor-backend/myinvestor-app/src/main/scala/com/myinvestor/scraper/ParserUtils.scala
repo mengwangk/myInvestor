@@ -1,7 +1,5 @@
 package com.myinvestor.scraper
 
-import java.text.NumberFormat
-
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document.OutputSettings
 import org.jsoup.nodes.Element
@@ -42,7 +40,7 @@ trait ParserUtils {
     try {
       var values = cleanHtml(arr).split('-')
       if (values.length > 0) {
-        return toDouble(values(index))
+        return values(index).replaceAll(",", "").toDouble
       }
     } catch {
       case e: Exception => None
@@ -50,9 +48,9 @@ trait ParserUtils {
     0
   }
 
-  def toDouble(text: String): Double = {
-    NumberFormat.getNumberInstance(java.util.Locale.US).parse(text).doubleValue()
-  }
+  //def toDouble(text: String): Double = {
+  //  NumberFormat.getNumberInstance(java.util.Locale.US).parse(text).doubleValue()
+  //}
 
   def numberValue(text: Option[Element]): Double = {
     if (text.isEmpty) return 0
@@ -63,7 +61,7 @@ trait ParserUtils {
     val value = cleanHtml(text)
     if (value.isEmpty) return 0
     if (value.equalsIgnoreCase("-")) return 0
-    toDouble(value)
+    value.replaceAll(",", "").toDouble
   }
 
   def stringValue(text: Option[Element]): String = {
