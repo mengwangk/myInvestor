@@ -84,6 +84,7 @@ CREATE TABLE g2yfinance_mapping
 );
 
 CREATE INDEX g2yfinance_mapping_idx ON g2yfinance_mapping (y_exchange_name);
+CREATE INDEX g2yfinance_mapping_idx2 ON g2yfinance_mapping (g_exchange_name);
 
 CREATE TABLE dividend_history
 (

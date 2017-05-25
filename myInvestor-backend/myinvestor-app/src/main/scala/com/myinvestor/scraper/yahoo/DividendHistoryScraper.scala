@@ -45,8 +45,10 @@ class DividendHistoryScraper(val exchangeName: String, val symbols: Option[Array
     if (symbols.isDefined) {
       stocks = symbols.get
     } else {
-      stocks = sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(ExchangeNameColumn + " = ?", exchangeName).map(stock => stock.stockSymbol).collect()
+      stocks = sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ?", exchangeName).map(stock => stock.stockSymbol).collect()
     }
+
+    /*
     val total = stocks.length
     var current = 0
     if (total > 0) {
@@ -107,6 +109,7 @@ class DividendHistoryScraper(val exchangeName: String, val symbols: Option[Array
       // Remove the temp directory
       Files.deleteIfExists(Paths.get(tempDir))
     }
+    */
 
     status
   }
