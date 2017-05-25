@@ -16,12 +16,13 @@ CREATE TABLE exchange
 (
     exchange_name TEXT,
     description TEXT,
+    yahoo_finance_exchange_name TEXT,
     stock_count INT,
     PRIMARY KEY(exchange_name)
 );
 
-INSERT INTO exchange(exchange_name, description) VALUES('KLSE', 'Kuala Lumpur Stock Exchange');
-INSERT INTO exchange(exchange_name, description) VALUES('NASDAQ', 'NASDAQ');
+INSERT INTO exchange(exchange_name, description, yahoo_finance_exchange_name) VALUES('KLSE', 'Kuala Lumpur Stock Exchange', 'KLS');
+INSERT INTO exchange(exchange_name, description, yahoo_finance_exchange_name) VALUES('NASDAQ', 'NASDAQ', 'NMS');
 
 CREATE TABLE stock
 (

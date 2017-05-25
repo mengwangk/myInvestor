@@ -1,7 +1,7 @@
 /**
  * Node.js script to insert stocks into Cassandra database.
  * 
- * node insertStock.js KLSE.json
+ * node insertStocks.js KLSE.json
  */
 "use strict";
 

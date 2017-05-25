@@ -60,8 +60,8 @@ class StockHistoryScraper(val exchangeName: String, val symbols: Option[Array[St
       // Create the temp folder
       val tempDir = tempDirectory(AppName)
       val sqlContext = SparkContextUtils.sparkSqlContext
-
       val dtFormatter = DateTimeFormat.forPattern("dd-MMM-yy")
+
       stocks.foreach { stockSymbol =>
         val symbol = URLEncoder.encode(stockSymbol, "UTF-8")
         val GoogleFinanceStockHistoryUrl = s"http://www.google.com/finance/historical?q=$exchangeName%3A$symbol&ei=zsb0V4H5K5LQuATWx7_oDQ&output=csv"
