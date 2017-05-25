@@ -1,5 +1,7 @@
 package com.myinvestor.scraper.google
 
+import java.net.URLEncoder
+
 import com.datastax.spark.connector._
 import com.myinvestor.scraper.{ParserImplicits, ParserUtils}
 import com.typesafe.scalalogging.Logger
@@ -33,10 +35,10 @@ class StockInfoScraper(val exchangeName: String, val symbols: Option[Array[Strin
     val total = stocks.length
     var current = 0
     stocks.foreach { stockSymbol =>
-      val symbol = stockSymbol
+      val symbol = URLEncoder.encode(stockSymbol, "UTF-8")
       val GoogleFinanceUrl = s"https://www.google.com/finance?q=$exchangeName:$symbol&sq=%5B(exchange+%3D%3D+%22$exchangeName%22)%5D&sp=1&ei=YAr5V6qTEYPTuATt-ZfYAw"
       current = current + 1
-      log.info(s"Grabbing stock info for [$current/$total] $exchangeName - $symbol")
+      log.info(s"Grabbing stock info for [$current/$total] $exchangeName - $stockSymbol")
       try {
 
         val response = Jsoup.connect(GoogleFinanceUrl).timeout(ConnectionTimeout).ignoreContentType(true)
@@ -59,7 +61,7 @@ class StockInfoScraper(val exchangeName: String, val symbols: Option[Array[Strin
           val pe = document.oneByCss("#market-data-div > div.snap-panel-and-plusone > div.snap-panel > table:nth-child(1) > tbody > tr:nth-child(6) > td.val")
           val instOwn = document.oneByCss("#market-data-div > div.snap-panel-and-plusone > div.snap-panel > table:nth-child(2) > tbody > tr:nth-child(5) > td.val")
 
-          val stockInfo = StockInfo(stockSymbol = symbol, exchangeName = exchangeName,
+          val stockInfo = StockInfo(stockSymbol = stockSymbol, exchangeName = exchangeName,
             info52weeksFrom = numberFromArr(_52Weeks, 0).toString, info52weeksTo = numberFromArr(_52Weeks, 1).toString,
             infoBeta = numberValue(beta).toString, infoChange = numberValue(priceChange).toString, infoChangePercentage = percentageValue(changePercentage).toString,
             infoCurrentPrice = numberValue(currentPrice).toString, infoDividendYield = stringValue(dividendYield), infoEps = numberValue(eps).toString,
@@ -71,7 +73,7 @@ class StockInfoScraper(val exchangeName: String, val symbols: Option[Array[Strin
         }
       } catch {
         case e: Exception => {
-          log.warn(s"Skipping symbol - $symbol, cause: ${e.getMessage}")
+          log.warn(s"Skipping symbol - $stockSymbol, cause: ${e.getMessage}")
           status = false
         }
       }

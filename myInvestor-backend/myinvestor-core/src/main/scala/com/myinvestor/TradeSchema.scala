@@ -26,6 +26,7 @@ object TradeSchema {
   // Columns
   val ExchangeNameColumn = "exchange_name"
   val StockSymbolColumn = "stock_symbol"
+  val HistoryDateColumn = "history_date"
   val YahooExchangeNameColumn = "y_exchange_name"
   val YahooStockSymbolColumn = "y_stock_symbol"
   val GoogleExchangeNameColumn = "g_exchange_name"

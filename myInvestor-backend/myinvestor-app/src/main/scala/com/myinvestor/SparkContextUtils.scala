@@ -1,6 +1,6 @@
 package com.myinvestor
 
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{SQLContext, SparkSession}
 import org.apache.spark.streaming.{Milliseconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -23,6 +23,8 @@ object SparkContextUtils {
   val sparkContext: SparkContext = new SparkContext(sparkConf)
 
   val sparkSession: SparkSession = SparkSession.builder.config(sparkConf).appName(AppName).getOrCreate()
+
+  val sparkSqlContext: SQLContext = SparkSession.builder.config(sparkConf).appName(AppName).getOrCreate().sqlContext
 
   val streamingContext: StreamingContext = new StreamingContext(sparkContext, Milliseconds(SparkStreamingBatchInterval))
 
