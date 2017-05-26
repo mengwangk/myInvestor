@@ -21,14 +21,17 @@ object TradeEvent {
   case object GracefulShutdown extends LifeCycleEvent
 
 
+  // Fundamental analysis
+  trait FARequest extends TradeActivity
+  case class DividendAchiever(exchangeName: String, symbols: Option[Array[String]]) extends FARequest
+
   // Technical analysis request
-  trait TechnicalAnalysis extends TradeActivity
-  case class PerformTechnicalAnalysis(exchangeName: String, symbol: String) extends TechnicalAnalysis
+  trait TARequest extends TradeActivity
+  case class BollingerBand(exchangeName: String, symbols: Option[Array[String]]) extends TARequest
 
   // Web scraping request
   trait WebScrapingRequest extends TradeActivity
-  case class ScrapStockInfo(exchangeName: String, symbols: Array[String]) extends WebScrapingRequest
-  case class SummarizeDividendHistories(exchangeName: String) extends WebScrapingRequest
-
-
+  case class ScrapStockInfo(exchangeName: String, symbols: Option[Array[String]]) extends WebScrapingRequest
+  case class ScrapStockHistory(exchangeName: String, symbols: Option[Array[String]]) extends WebScrapingRequest
+  case class ScrapStockDividendHistory(exchangeName: String, symbols: Option[Array[String]]) extends WebScrapingRequest
 }

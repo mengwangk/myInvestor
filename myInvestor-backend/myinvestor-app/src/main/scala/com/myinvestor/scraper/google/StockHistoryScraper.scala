@@ -1,7 +1,7 @@
 package com.myinvestor.scraper.google
 
 import java.io.File
-import java.net.{URL, URLEncoder}
+import java.net.URLEncoder
 import java.nio.file.{Files, Paths}
 
 import com.datastax.spark.connector._
@@ -13,18 +13,12 @@ import org.apache.spark.sql.SparkSession
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
-import scala.sys.process._
-
 /**
   * Stock history scraper.
   */
 class StockHistoryScraper(val exchangeName: String, val symbols: Option[Array[String]]) extends ParserUtils with ParserImplicits {
 
   val log = Logger(this.getClass.getName)
-
-  def fileDownloader(url: String, filename: String) = {
-    new URL(url) #> new File(filename) !!
-  }
 
   def tempDirectory(folderName: String): String = {
     val dir = Paths.get(System.getProperty("java.io.tmpdir"))
@@ -37,14 +31,12 @@ class StockHistoryScraper(val exchangeName: String, val symbols: Option[Array[St
   }
 
   def run: Boolean = {
-
     val settings = new AppSettings
     import TradeSchema._
     import settings._
 
     val sc: SparkContext = SparkContextUtils.sparkContext
     val ss: SparkSession = SparkContextUtils.sparkSession
-
     var status = true
 
     // Get a list of stocks to grab

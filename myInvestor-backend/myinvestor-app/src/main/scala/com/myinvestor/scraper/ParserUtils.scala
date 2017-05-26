@@ -1,15 +1,23 @@
 package com.myinvestor.scraper
 
+import java.io.File
+import java.net.URL
+
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document.OutputSettings
 import org.jsoup.nodes.Element
 import org.jsoup.safety.Whitelist
 
 import scala.collection.convert.WrapAsScala._
+import scala.sys.process._
 
 trait ParserUtils {
 
   val ConnectionTimeout = 7000 // millis
+
+  def fileDownloader(url: String, filename: String): Unit = {
+    new URL(url) #> new File(filename) !!
+  }
 
   def cleanText(rawText: String): String = {
     var text = Jsoup.clean(rawText, "", Whitelist.none(), new OutputSettings().prettyPrint(false))

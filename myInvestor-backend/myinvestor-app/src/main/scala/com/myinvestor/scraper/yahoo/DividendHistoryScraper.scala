@@ -1,6 +1,6 @@
 package com.myinvestor.scraper.yahoo
 
-import java.io.File
+import java.io.{File, FileOutputStream}
 import java.net._
 import java.nio.file.{Files, Paths}
 
@@ -12,12 +12,8 @@ import org.apache.spark.SparkContext
 import org.apache.spark.sql.SparkSession
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import java.net.CookieHandler
-import java.net.CookiePolicy
 
 import scala.Array._
-import scala.io.Source
-import scala.sys.process._
 
 /**
   * Dividend history scraper.
@@ -26,8 +22,53 @@ class DividendHistoryScraper(val exchangeName: String, val symbols: Option[Array
 
   val log = Logger(this.getClass.getName)
 
-  def fileDownloader(url: String, filename: String) = {
-    new URL(url) #> new File(filename) !!
+  /*
+   ## Capture by Fiddler
+   GET /v7/finance/download/6742.KL?period1=1274803200&period2=1495728000&interval=1d&events=div&crumb=xZCgl1rxPCP HTTP/1.1
+   Host: query1.finance.yahoo.com
+   Connection: keep-alive
+   Upgrade-Insecure-Requests: 1
+   User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36
+   Accept-Encoding: gzip, deflate, sdch, br
+   Accept-Language: en-US,en;q=0.8
+   Cookie: B=aih3bu9cdvb24&b=3&s=27;PRF=t%3D6742.KL%252BYHOO%252B4448.KL%252B%255EIXIC%252BTKCS.KL%252B4448P.KL%252B4952.KL%252B5185.KL%252BMRCY%252B6556.KL%252B0823EA.KL%252B2577.KL
+   */
+
+  def downloadDividendHistory(sourceURL: String, fileName: String): Boolean = {
+    try {
+      val url = new URL(sourceURL)
+      val httpConn = url.openConnection.asInstanceOf[HttpURLConnection]
+      // IMPORTANT
+      httpConn.setRequestProperty("Cookie", "B=aih3bu9cdvb24&b=3&s=27;PRF=t%3D6742.KL%252BYHOO%252B4448.KL%252B%255EIXIC%252BTKCS.KL%252B4448P.KL%252B4952.KL%252B5185.KL%252BMRCY%252B6556.KL%252B0823EA.KL%252B2577.KL")
+      val responseCode = httpConn.getResponseCode
+      // always check HTTP response code first
+      if (responseCode == HttpURLConnection.HTTP_OK) {
+        // opens input stream from the HTTP connection
+        val inputStream = httpConn.getInputStream
+        // opens an output stream to save into file
+        val outputStream = new FileOutputStream(fileName)
+        var bytesRead = -1
+        val buffer = new Array[Byte](5096)
+        bytesRead = inputStream.read(buffer)
+        while (bytesRead != -1) {
+          outputStream.write(buffer, 0, bytesRead)
+          bytesRead = inputStream.read(buffer)
+        }
+        outputStream.close()
+        inputStream.close()
+        httpConn.disconnect()
+        true
+      } else {
+        log.warn("No file to download. Server replied HTTP code: " + responseCode)
+        httpConn.disconnect()
+        false
+      }
+    } catch {
+      case e: Exception => {
+        log.warn(s"Unable to download, cause: ${e.getMessage}")
+        false
+      }
+    }
   }
 
   def tempDirectory(folderName: String): String = {
@@ -47,17 +88,16 @@ class DividendHistoryScraper(val exchangeName: String, val symbols: Option[Array
     var status = true
 
     // Get a list of stocks to grab
-    var stocks = Array[String]()
+    var stocks = Array[G2YFinanceMapping]()
     if (symbols.isDefined) {
       // Search for the Yahoo Finance stock symbols
       val searchSymbols = symbols.get
       searchSymbols.foreach { symbol =>
-        stocks = concat(stocks, sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ? AND " + GoogleStockSymbolColumn + " = ?", exchangeName, symbol).map(stock => stock.yStockSymbol).collect())
+        stocks = concat(stocks, sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ? AND " + GoogleStockSymbolColumn + " = ?", exchangeName, symbol).collect())
       }
     } else {
-      stocks = sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ?", exchangeName).map(stock => stock.yStockSymbol).collect()
+      stocks = sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ?", exchangeName).collect()
     }
-
 
     val total = stocks.length
     var current = 0
@@ -65,70 +105,45 @@ class DividendHistoryScraper(val exchangeName: String, val symbols: Option[Array
       // Create the temp folder
       val tempDir = tempDirectory(AppName)
       val sqlContext = SparkContextUtils.sparkSqlContext
-      val now = DateTime.now.getMillis
-      val past10years = DateTime.now.minusYears(10).getMillis
-      val dtFormatter = DateTimeFormat.forPattern("dd-MMM-yy")
+      val now = DateTime.now.getMillis / 1000 // Convert to seconds
+      val past10years = DateTime.now.minusYears(10).getMillis / 1000 // Convert to seconds
+      val dtFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
 
-      stocks.foreach { stockSymbol =>
-        val symbol = URLEncoder.encode(stockSymbol, "UTF-8")
-        val YahooFinanceDividendHistoryUrl = s"https://query1.finance.yahoo.com/v7/finance/download/$symbol?period1=1148572800&period2=1495728000&interval=1d&events=div&crumb=xZCgl1rxPCP"
+      stocks.foreach { stock =>
+        val symbol = URLEncoder.encode(stock.yStockSymbol, "UTF-8")
+        val YahooFinanceDividendHistoryUrl = s"https://query1.finance.yahoo.com/v7/finance/download/$symbol?period1=$past10years&period2=$now&interval=1d&events=div&crumb=xZCgl1rxPCP"
         current = current + 1
-        log.info(s"Grabbing stock history for [$current/$total] $exchangeName - $stockSymbol")
-
+        log.info(s"Grabbing stock history for [$current/$total] ${stock.yExchangeName} - ${stock.yStockSymbol}")
         try {
+          val fileName = tempDir + File.separator + symbol
+          if (downloadDividendHistory(YahooFinanceDividendHistoryUrl, fileName)) {
+            // Use Spark SQL to process the CSV file
+            val reader = sqlContext.read.format("csv").option("header", "true").option("mode", "DROPMALFORMED").load(fileName)
+            val records = reader.select("*").collect()
+            if (records.length > 1) {
+              records.foreach { row =>
+                val dt = row.getString(0)
+                val parsedDt = DateTime.parse(dt, dtFormatter)
+                val amount = numberValue(row.getString(1))
 
-          val cookieManager = new CookieManager()
-          CookieHandler.setDefault(cookieManager)
-          val  cookieStore = cookieManager.getCookieStore()
-          cookieStore.
-
-          // Download the history to a file
-          val content = Source.fromURL(YahooFinanceDividendHistoryUrl)
-          println(content)
-          //val fileName = tempDir + File.separator + symbol
-          //fileDownloader(YahooFinanceDividendHistoryUrl, fileName)
-         // import org.jsoup.Jsoup
-         // val bytes = Jsoup.connect(YahooFinanceDividendHistoryUrl).timeout(ConnectionTimeout).ignoreContentType(true).cookie("finance.yahoo.com", symbol)
-         //   .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1").execute.bodyAsBytes
-          //println(bytes.length)
-
-          /*
-          // Use Spark SQL to process the CSV file
-          val reader = sqlContext.read.format("csv").option("header", "true").option("mode", "DROPMALFORMED").load(fileName)
-          val records = reader.select("*").collect()
-          if (records.length > 10) {
-            records.foreach { row =>
-              val dt = row.getString(0)
-              val parsedDt = DateTime.parse(dt, dtFormatter)
-              val open = numberValue(row.getString(1))
-              val high = numberValue(row.getString(2))
-              val low = numberValue(row.getString(3))
-              val close = numberValue(row.getString(4))
-              val volume = numberValue(row.getString(5))
-
-              // Save to database
-              val stockHistory = StockHistory(stockSymbol = stockSymbol, exchangeName = exchangeName, historyDate = parsedDt,
-                historyOpen = open, historyHigh = high, historyLow = low, historyClose = close, historyVolume = volume)
-              // println (stockHistory)
-              sc.parallelize(Seq(stockHistory)).saveToCassandra(Keyspace, StockHistoryTable)
+                // Save to database
+                val dividendHistory = DividendHistory(yExchangeName = stock.yExchangeName, yStockSymbol = stock.yStockSymbol, dividendDate = parsedDt, dividend = amount)
+                //println (dividendHistory)
+                sc.parallelize(Seq(dividendHistory)).saveToCassandra(Keyspace, DividendHistoryTable)
+              }
+            } else {
+              log.warn(s"Skipping symbol - ${stock.yStockSymbol}")
             }
-            // Perform validation
-            val lastValidDate = DateTime.parse(records(records.length - 1).getString(0), dtFormatter) // .formatted("dd-MM-yyyy")
-            val fileRowCount = records.length
-            val dbRowCount = sc.cassandraTable[StockHistory](Keyspace, StockHistoryTable).where(ExchangeNameColumn + " = ? AND "
-              + StockSymbolColumn + " = ? " + " AND " + HistoryDateColumn + " >= ? ", exchangeName, stockSymbol, lastValidDate).cassandraCount()
-            log.info("--- File row count [" + fileRowCount + "] ----- Database record count [" + dbRowCount + "]")
-
           } else {
-            log.warn(s"Skipping symbol - $stockSymbol")
+            log.warn(s"Skipping symbol - ${stock.yStockSymbol}")
           }
-          */
+
           // Delete the temporary file
-          //Files.deleteIfExists(Paths.get(fileName))
+          Files.deleteIfExists(Paths.get(fileName))
         }
         catch {
           case e: Exception => {
-            log.warn(s"Skipping symbol - $stockSymbol, cause: ${e.getMessage}")
+            log.warn(s"Skipping symbol - ${stock.yStockSymbol}, cause: ${e.getMessage}")
             status = false
           }
         }

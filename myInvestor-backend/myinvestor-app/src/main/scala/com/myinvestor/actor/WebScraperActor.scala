@@ -13,7 +13,7 @@ import scala.concurrent.Future
 /**
   * Perform web scraping
   */
-class ScraperActor(settings: AppSettings) extends ActorBase with ActorLogging {
+class WebScraperActor(settings: AppSettings) extends ActorBase with ActorLogging {
 
   def receive: Actor.Receive = {
     case e: ScrapStockInfo => scrapStockInfo(e.exchangeName, e.symbols, sender)

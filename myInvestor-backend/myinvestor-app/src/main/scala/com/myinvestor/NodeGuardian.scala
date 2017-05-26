@@ -28,6 +28,8 @@ class NodeGuardian(kafkaParams: Map[String, Object], settings: AppSettings) exte
 
   // The Spark Cassandra computation actor
   val technicalAnalysis: ActorRef = context.actorOf(Props(new TechnicalAnalysisActor(settings)), "technical-analysis")
+  val fundamentalAnalysis: ActorRef = context.actorOf(Props(new FundamentalAnalysisActor(settings)), "fundamental-analysis")
+  val webScraperActor: ActorRef = context.actorOf(Props(new WebScraperActor(settings)), "web-scraping")
 
   override def preStart(): Unit = {
     super.preStart()
@@ -50,9 +52,17 @@ class NodeGuardian(kafkaParams: Map[String, Object], settings: AppSettings) exte
 
   // This node guardian's customer behavior once initialized.
   def initialized: Actor.Receive = {
-    case e: TechnicalAnalysis => {
+    case e: FARequest => {
+      log.info("Received fundamental analysis request")
+      fundamentalAnalysis forward e
+    }
+    case e: TARequest => {
       log.info("Received technical analysis request")
       technicalAnalysis forward e
+    }
+    case e: WebScrapingRequest => {
+      log.info("Received scraping request")
+      webScraperActor forward e
     }
     case GracefulShutdown => {
       log.info("Perform graceful shutdown")

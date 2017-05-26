@@ -2,7 +2,7 @@ package com.myinvestor
 
 import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Cancellable, PoisonPill, Props}
 import akka.cluster.Cluster
-import com.myinvestor.TradeEvent.{PerformTechnicalAnalysis, QueryTask}
+import com.myinvestor.TradeEvent.{BollingerBand, QueryTask}
 import com.myinvestor.TradeSchema.{Analysis, ObjectModel}
 import com.myinvestor.cluster.ClusterAwareNodeGuardian
 import com.typesafe.config.ConfigFactory
@@ -84,6 +84,6 @@ private[myinvestor] class AutomatedApiActor extends Actor with ActorLogging {
   }
 
   def queries(): Unit = {
-    guardian ! PerformTechnicalAnalysis("KLSE", "YTLPOWR")
+    guardian ! BollingerBand("KLSE", Some(Array("YTLPOWR")))
   }
 }

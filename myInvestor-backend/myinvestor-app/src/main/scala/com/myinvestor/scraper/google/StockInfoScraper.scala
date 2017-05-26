@@ -21,7 +21,6 @@ class StockInfoScraper(val exchangeName: String, val symbols: Option[Array[Strin
   def run: Boolean = {
 
     import TradeSchema._
-
     val sc: SparkContext = SparkContextUtils.sparkContext
     var status = true
 
@@ -40,7 +39,6 @@ class StockInfoScraper(val exchangeName: String, val symbols: Option[Array[Strin
       current = current + 1
       log.info(s"Grabbing stock info for [$current/$total] $exchangeName - $stockSymbol")
       try {
-
         val response = Jsoup.connect(GoogleFinanceUrl).timeout(ConnectionTimeout).ignoreContentType(true)
           .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1").execute()
         if (response.statusCode() == 200) {
@@ -68,7 +66,6 @@ class StockInfoScraper(val exchangeName: String, val symbols: Option[Array[Strin
             infoInstOwn = percentageValue(instOwn).toString, infoMarketCapital = stringValue(marketCapital), infoOpen = numberValue(open).toString,
             infoPe = numberValue(pe).toString, infoRangeFrom = numberFromArr(range, 0).toString, infoRangeTo = numberFromArr(range, 0).toString,
             infoShares = stringValue(shares), infoTime = stringValue(time), infoVolume = stringValue(volume), DateTime.now())
-
           sc.parallelize(Seq(stockInfo)).saveToCassandra(Keyspace, StockInfoTable)
         }
       } catch {

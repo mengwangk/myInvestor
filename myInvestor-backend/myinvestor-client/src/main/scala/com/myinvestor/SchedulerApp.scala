@@ -13,7 +13,7 @@ import akka.http.scaladsl.server.Directives
 import akka.routing.BalancingPool
 import akka.stream.{ActorMaterializer, ActorMaterializerSettings}
 import akka.util.Timeout
-import com.myinvestor.TradeEvent.{PerformTechnicalAnalysis, QueryTask}
+import com.myinvestor.TradeEvent.{BollingerBand, QueryTask}
 import com.myinvestor.TradeHelper.JsonApiProtocol
 import com.myinvestor.TradeSchema.{Analysis, ObjectModel}
 import com.myinvestor.cluster.ClusterAwareNodeGuardian
@@ -94,7 +94,7 @@ class SchedulerServiceActor extends Actor with ActorLogging {
   }
 
   def queries(): Unit = {
-    nodeGuardian ! PerformTechnicalAnalysis("KLSE", "YTLPOWR")
+    nodeGuardian ! BollingerBand("KLSE", Some(Array("YTLPOWR")))
   }
 }
 
@@ -119,7 +119,7 @@ class SchedulerService(nodeGuardian: ActorSelection) extends Directives with Jso
   val route =
     get {
       path("") {
-        nodeGuardian ! PerformTechnicalAnalysis("KLSE", "YTLPOWR")
+        nodeGuardian ! BollingerBand("KLSE", Some(Array("YTLPOWR")))
         complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<html><head><title>Job scheduler</title></head<body><h1>Job scheduler</h1></body></html>"))
       }
     }

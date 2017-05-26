@@ -87,17 +87,21 @@ object TradeSchema {
     def exchangeName: String
 
     // Stock symbol
-    def symbol: String
+    def symbols: Option[Array[String]]
   }
 
-  // -- This is for technical analysis results
-  trait TechnicalAnalysis extends Analysis
-
+  // -- This is for fundamental analysis results
+  trait FA extends Analysis
 
   // -- This is the result to be returned...
-  case class MovingAverage10(exchangeName: String, symbol: String) extends TechnicalAnalysis
+  case class DivdendAchieverAnalysis(exchangeName: String, symbols: Option[Array[String]]) extends FA
 
 
-  // -- Other results, e.g. fundamental analysis
+  // -- This is for technical analysis results
+  trait TA extends Analysis
+
+  // -- This is the result to be returned...
+  case class BollingerBandAnalysis(exchangeName: String, symbols: Option[Array[String]]) extends TA
+
 
 }
