@@ -3,7 +3,7 @@ package com.myinvestor
 import java.util.UUID
 
 import akka.Done
-import akka.actor.{Actor, ActorLogging, ActorRef, ActorSelection, ActorSystem, PoisonPill, Props}
+import akka.actor.{Actor, ActorLogging, ActorSelection, ActorSystem, PoisonPill, Props}
 import akka.cluster.Cluster
 import akka.event.slf4j.Logger
 import akka.http.scaladsl.Http
@@ -21,12 +21,14 @@ import com.typesafe.config.ConfigFactory
 
 import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutor, Future}
+
 /**
   * Scheduler app to run tasks/jobs.
   */
-object SchedulerApp  extends App {
+object SchedulerApp extends App {
 
   val settings = new ClientSettings
+
   import settings._
 
   // Creates the ActorSystem - ** app, client must use the same AppName
@@ -63,6 +65,7 @@ final class SchedulerNodeGuardian extends ClusterAwareNodeGuardian {
 
 class SchedulerServiceActor extends Actor with ActorLogging {
   val settings = new ClientSettings
+
   import settings._
 
   implicit val system: ActorSystem = context.system
@@ -71,11 +74,10 @@ class SchedulerServiceActor extends Actor with ActorLogging {
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
 
   val nodeGuardian: ActorSelection = context.actorSelection(Cluster(context.system).selfAddress.copy(port = Some(BasePort)) + "/user/node-guardian")
-
   val service = new SchedulerService(nodeGuardian)
   val bindingFuture: Future[ServerBinding] = Http().bindAndHandle(service.route, HttpHostName, HttpListenPort)
 
-  override def preStart(): Unit =  {
+  override def preStart(): Unit = {
   }
 
   override def postStop: Unit = {
@@ -89,12 +91,8 @@ class SchedulerServiceActor extends Actor with ActorLogging {
       log.debug("Received {} from {}", e, sender)
     case e: ObjectModel =>
       log.debug("Received {} from {}", e, sender)
-    case QueryTask => queries()
+    //case QueryTask => queries()
     case e =>
-  }
-
-  def queries(): Unit = {
-    nodeGuardian ! BollingerBand("KLSE", Some(Array("YTLPOWR")))
   }
 }
 
@@ -104,7 +102,6 @@ class SchedulerService(nodeGuardian: ActorSelection) extends Directives with Jso
 
   import com.myinvestor.TradeHelper._
   import com.myinvestor.TradeSchema._
-  import settings._
 
   import ExecutionContext.Implicits.global
 
@@ -116,38 +113,38 @@ class SchedulerService(nodeGuardian: ActorSelection) extends Directives with Jso
           """.stripMargin
   }
 
+
+  def runJob(job: BatchJob, identifier: UUID): Future[Done] = {
+    val result: Future[Done] = Future {
+      // Log the request to Cassandra
+      SparkContextUtils.saveRequest(Request(identifier, false, ""))
+
+      // Run the job
+      val jobType = JobType.getJob(job.name).
+
+      Done
+    }
+    result
+  }
+
   val route =
     get {
       path("") {
-        nodeGuardian ! BollingerBand("KLSE", Some(Array("YTLPOWR")))
+        // nodeGuardian ! BollingerBand("KLSE", Some(Array("YTLPOWR")))
         complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<html><head><title>Job scheduler</title></head<body><h1>Job scheduler</h1></body></html>"))
       }
-    }
-    /*
-    ~
+    } ~
       post {
-        path("exchange") {
-          entity(as[Exchange]) { exchange =>
+        path("job") {
+          entity(as[BatchJob]) { job =>
             val identifier = UUIDVersion4
-            //val saved: Future[Done] = produceMessage(identifier, KafkaTopicExchange, exchange.toJson.compactPrint)
-            onComplete(saved) { done =>
-              complete(HttpEntity(ContentTypes.`application/json`, formatResponse(identifier)))
-            }
-          }
-        }
-      } ~
-      post {
-        path("stock") {
-          entity(as[Stock]) { stock =>
-            val identifier = UUIDVersion4
-            //val saved: Future[Done] = produceMessage(identifier, KafkaTopicStock, stock.toJson.compactPrint)
+            val saved: Future[Done] = runJob(job, identifier)
             onComplete(saved) { done =>
               complete(HttpEntity(ContentTypes.`application/json`, formatResponse(identifier)))
             }
           }
         }
       }
-      */
 }
 
 

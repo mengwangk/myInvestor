@@ -57,7 +57,7 @@ object TradeSchema {
                        infoExtractedTimestamp: DateTime = DateTime.now()) extends ObjectModel
 
   case class DividendSummary(gExchangeName: String, gStockSymbol: String, dividendYear: Int, dividend: Double,
-                             currentPrice: Double, priceDate:DateTime, dividendYield: Double) extends ObjectModel
+                             currentPrice: Double, priceDate: DateTime, dividendYield: Double) extends ObjectModel
 
   case class DividendHistory(yExchangeName: String, yStockSymbol: String, dividendDate: DateTime, dividend: Double) extends ObjectModel
 
@@ -76,8 +76,26 @@ object TradeSchema {
 
   }
 
+  object JobType extends Enumeration {
+
+    type JobType = Value
+
+    val ScrapeStockInfo, ScrapStockHistory, ScrapStockDividend, DividendAchiever, BollingerBand = Value
+
+    def getJob(s: String): Option[Value] = values.find(_.toString.equalsIgnoreCase(s))
+
+  }
+
+  trait Job extends ObjectModel with Serializable {
+    def name: String
+    def parameters: Array[String]
+  }
+  case class BatchJob(name: String, parameters: Array[String])
+
+
   // Web scraping request
   trait WebScraping extends ObjectModel
+
   case class WebScrapingResult(status: Boolean) extends WebScraping
 
 
