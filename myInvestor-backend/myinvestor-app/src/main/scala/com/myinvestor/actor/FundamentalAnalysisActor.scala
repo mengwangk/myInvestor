@@ -4,7 +4,9 @@ import akka.actor.{Actor, ActorLogging, ActorRef}
 import akka.pattern.pipe
 import com.myinvestor.AppSettings
 import com.myinvestor.TradeEvent.DividendAchiever
-import com.myinvestor.TradeSchema.DivdendAchieverAnalysis
+import com.myinvestor.TradeSchema.DividendAchieverAnalysis
+import com.myinvestor.fundamental.DividendSummarizer
+import com.myinvestor.scraper.google.StockHistoryScraper
 
 import scala.concurrent.Future
 
@@ -18,8 +20,9 @@ class FundamentalAnalysisActor(settings: AppSettings) extends ActorBase with Act
   }
 
   def dividendAchieverAnalysis(exchangeName: String, symbols: Option[Array[String]], requester: ActorRef): Unit = {
-    val result: Future[DivdendAchieverAnalysis] = Future {
-      DivdendAchieverAnalysis("KLSE", Some(Array("YTLPOWR")))
+    val result: Future[DividendAchieverAnalysis] = Future {
+      val summarizer = new DividendSummarizer(exchangeName, symbols)
+      DividendAchieverAnalysis(summarizer.run)
     }
     result pipeTo requester
   }

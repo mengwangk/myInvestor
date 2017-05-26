@@ -11,7 +11,7 @@ import scala.util.Try
 /**
   * Get the dividend achievers.
   */
-class DividendSummary(val exchangeName: String, val symbols: Option[Array[String]])  {
+class DividendSummarizer(val exchangeName: String, val symbols: Option[Array[String]])  {
 
   val log = Logger(this.getClass.getName)
 

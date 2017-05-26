@@ -41,7 +41,7 @@ class StockHistoryScraper(val exchangeName: String, val symbols: Option[Array[St
 
     // Get a list of stocks to grab
     var stocks = Array[String]()
-    if (symbols.isDefined) {
+    if (symbols.isDefined && symbols.get.length > 0) {
       stocks = symbols.get
     } else {
       stocks = sc.cassandraTable[Stock](Keyspace, StockTable).where(ExchangeNameColumn + " = ?", exchangeName).map(stock => stock.stockSymbol).collect()

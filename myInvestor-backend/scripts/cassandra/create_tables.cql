@@ -106,6 +106,13 @@ CREATE TABLE dividend_summary (
    PRIMARY KEY(g_exchange_name, g_stock_symbol, dividend_year)
 );
 
+CREATE TABLE dividend_achiever (
+   exchange_name TEXT,
+   stock_symbol TEXT,  
+   timestamp TIMESTAMP,
+   PRIMARY KEY(exchange_name,  stock_symbol)
+);
+
 CREATE TABLE ref_code
 (
     code TEXT,

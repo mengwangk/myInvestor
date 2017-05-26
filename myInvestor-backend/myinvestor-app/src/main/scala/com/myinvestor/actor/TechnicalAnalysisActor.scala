@@ -19,7 +19,7 @@ class TechnicalAnalysisActor(settings: AppSettings) extends ActorBase with Actor
 
   def bollingBandAnalysis(exchangeName: String, symbols: Option[Array[String]], requester: ActorRef): Unit = {
     val result: Future[BollingerBandAnalysis] = Future {
-      BollingerBandAnalysis("KLSE", Some(Array("YTLPOWR")))
+      BollingerBandAnalysis(false)
     }
     result pipeTo requester
   }

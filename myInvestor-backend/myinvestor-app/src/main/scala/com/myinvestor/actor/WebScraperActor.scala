@@ -3,7 +3,7 @@ package com.myinvestor.actor
 import akka.actor.{Actor, ActorLogging, ActorRef}
 import akka.pattern.pipe
 import com.myinvestor.AppSettings
-import com.myinvestor.TradeEvent.{ScrapStockDividendHistory, ScrapStockHistory, ScrapStockInfo, SummarizeDividendHistories}
+import com.myinvestor.TradeEvent.{ScrapStockDividendHistory, ScrapStockHistory, ScrapStockInfo}
 import com.myinvestor.TradeSchema.WebScrapingResult
 import com.myinvestor.scraper.google.{StockHistoryScraper, StockInfoScraper}
 import com.myinvestor.scraper.yahoo.DividendHistoryScraper

@@ -89,7 +89,7 @@ class DividendHistoryScraper(val exchangeName: String, val symbols: Option[Array
 
     // Get a list of stocks to grab
     var stocks = Array[G2YFinanceMapping]()
-    if (symbols.isDefined) {
+    if (symbols.isDefined && symbols.get.length > 0) {
       // Search for the Yahoo Finance stock symbols
       val searchSymbols = symbols.get
       searchSymbols.foreach { symbol =>
@@ -113,7 +113,7 @@ class DividendHistoryScraper(val exchangeName: String, val symbols: Option[Array
         val symbol = URLEncoder.encode(stock.yStockSymbol, "UTF-8")
         val YahooFinanceDividendHistoryUrl = s"https://query1.finance.yahoo.com/v7/finance/download/$symbol?period1=$past10years&period2=$now&interval=1d&events=div&crumb=xZCgl1rxPCP"
         current = current + 1
-        log.info(s"Grabbing stock history for [$current/$total] ${stock.yExchangeName} - ${stock.yStockSymbol}")
+        log.info(s"Grabbing stock dividend history for [$current/$total] ${stock.yExchangeName} - ${stock.yStockSymbol}")
         try {
           val fileName = tempDir + File.separator + symbol
           if (downloadDividendHistory(YahooFinanceDividendHistoryUrl, fileName)) {

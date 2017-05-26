@@ -80,17 +80,18 @@ object TradeSchema {
 
     type JobType = Value
 
-    val ScrapeStockInfo, ScrapStockHistory, ScrapStockDividend, DividendAchiever, BollingerBand = Value
+    val NotDefined, ScrapeStockInfo, ScrapStockHistory, ScrapStockDividendHistory, DividendSummary, BollingerBand = Value
 
     def getJob(s: String): Option[Value] = values.find(_.toString.equalsIgnoreCase(s))
 
   }
 
   trait Job extends ObjectModel with Serializable {
-    def name: String
-    def parameters: Array[String]
+    def jobName: String
+    def exchangeName: String
+    def symbols: Array[String]
   }
-  case class BatchJob(name: String, parameters: Array[String])
+  case class BatchJob(jobName: String, exchangeName: String, symbols: Array[String]) extends Job
 
 
   // Web scraping request
@@ -101,25 +102,19 @@ object TradeSchema {
 
   // ----- Processed trade analysis results
   trait Analysis extends ObjectModel with Serializable {
-    // Exchange name
-    def exchangeName: String
-
-    // Stock symbol
-    def symbols: Option[Array[String]]
+    def status: Boolean
   }
 
   // -- This is for fundamental analysis results
   trait FA extends Analysis
 
   // -- This is the result to be returned...
-  case class DivdendAchieverAnalysis(exchangeName: String, symbols: Option[Array[String]]) extends FA
+  case class DividendAchieverAnalysis(status: Boolean) extends FA
 
 
   // -- This is for technical analysis results
   trait TA extends Analysis
 
   // -- This is the result to be returned...
-  case class BollingerBandAnalysis(exchangeName: String, symbols: Option[Array[String]]) extends TA
-
-
+  case class BollingerBandAnalysis(status: Boolean) extends TA
 }

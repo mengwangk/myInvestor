@@ -13,7 +13,7 @@ import akka.http.scaladsl.server.Directives
 import akka.routing.BalancingPool
 import akka.stream.{ActorMaterializer, ActorMaterializerSettings}
 import akka.util.Timeout
-import com.myinvestor.TradeEvent.{BollingerBand, QueryTask}
+import com.myinvestor.TradeEvent._
 import com.myinvestor.TradeHelper.JsonApiProtocol
 import com.myinvestor.TradeSchema.{Analysis, ObjectModel}
 import com.myinvestor.cluster.ClusterAwareNodeGuardian
@@ -120,8 +120,25 @@ class SchedulerService(nodeGuardian: ActorSelection) extends Directives with Jso
       SparkContextUtils.saveRequest(Request(identifier, false, ""))
 
       // Run the job
-      val jobType = JobType.getJob(job.name).
-
+      val jobType = JobType.getJob(job.jobName).getOrElse(JobType.NotDefined)
+      jobType match {
+        case JobType.ScrapeStockInfo => {
+          nodeGuardian ! ScrapStockInfo(job.exchangeName, Option(job.symbols))
+        }
+        case JobType.ScrapStockDividendHistory => {
+          nodeGuardian ! ScrapStockDividendHistory(job.exchangeName, Option(job.symbols))
+        }
+        case JobType.ScrapStockHistory => {
+          nodeGuardian ! ScrapStockHistory(job.exchangeName, Option(job.symbols))
+        }
+        case JobType.DividendSummary => {
+          nodeGuardian ! DividendAchiever(job.exchangeName, Option(job.symbols))
+        }
+        case JobType.BollingerBand => {
+          nodeGuardian ! BollingerBand(job.exchangeName, Option(job.symbols))
+        }
+        case _ => log.info("No job to run")
+      }
       Done
     }
     result
