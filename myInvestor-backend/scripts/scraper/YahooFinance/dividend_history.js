@@ -15,6 +15,8 @@ const path = require('path');
 const util = require('util');
 const http = require('http');
 
+// https://query1.finance.yahoo.com/v7/finance/download/6742.KL?period1=1274803200&period2=1495728000&interval=1d&events=div&crumb=xZCgl1rxPCP
+
 var HOST_NAME = 'chart.finance.yahoo.com';
 var URL_PATH = '/table.csv?s=%s&a=0&b=1&c=%s&d=11&e=31&f=%s&g=v&ignore=.csv';
 
