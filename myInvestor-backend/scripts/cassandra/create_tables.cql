@@ -106,7 +106,8 @@ CREATE TABLE dividend_summary (
    PRIMARY KEY(g_exchange_name, g_stock_symbol, dividend_year)
 );
 
-CREATE TABLE dividend_achiever (
+CREATE TABLE chosen_stock (
+   category TEXT, 
    exchange_name TEXT,
    stock_symbol TEXT,  
    timestamp TIMESTAMP,
