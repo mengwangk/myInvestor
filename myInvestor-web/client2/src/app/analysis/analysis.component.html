@@ -1,35 +1,43 @@
 <div class="row">
 
     <div class="col-lg-12">
-        <h1 class="page-header">{{exchangeName}} - Dividend Achievers</h1>
+        <h3 class="page-header">Stock Picker</h3>
     </div>
 
     <div class="col-lg-12">
 
-        <form class="analysis-form">
-            <md-input-container class="analysis-full-width">
-                <input mdInput type="number" placeholder="Dividend Yield %" name="dividendYield" [(ngModel)]="dividendYield">
-            </md-input-container>
-            <md-input-container class="analysis-full-width">
-                <input mdInput type="number" placeholder="Number of years" name="numberOfYears" [(ngModel)]="numberOfYears">
-            </md-input-container>
-            <md-input-container class="analysis-full-width">
-                <input mdInput type="number" placeholder="Last x years" name="scopeOfYears" [(ngModel)]="scopeOfYears">
-            </md-input-container>
+    </div>
 
-            <section class="analysis-section">
-                <md-radio-group [(ngModel)]="yearOption" name="yearOption">
-                    <md-radio-button class="analysis-margin" value="1">
-                        Most recent years (exclude current)
-                    </md-radio-button>
-                    <md-radio-button class="analysis-margin" value="2">
-                        Any years
-                    </md-radio-button>
-                </md-radio-group>
-            </section>
+    <div class="col-lg-12">
 
-            <button md-raised-button (click)="runAnalysis()">Run</button>
-        </form>
+        <div class="panel panel-info">
+            <div class="panel-heading">Dividend</div>
+            <div class="panel-body">
+                <form class="analysis-form">
+                    <md-input-container class="analysis-full-width">
+                        <input mdInput type="number" placeholder="Dividend Yield %" name="dividendYield" [(ngModel)]="dividendYield">
+                    </md-input-container>
+                    <md-input-container class="analysis-full-width">
+                        <input mdInput type="number" placeholder="Number of years" name="numberOfYears" [(ngModel)]="numberOfYears">
+                    </md-input-container>
+                    <md-input-container class="analysis-full-width">
+                        <input mdInput type="number" placeholder="Last x years" name="scopeOfYears" [(ngModel)]="scopeOfYears">
+                    </md-input-container>
+
+                    <section class="analysis-section">
+                        <md-radio-group [(ngModel)]="yearOption" name="yearOption">
+                            <md-radio-button class="analysis-margin" value="1">
+                                Most recent years (exclude current)
+                            </md-radio-button>
+                            <md-radio-button class="analysis-margin" value="2">
+                                Any years
+                            </md-radio-button>
+                        </md-radio-group>
+                    </section>
+                    <button md-raised-button (click)="runAnalysis()">Run</button>
+                </form>
+            </div>
+        </div>
 
         <div class="row" *ngIf="showProgress">
             <p><br/>
@@ -44,8 +52,6 @@
                 </md-card>
             </p>
         </div>
-
-
 
         <div class="row" *ngIf="showResults">
             <md-card>

@@ -1,19 +1,1 @@
-<span class='dividend-details'>
-
-<span class="label label-default">Symbol: {{stockSymbol}}</span>
-<span class="label label-default">Price: {{currentPrice}}</span>
-<span class="label label-default">Date: {{priceDate}}</span>
-
-<br/><br/>
-<table class="table table-condensed">
-    <th>Year</th>
-    <th>Dividend</th>
-    <th>Yield (%)</th>
-    <tr *ngFor="let dividend of dividendSummaries; let i = index">
-        <td>{{dividend.dividendYear}}</td>
-        <td>{{dividend.dividend}}</td>
-        <td>{{dividend.dividendYield}}</td>
-    </tr>
-</table>
-
-</span>
+<span class='dividend-details'><span class="label label-default">Symbol: {{stockSymbol}}</span><span class="label label-default">Price: {{currentPrice}}</span><span class="label label-default">Date: {{priceDate}}</span><br/><br/><table class="table table-condensed">    <th>Year</th>    <th>Dividend</th>    <th>Yield (%)</th>    <tr *ngFor="let dividend of dividendSummaries; let i = index">        <td>{{dividend.dividendYear}}</td>        <td>{{dividend.dividend}}</td>        <td>{{dividend.dividendYield}}</td>    </tr></table></span>
