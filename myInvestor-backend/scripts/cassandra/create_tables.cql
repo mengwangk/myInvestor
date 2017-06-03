@@ -110,8 +110,8 @@ CREATE TABLE chosen_stock (
    category TEXT, 
    exchange_name TEXT,
    stock_symbol TEXT,  
-   timestamp TIMESTAMP,
-   PRIMARY KEY(exchange_name,  stock_symbol)
+   create_date TIMESTAMP,
+   PRIMARY KEY(category, exchange_name,  stock_symbol)
 );
 
 CREATE TABLE ref_code

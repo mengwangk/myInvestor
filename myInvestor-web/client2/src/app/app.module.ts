@@ -3,6 +3,9 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { CustomToastOptions } from './custom-toast-options';
+import { ToastOptions } from 'ng2-toastr';
 
 import { FundamentalService } from './analysis/fundamental';
 
@@ -33,6 +36,7 @@ import { DividendDetailsComponent } from './analysis/dividend-details';
     DividendDetailsComponent
   ],
   providers: [
+    { provide: ToastOptions, useClass: CustomToastOptions },
     FundamentalService
   ],
   entryComponents: [
@@ -45,6 +49,7 @@ import { DividendDetailsComponent } from './analysis/dividend-details';
     CoreModule,
     SharedModule,
     MaterialModule,
+    ToastModule.forRoot(),
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   bootstrap: [AppComponent]

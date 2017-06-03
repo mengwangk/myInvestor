@@ -16,8 +16,8 @@
 
     <nav md-tab-nav-bar>
         <a md-tab-link [routerLink]=" ['./']" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+        <a md-tab-link [routerLink]=" ['./scheduler']" routerLinkActive #rla4="routerLinkActive" [active]="rla4.isActive" [routerLinkActiveOptions]="{exact: true}">Analysis</a>
         <a md-tab-link [routerLink]=" ['./portfolio']" routerLinkActive #rla3="routerLinkActive" [active]="rla3.isActive" [routerLinkActiveOptions]="{exact: true}">Portfolio</a>
-        <a md-tab-link [routerLink]=" ['./scheduler']" routerLinkActive #rla4="routerLinkActive" [active]="rla4.isActive" [routerLinkActiveOptions]="{exact: true}">Scheduler</a>
     </nav>
 
     <div id="page-wrapper">

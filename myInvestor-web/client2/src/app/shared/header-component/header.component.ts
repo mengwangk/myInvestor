@@ -26,7 +26,6 @@ export class HeaderComponent implements IHeaderAngularComp {
     }
 
     ngOnDestroy() {
-        // console.log(`Destroying HeaderComponent`);
     }
 
     onMenuClick() {

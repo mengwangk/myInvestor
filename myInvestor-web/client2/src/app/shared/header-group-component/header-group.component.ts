@@ -16,7 +16,6 @@ export class HeaderGroupComponent implements IHeaderGroupAngularComp {
     }
 
     ngOnDestroy() {
-        console.log(`Destroying HeaderComponent`);
     }
 
 

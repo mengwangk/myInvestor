@@ -11,7 +11,7 @@
     display: flex;
     align-content: center;
     align-items: center;
-    height: 60px;
+    height: 40px;
     margin: 10px;
 }
 
@@ -19,12 +19,11 @@
     margin: 10px;
 }
 
-
-/*
-.tooltip-host {
-    display: inline-flex;
-    align-items: center;
-    margin: 50px;
-    height: auto;
+.text-strip {
+    margin: 30px;
+    width: 50%;
 }
-*/
+
+.button-strip {
+    margin-left: 30px;
+}

@@ -6,7 +6,8 @@ export class Stock {
         public exchangeName: string,
         public stockSymbol: string,
         public stockName: string,
-        public dividendHistories: DividendSummary[]
+        public dividendHistories: DividendSummary[],
+        public chosen: boolean = false
     )
     {
     }

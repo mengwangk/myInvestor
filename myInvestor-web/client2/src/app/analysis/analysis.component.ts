@@ -1,7 +1,8 @@
 import {
   Component,
   OnInit,
-  Input
+  Input,
+  ViewContainerRef
 } from '@angular/core';
 
 import 'rxjs/add/operator/switchMap';
@@ -9,6 +10,7 @@ import 'rxjs/add/operator/switchMap';
 import { RouterModule, Routes, ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { MyInvestorService, LoggerService } from "../core/service";
 import { FundamentalService } from "./fundamental";
@@ -39,6 +41,8 @@ export class AnalysisComponent implements OnInit {
   private showResults: boolean;
 
   constructor(
+    public toastr: ToastsManager, 
+    public vcr: ViewContainerRef,
     public route: ActivatedRoute,
     public router: Router,
     public myInvestor: MyInvestorService,
@@ -46,7 +50,7 @@ export class AnalysisComponent implements OnInit {
     public fundamentalService: FundamentalService,
     public snackBar: MdSnackBar
   ) {
-
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -67,30 +71,34 @@ export class AnalysisComponent implements OnInit {
   }
 
   private runAnalysis() {
-    this.showProgress = true;
-    this.progressValue = 0;
-    this.progressBufferValue = this.stocks.length;
-    this.dividendAchievers = [];
-    for (let stock of this.stocks) {
-      this.statusMessage = stock.stockName;
-      this.progressValue += 1;
-      var stockDividends = this.dividendSummaries.filter(dividend => dividend.stockSymbol === stock.stockSymbol);
-      stockDividends.sort(orderDividendDateDesc); // Sort by dividend year descending
+    try {
+      this.showProgress = true;
+      this.progressValue = 0;
+      this.progressBufferValue = this.stocks.length;
+      this.dividendAchievers = [];
+      for (let stock of this.stocks) {
+        this.statusMessage = stock.stockName;
+        this.progressValue += 1;
+        var stockDividends = this.dividendSummaries.filter(dividend => dividend.stockSymbol === stock.stockSymbol);
+        stockDividends.sort(orderDividendDateDesc); // Sort by dividend year descending
 
-      if (this.fundamentalService.isDividendAchiever(stock, stockDividends, this.dividendYield, this.numberOfYears, this.scopeOfYears, this.yearOption)) {
-        this.dividendAchievers.push(stock);
+        if (this.fundamentalService.isDividendAchiever(stock, stockDividends, this.dividendYield, this.numberOfYears, this.scopeOfYears, this.yearOption)) {
+          this.dividendAchievers.push(stock);
+        }
       }
+      this.showProgress = false;
+      this.showResults = true;
+    } catch (error) {
+      this.statusMessage = error.message;
     }
-    this.showProgress = false;
-    this.showResults = true;
   }
 
   private showDividendDetails(stockSymbol: string) {
     var stockDividends = this.dividendSummaries.filter(dividend => dividend.stockSymbol === stockSymbol);
     stockDividends.sort(orderDividendDateDesc);
-    let config:MdSnackBarConfig = new MdSnackBarConfig();
+    let config: MdSnackBarConfig = new MdSnackBarConfig();
     config.duration = 5000; // Show for 5 seconds
-    let component:MdSnackBarRef<DividendDetailsComponent> = this.snackBar.openFromComponent(DividendDetailsComponent, config);
+    let component: MdSnackBarRef<DividendDetailsComponent> = this.snackBar.openFromComponent(DividendDetailsComponent, config);
     component.instance.showDetails(stockDividends);
   }
 
@@ -149,6 +157,25 @@ export class AnalysisComponent implements OnInit {
       }
     );
   }
+
+  pickStocks() {
+    var chosenStocks = this.dividendAchievers.filter(stock => stock.chosen);
+    if (chosenStocks.length <= 0) {
+      this.showWarning('No stocks chosen.');
+      return;
+    }
+    chosenStocks.forEach(stock => {
+      console.log('chosen ' + stock.stockName);
+    });
+  }
+
+  showWarning(msg: string) {
+    this.toastr.warning(msg);
+  }
+
+  showInfo(msg: string) {
+    this.toastr.info(msg);
+  }
 }
 
 function orderDividendDateDesc(dividendSummary1: DividendSummary, dividendSummary2: DividendSummary) {
@@ -160,5 +187,7 @@ function orderDividendDateDesc(dividendSummary1: DividendSummary, dividendSummar
   }
   return 0;
 }
+
+
 
 
