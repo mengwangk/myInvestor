@@ -26,6 +26,7 @@ import { StockPickerComponent } from './stock-picker';
 import { PortfolioComponent } from './portfolio';
 import { NoContentComponent } from './no-content/no-content.component';
 import { DividendDetailsComponent } from './stock-picker/dividend-details';
+import { AnalysisComponent } from './analysis/analysis.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { DividendDetailsComponent } from './stock-picker/dividend-details';
     StockPickerComponent,
     PortfolioComponent,
     NoContentComponent,
-    DividendDetailsComponent
+    DividendDetailsComponent,
+    AnalysisComponent
   ],
   providers: [
     { provide: ToastOptions, useClass: CustomToastOptions },
