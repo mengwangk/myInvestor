@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { AnalysisComponent } from './analysis';
+import { StockPickerComponent } from './stock-picker';
 import { PortfolioComponent } from './portfolio';
 import { NoContentComponent } from './no-content';
 
 export const ROUTES: Routes = [
-  { path: 'analysis/:exchangeName', component: AnalysisComponent },
+  { path: 'stock-picker/:exchangeName', component: StockPickerComponent },
   { path: 'portfolio', component: PortfolioComponent },
   { path: 'notfound', component: NoContentComponent },
   { path: 'dashboard', loadChildren: './dashboard#DashboardModule' },

@@ -7,7 +7,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { CustomToastOptions } from './custom-toast-options';
 import { ToastOptions } from 'ng2-toastr';
 
-import { FundamentalService } from './analysis/fundamental';
+import { FundamentalService } from './stock-picker/fundamental';
 
 import 'hammerjs';
 
@@ -22,15 +22,15 @@ import { SharedModule } from './shared';
 import { CoreModule } from './core';
 
 import { AppComponent } from './app.component';
-import { AnalysisComponent } from './analysis';
+import { StockPickerComponent } from './stock-picker';
 import { PortfolioComponent } from './portfolio';
 import { NoContentComponent } from './no-content/no-content.component';
-import { DividendDetailsComponent } from './analysis/dividend-details';
+import { DividendDetailsComponent } from './stock-picker/dividend-details';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AnalysisComponent,
+    StockPickerComponent,
     PortfolioComponent,
     NoContentComponent,
     DividendDetailsComponent

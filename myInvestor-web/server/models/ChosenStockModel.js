@@ -5,7 +5,10 @@ module.exports = {
         category: { type: 'text' },
         exchange_name: { type: 'text' },
         stock_symbol: { type: 'text' },
-        createDate: { type: 'timestamp' }
+        create_date: {
+            type: 'timestamp',
+            default: { "$db_function": "toTimestamp(now())" }
+        }
     },
     key: [
         ["category"], 'exchange_name', 'stock_symbol'

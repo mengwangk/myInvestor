@@ -1,13 +1,13 @@
-.analysis-form {
+.stock-picker-form {
     width: 500px;
     margin: 20px;
 }
 
-.analysis-full-width {
+.stock-picker-full-width {
     width: 100%;
 }
 
-.analysis-section {
+..stock-picker-section {
     display: flex;
     align-content: center;
     align-items: center;
@@ -15,7 +15,7 @@
     margin: 10px;
 }
 
-.analysis-margin {
+..stock-picker-margin {
     margin: 10px;
 }
 

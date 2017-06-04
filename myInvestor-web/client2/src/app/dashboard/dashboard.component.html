@@ -17,7 +17,7 @@
                         <button md-button (click)="getStocks(summary.name)">
                     <i class="material-icons md-18">toc</i> View <span class='fa fa-spin fa-circle-o-notch' *ngIf="showingStocks"> </span>
                 </button>
-                        <a [routerLink]=" ['./analysis', summary.name] " routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a [routerLink]=" ['./stock-picker', summary.name] " routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                             <button md-button>
                         <i class="material-icons md-18">trending_up</i> Stock Picker
                     </button>

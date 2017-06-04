@@ -21,16 +21,16 @@ import { DividendDetailsComponent } from "./dividend-details";
 import { MdSnackBar, MdSnackBarConfig, MdSnackBarRef } from '@angular/material';
 
 @Component({
-  selector: 'app-analysis',
-  templateUrl: './analysis.component.html',
-  styleUrls: ['./analysis.component.css']
+  selector: 'app-stock-picker',
+  templateUrl: './stock-picker.component.html',
+  styleUrls: ['./stock-picker.component.css']
 })
-export class AnalysisComponent implements OnInit {
+export class StockPickerComponent implements OnInit {
   private exchangeName: string;
   private yearOption: Criteria;
   private dividendSummaries: DividendSummary[];
-  private dividendAchievers: Stock[];
-  private stocks: Stock[];
+  private filteredStocks: Stock[];
+  private allStocks: Stock[];
   private statusMessage: string;
   private showProgress: boolean;
   private progressValue: number;
@@ -39,6 +39,8 @@ export class AnalysisComponent implements OnInit {
   private numberOfYears: number;
   private scopeOfYears: number;
   private showResults: boolean;
+
+  private categoryName: string;
 
   constructor(
     public toastr: ToastsManager, 
@@ -57,7 +59,7 @@ export class AnalysisComponent implements OnInit {
     this.dividendYield = environment.fundamental.dividendYield;
     this.numberOfYears = environment.fundamental.numberOfYears;
     this.scopeOfYears = environment.fundamental.scopeOfYears;
-    this.dividendAchievers = [];
+    this.filteredStocks = [];
     this.exchangeName = this.route.snapshot.params['exchangeName'];
     if (!this.exchangeName) {
       this.exchangeName = environment.defaultExchange;
@@ -66,24 +68,25 @@ export class AnalysisComponent implements OnInit {
     this.showProgress = false;
     this.showResults = false;
     this.yearOption = environment.fundamental.yearOption;
+    this.categoryName = 'My Stocks';
     this.getStocks();
     this.getDividendSummary();
   }
 
-  private runAnalysis() {
+  private runPicker() {
     try {
       this.showProgress = true;
       this.progressValue = 0;
-      this.progressBufferValue = this.stocks.length;
-      this.dividendAchievers = [];
-      for (let stock of this.stocks) {
+      this.progressBufferValue = this.allStocks.length;
+      this.filteredStocks = [];
+      for (let stock of this.allStocks) {
         this.statusMessage = stock.stockName;
         this.progressValue += 1;
         var stockDividends = this.dividendSummaries.filter(dividend => dividend.stockSymbol === stock.stockSymbol);
         stockDividends.sort(orderDividendDateDesc); // Sort by dividend year descending
 
         if (this.fundamentalService.isDividendAchiever(stock, stockDividends, this.dividendYield, this.numberOfYears, this.scopeOfYears, this.yearOption)) {
-          this.dividendAchievers.push(stock);
+          this.filteredStocks.push(stock);
         }
       }
       this.showProgress = false;
@@ -106,10 +109,10 @@ export class AnalysisComponent implements OnInit {
     this.myInvestor.getExchangeStocks(this.exchangeName).subscribe(
       (stocks) => {
         if (stocks.length > 0) {
-          this.stocks = [];
+          this.allStocks = [];
           for (let stock of stocks) {
             var dividendHistories: DividendSummary[] = [];
-            this.stocks.push(
+            this.allStocks.push(
               new Stock(
                 stock.exchange_name,
                 stock.stock_symbol,
@@ -158,15 +161,33 @@ export class AnalysisComponent implements OnInit {
     );
   }
 
+  searchByNameOrSymbol(){
+    
+  }
   pickStocks() {
-    var chosenStocks = this.dividendAchievers.filter(stock => stock.chosen);
+    var chosenStocks = this.filteredStocks.filter(stock => stock.chosen);
+    if (this.categoryName === '') {
+      this.showWarning('Category name is empty.');
+      return;
+    }
     if (chosenStocks.length <= 0) {
       this.showWarning('No stocks chosen.');
       return;
     }
+    var stocks = [];
     chosenStocks.forEach(stock => {
-      console.log('chosen ' + stock.stockName);
+      stocks.push({exchange_name: stock.exchangeName, stock_symbol: stock.stockSymbol, category: this.categoryName});
     });
+    this.myInvestor.saveChosenStocks(stocks).subscribe(
+      (results) => {
+        this.showInfo(results.count +  ' stocks saved!');
+      },
+      (error) => {
+        this.logger.error('Error saving stocks', error);
+        return Observable.throw(error);
+      }
+    );
+
   }
 
   showWarning(msg: string) {

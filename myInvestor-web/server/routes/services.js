@@ -8,16 +8,16 @@ const winston = require('winston');
 /**
  * myInvestor services.
  */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     res.send('myInvestor services');
 });
-router.get('/stocks', function(req, res, next) {
+router.get('/stocks', function (req, res, next) {
     res.status(404).send({ msg: constants.ExchangeNameNotProvided });
 
 });
 
-router.get('/exchanges', function(req, res, next) {
-    var exchanges = myinvestor.getExchanges(function(err, exchanges) {
+router.get('/exchanges', function (req, res, next) {
+    myinvestor.getExchanges(function (err, exchanges) {
         if (err) {
             res.status(404).send({ msg: err });
         } else {
@@ -27,10 +27,10 @@ router.get('/exchanges', function(req, res, next) {
 
 });
 
-router.get('/stocks/:exchange_name', function(req, res, next) {
+router.get('/stocks/:exchange_name', function (req, res, next) {
     winston.info('Getting stocks for [%s]', req.params.exchange_name);
 
-    var stocks = myinvestor.getStocks(req.params.exchange_name, function(err, stocks) {
+    myinvestor.getStocks(req.params.exchange_name, function (err, stocks) {
         if (err) {
             res.status(404).send({ msg: err });
         } else {
@@ -39,10 +39,22 @@ router.get('/stocks/:exchange_name', function(req, res, next) {
     });
 });
 
-router.get('/history/:exchange_name/:stock_symbol', function(req, res, next) {
+router.post('/stocks/chosen/', function (req, res, next) {
+    winston.info('Saving stocks [%s]', JSON.stringify(req.body.stocks));
+
+    myinvestor.saveChosenStocks(req.body.stocks, function (err, count) {
+        if (err) {
+            res.status(404).send({ msg: err });
+        } else {
+            res.json({ count: count });
+        }
+    });
+});
+
+router.get('/history/:exchange_name/:stock_symbol', function (req, res, next) {
     winston.info('Getting stock [%s] from [%s]', req.params.stock_symbol, req.params.exchange_name);
 
-    var stocks = myinvestor.getStockHistories(req.params.exchange_name, req.params.stock_symbol, function(err, histories) {
+    myinvestor.getStockHistories(req.params.exchange_name, req.params.stock_symbol, function (err, histories) {
         if (err) {
             res.status(404).send({ msg: err });
         } else {
@@ -51,10 +63,10 @@ router.get('/history/:exchange_name/:stock_symbol', function(req, res, next) {
     });
 });
 
-router.get('/analysis/dividend/:exchange_name', function(req, res, next) {
+router.get('/analysis/dividend/:exchange_name', function (req, res, next) {
     winston.info('Getting dividends for [%s]', req.params.exchange_name);
 
-    var stocks = myinvestor.getDividendSummaries(req.params.exchange_name, function(err, dividendSummaries) {
+    myinvestor.getDividendSummaries(req.params.exchange_name, function (err, dividendSummaries) {
         if (err) {
             res.status(404).send({ msg: err });
         } else {
