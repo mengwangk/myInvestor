@@ -38,6 +38,10 @@ export class MyInvestorService {
     return this.httpPostJson(this.serverUrl + '/stocks/chosen/', { stocks: stocks });
   }
 
+  public getChosenStocks() {
+    return this.httpGetJson(this.serverUrl + '/stocks/chosen/');
+  }
+
   httpGetJson(url: string) {
     return this.http.get(url)
       .map((res) => res.json())

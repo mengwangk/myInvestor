@@ -162,7 +162,7 @@ export class StockPickerComponent implements OnInit {
   }
 
   searchByNameOrSymbol(){
-    
+    // TODO
   }
   pickStocks() {
     var chosenStocks = this.filteredStocks.filter(stock => stock.chosen);

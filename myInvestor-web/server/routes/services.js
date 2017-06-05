@@ -27,6 +27,17 @@ router.get('/exchanges', function (req, res, next) {
 
 });
 
+router.get('/stocks/chosen/', function (req, res, next) {
+    myinvestor.getChosenStocks(function (err, chosenStocks) {
+        if (err) {
+            res.status(404).send({ msg: err });
+        } else {
+            res.json(chosenStocks);
+        }
+    });
+
+});
+
 router.get('/stocks/:exchange_name', function (req, res, next) {
     winston.info('Getting stocks for [%s]', req.params.exchange_name);
 

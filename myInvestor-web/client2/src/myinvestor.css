@@ -13,3 +13,7 @@
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
 }
+
+.body-spacer {
+    margin-top: 20px;
+}

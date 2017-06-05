@@ -77,6 +77,13 @@ myinvestor.prototype.getDividendSummaries = function (exchangeName, callback) {
     });
 }
 
+myinvestor.prototype.getChosenStocks = function (callback) {
+    models.instance.ChosenStock.find({}, function (err, chosenStocks) {
+        callback(err, chosenStocks);
+    });
+}
+
+
 myinvestor.prototype.saveChosenStocks = function (stocks, callback) {
     // http://express-cassandra.readthedocs.io/en/latest/batch/
     var queries = [];
