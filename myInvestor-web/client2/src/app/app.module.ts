@@ -6,6 +6,7 @@ import { MaterialModule } from '@angular/material';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { CustomToastOptions } from './custom-toast-options';
 import { ToastOptions } from 'ng2-toastr';
+import { AccordionModule } from 'ngx-bootstrap';
 
 import { FundamentalService } from './stock-picker/fundamental';
 
@@ -24,10 +25,12 @@ import { CoreModule } from './core';
 import { AppComponent } from './app.component';
 import { StockPickerComponent } from './stock-picker';
 import { PortfolioComponent } from './portfolio';
-import { NoContentComponent } from './no-content/no-content.component';
+import { NoContentComponent } from './no-content';
 import { DividendDetailsComponent } from './stock-picker/dividend-details';
-import { AnalysisComponent } from './analysis/analysis.component';
+import { AnalysisComponent } from './analysis';
 import { PickedStocksPipe } from './analysis/pipe';
+import { PickedStocksDetailsComponent } from './analysis/picked-stocks-details';
+import { TechAnalysisComponent } from './tech-analysis/tech-analysis.component';
 
 @NgModule({
   declarations: [
@@ -37,14 +40,17 @@ import { PickedStocksPipe } from './analysis/pipe';
     NoContentComponent,
     DividendDetailsComponent,
     AnalysisComponent,
-    PickedStocksPipe
+    PickedStocksPipe,
+    PickedStocksDetailsComponent,
+    TechAnalysisComponent
   ],
   providers: [
     { provide: ToastOptions, useClass: CustomToastOptions },
     FundamentalService
   ],
   entryComponents: [
-    DividendDetailsComponent
+    DividendDetailsComponent,
+    PickedStocksDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +60,7 @@ import { PickedStocksPipe } from './analysis/pipe';
     SharedModule,
     MaterialModule,
     ToastModule.forRoot(),
+    AccordionModule.forRoot(),
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   bootstrap: [AppComponent]

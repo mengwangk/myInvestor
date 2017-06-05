@@ -1,22 +1,60 @@
 <div class="row">
-    <div class='body-spacer'></div>
+    <div class='body-spacer'>&nbsp;</div>
 
     <div class="col-lg-12">
-        <div class="panel panel-info">
-            <div class="panel-heading">Picked Stocks</div>
-            <div class="panel-body">
-                <span *ngFor="let stock of pickedStocks | pickedStocksFilter ; let i = index">
-                        {{stock.value}}
-                </span>
-            </div>
-        </div>
+        <accordion>
+            <accordion-group #group1 [isOpen]='true'>
+                <div accordion-heading>
+                    Picked Stocks
+                    <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group1?.isOpen, 'glyphicon-chevron-right': !group1?.isOpen}"></i>
+                </div>
+
+
+                <div class="dashboard-grid-list">
+                    <md-grid-list cols="3" rowHeight="200px">
+                        <md-grid-tile *ngFor="let stock of pickedStocks | pickedStocksFilter ; let i = index">
+                            <md-card>
+                                <md-card-header>
+                                    <div md-card-avatar class='stock-picker'></div>
+                                    <md-card-title>
+                                        <h3>{{stock.key}}</h3>
+                                    </md-card-title>
+                                    <md-card-subtitle>{{stock.value.length}} stocks</md-card-subtitle>
+                                </md-card-header>
+                                <md-card-content>
+                                    <p> </p>
+                                </md-card-content>
+                                <md-card-actions>
+                                    <button md-button (click)="showPickedStocks(stock.key)">
+                                        <i class="material-icons md-18">toc</i> View
+                                    </button>
+                                    <a [routerLink]=" ['/tech-analysis', stock.key] " routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                        <button md-button>
+                                            <i class="material-icons md-18">trending_up</i> Tech Analysis
+                                        </button>
+                                    </a>
+                                </md-card-actions>
+                            </md-card>
+                        </md-grid-tile>
+                    </md-grid-list>
+                </div>
+
+
+            </accordion-group>
+        </accordion>
     </div>
 
+    <div class='body-spacer'>&nbsp;</div>
+
     <div class="col-lg-12">
-        <div class="panel panel-info">
-            <div class="panel-heading">Run Job</div>
-            <div class="panel-body">
-            </div>
-        </div>
+        <accordion>
+            <accordion-group #group2 [isOpen]='true'>
+                <div accordion-heading>
+                    Job Scheduler
+                    <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group2?.isOpen, 'glyphicon-chevron-right': !group2?.isOpen}"></i>
+                </div>
+                Schedule job to run.
+            </accordion-group>
+        </accordion>
     </div>
 </div>

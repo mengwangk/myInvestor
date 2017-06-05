@@ -1,13 +1,13 @@
-.row {
-    margin-top: 40px;
-    padding: 0 10px;
+.stock-picker {
+    background-image: url('./../../assets/images/myinvestor.png');
+    background-size: cover;
 }
 
-.clickable {
-    cursor: pointer;
+.dashboard-grid-list {
+    margin: 20px;
+    width: 100%;
 }
 
-.panel-heading span {
-    margin-top: -20px;
-    font-size: 15px;
+.mat-card {
+    margin-bottom: 10px;
 }

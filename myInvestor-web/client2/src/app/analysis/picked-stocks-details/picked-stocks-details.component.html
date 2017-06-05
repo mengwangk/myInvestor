@@ -1,0 +1,14 @@
+<span class='picked-stocks-details'>
+<span class="label label-default">{{category}}</span>
+<br/><br/>
+<table class="table table-condensed">
+    <th>Exchange</th>
+    <th>Symbol</th>
+
+    <tr *ngFor="let stock of pickedStocks; let i = index">
+        <td>{{stock.exchange_name}}</td>
+        <td>{{stock.stock_symbol}}</td>
+    </tr>
+</table>
+
+</span>

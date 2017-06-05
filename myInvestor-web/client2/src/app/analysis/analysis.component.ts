@@ -13,6 +13,8 @@ import { RouterModule, Routes, ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { MdSnackBar, MdSnackBarConfig, MdSnackBarRef } from '@angular/material';
+import { PickedStocksDetailsComponent } from './picked-stocks-details';
 
 @Component({
   selector: 'app-analysis',
@@ -29,11 +31,11 @@ export class AnalysisComponent implements OnInit {
     public route: ActivatedRoute,
     public router: Router,
     public myInvestor: MyInvestorService,
-    public logger: LoggerService) {
-
-    this.toastr.setRootViewContainerRef(vcr);
-    this.pickedStocks = {};
-
+    public logger: LoggerService,
+    public snackBar: MdSnackBar
+    ) {
+      this.toastr.setRootViewContainerRef(vcr);
+      this.pickedStocks = {};
   }
 
   ngOnInit() {
@@ -55,6 +57,14 @@ export class AnalysisComponent implements OnInit {
         return Observable.throw(error);
       }
     );
+  }
+
+  showPickedStocks(category: string){
+    let config: MdSnackBarConfig = new MdSnackBarConfig();
+    config.duration = 5000; // Show for 5 seconds
+    let component: MdSnackBarRef<PickedStocksDetailsComponent> = this.snackBar.openFromComponent(PickedStocksDetailsComponent, config);
+    component.instance.showDetails(category, this.pickedStocks[category]);
+
   }
   showWarning(msg: string) {
     this.toastr.warning(msg);
