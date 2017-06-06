@@ -9,7 +9,7 @@ import akka.event.slf4j.Logger
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.Http.ServerBinding
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
-import akka.http.scaladsl.server.Directives
+import akka.http.scaladsl.server.{Directives, Route}
 import akka.routing.BalancingPool
 import akka.stream.{ActorMaterializer, ActorMaterializerSettings}
 import akka.util.Timeout
@@ -17,6 +17,7 @@ import com.myinvestor.TradeEvent._
 import com.myinvestor.TradeHelper.JsonApiProtocol
 import com.myinvestor.TradeSchema.{Analysis, ObjectModel}
 import com.myinvestor.cluster.ClusterAwareNodeGuardian
+import com.myinvestor.http.CorsSupport
 import com.typesafe.config.ConfigFactory
 
 import scala.concurrent.duration._
@@ -63,7 +64,7 @@ final class SchedulerNodeGuardian extends ClusterAwareNodeGuardian {
   }
 }
 
-class SchedulerServiceActor extends Actor with ActorLogging {
+class SchedulerServiceActor extends Actor with ActorLogging with CorsSupport {
   val settings = new ClientSettings
 
   import settings._
@@ -75,7 +76,7 @@ class SchedulerServiceActor extends Actor with ActorLogging {
 
   val nodeGuardian: ActorSelection = context.actorSelection(Cluster(context.system).selfAddress.copy(port = Some(BasePort)) + "/user/node-guardian")
   val service = new SchedulerService(nodeGuardian)
-  val bindingFuture: Future[ServerBinding] = Http().bindAndHandle(service.route, HttpHostName, HttpListenPort)
+  val bindingFuture: Future[ServerBinding] = Http().bindAndHandle(corsHandler(service.route), HttpHostName, HttpListenPort)
 
   override def preStart(): Unit = {
   }
@@ -144,7 +145,7 @@ class SchedulerService(nodeGuardian: ActorSelection) extends Directives with Jso
     result
   }
 
-  val route =
+  val route: Route =
     get {
       path("") {
         // nodeGuardian ! BollingerBand("KLSE", Some(Array("YTLPOWR")))

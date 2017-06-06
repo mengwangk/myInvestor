@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
+import { BatchJob } from '../../shared/model';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -42,6 +43,10 @@ export class MyInvestorService {
     return this.httpGetJson(this.serverUrl + '/stocks/chosen/');
   }
 
+  public triggerJob(job: BatchJob) {
+    return this.httpPostJson(environment.jobSchedulerUrl, job);
+  }
+
   httpGetJson(url: string) {
     return this.http.get(url)
       .map((res) => res.json())
@@ -52,9 +57,9 @@ export class MyInvestorService {
   }
 
   httpPostJson(url: string, data: any) {
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post(url, JSON.stringify(data), { headers: headers })
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(url, JSON.stringify(data), options)
       .map((res) => res.json())
       .catch((err) => {
         console.log('Error: ', err);

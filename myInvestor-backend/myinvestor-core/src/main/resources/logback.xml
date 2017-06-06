@@ -32,6 +32,7 @@
     <logger name="org.apache.cassandra.db.SystemKeyspace" level="ERROR"/>
     <logger name="org.apache.spark.storage.BlockManager" level="ERROR"/>
     <logger name="org.apache.hadoop" level="ERROR"/>
+    <logger name="org.spark_project" level="ERROR"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>

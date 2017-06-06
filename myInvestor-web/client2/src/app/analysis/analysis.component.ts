@@ -5,7 +5,6 @@ import {
   ViewContainerRef,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { MyInvestorService, LoggerService } from "../core/service";
 
 import 'rxjs/add/operator/switchMap';
 
@@ -15,6 +14,8 @@ import { environment } from '../../environments/environment';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { MdSnackBar, MdSnackBarConfig, MdSnackBarRef } from '@angular/material';
 import { PickedStocksDetailsComponent } from './picked-stocks-details';
+import { BatchJob } from '../shared/model';
+import { MyInvestorService, LoggerService } from "../core/service";
 
 @Component({
   selector: 'app-analysis',
@@ -33,13 +34,15 @@ export class AnalysisComponent implements OnInit {
     public myInvestor: MyInvestorService,
     public logger: LoggerService,
     public snackBar: MdSnackBar
-    ) {
-      this.toastr.setRootViewContainerRef(vcr);
-      this.pickedStocks = {};
+  ) {
+    this.toastr.setRootViewContainerRef(vcr);
+    this.pickedStocks = {};
   }
 
   ngOnInit() {
     this.getPickedStocks();
+    var batchJob = new BatchJob('DividendAchiever', 'KLSE', []);
+    this.triggerJob(batchJob);
   }
 
   getPickedStocks() {
@@ -59,7 +62,7 @@ export class AnalysisComponent implements OnInit {
     );
   }
 
-  showPickedStocks(category: string){
+  showPickedStocks(category: string) {
     let config: MdSnackBarConfig = new MdSnackBarConfig();
     config.duration = 5000; // Show for 5 seconds
     let component: MdSnackBarRef<PickedStocksDetailsComponent> = this.snackBar.openFromComponent(PickedStocksDetailsComponent, config);
@@ -72,6 +75,18 @@ export class AnalysisComponent implements OnInit {
 
   showInfo(msg: string) {
     this.toastr.info(msg);
+  }
+
+  triggerJob(batchJob: BatchJob) {
+    this.myInvestor.triggerJob(batchJob).subscribe(
+      (results) => {
+        this.showInfo("[" + batchJob.jobName + "] job is triggered.");
+      },
+      (error) => {
+        this.logger.error('Error triggering job', error);
+        return Observable.throw(error);
+      }
+    );
   }
 
 }
