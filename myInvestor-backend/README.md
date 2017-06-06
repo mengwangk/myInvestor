@@ -12,6 +12,8 @@ https://github.com/ruippeixotog/scala-scraper
 https://github.com/Foat/articles/tree/master/akka-web-crawler
 
 http://stackoverflow.com/questions/21600297/how-to-execute-tests-in-a-single-project-only-in-multi-module-build
+
+sbt "project app" "runMain com.myinvestor.MyInvestorApp"
 sbt "project client" "runMain com.myinvestor.SchedulerApp"
 
 Web scraper

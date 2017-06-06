@@ -55,18 +55,86 @@
                 </div>
 
                 <ul class="list-group">
-                    <li class="list-group-item justify-content-between">Stock Info
-                        <div class='pull-right'>
-                            Category
-                        </div>
-                        <div class='pull-right'>
-                            Category1
+                    <li class="list-group-item">
+                        <div class='row'>
+                            <div class='col-lg-1 pull-left'> Stock Info </div>
+                            <div class='col-lg-3 pull=left'>
+                                Category
+                                <select [(ngModel)]='selectedCategory'>
+                                    <option *ngFor="let stock of pickedStocks | pickedStocksFilter ; let i = index" [value]="stock.key">{{stock.key}}</option>
+                                </select>
+                                <button md-raised-button (click)="runJobForPickedStocks(BatchJobTypeEnum.ScrapeStockInfo)"><md-icon>trending_up</md-icon> Run</button>
+                            </div>
+                            <div class='col-lg-3 pull=left'>
+                                Exchange
+                                <select [(ngModel)]='selectedExchange'>
+                                    <option *ngFor="let exchange of exchanges; let i = index" [value]="exchange.exchange_name">{{exchange.exchange_name}}</option>
+                                </select>
+                                <button md-raised-button (click)="runJobForExchange(BatchJobTypeEnum.ScrapeStockInfo)"><md-icon>trending_up</md-icon> Run</button>
+                            </div>
                         </div>
                     </li>
-                    <li class="list-group-item">Dividend History</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+
+                    <li class="list-group-item">
+                        <div class='row'>
+                            <div class='col-lg-1 pull-left'> Dividend History </div>
+                            <div class='col-lg-3 pull=left'>
+                                Category
+                                <select [(ngModel)]='selectedCategory'>
+                                    <option *ngFor="let stock of pickedStocks | pickedStocksFilter ; let i = index" [value]="stock.key">{{stock.key}}</option>
+                                </select>
+                                <button md-raised-button (click)="runJobForPickedStocks(BatchJobTypeEnum.ScrapStockDividendHistory)"><md-icon>trending_up</md-icon> Run</button>
+                            </div>
+                            <div class='col-lg-3 pull=left'>
+                                Exchange
+                                <select [(ngModel)]='selectedExchange'>
+                                    <option *ngFor="let exchange of exchanges; let i = index" [value]="exchange.exchange_name">{{exchange.exchange_name}}</option>
+                                </select>
+                                <button md-raised-button (click)="runJobForExchange(BatchJobTypeEnum.ScrapStockDividendHistory)"><md-icon>trending_up</md-icon> Run</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class='row'>
+                            <div class='col-lg-1 pull-left'> Dividend Summary </div>
+                            <div class='col-lg-3 pull=left'>
+                                Category
+                                <select [(ngModel)]='selectedCategory'>
+                                    <option *ngFor="let stock of pickedStocks | pickedStocksFilter ; let i = index" [value]="stock.key">{{stock.key}}</option>
+                                </select>
+                                <button md-raised-button (click)="runJobForPickedStocks(BatchJobTypeEnum.DividendSummary)"><md-icon>trending_up</md-icon> Run</button>
+                            </div>
+                            <div class='col-lg-3 pull=left'>
+                                Exchange
+                                <select [(ngModel)]='selectedExchange'>
+                                    <option *ngFor="let exchange of exchanges; let i = index" [value]="exchange.exchange_name">{{exchange.exchange_name}}</option>
+                                </select>
+                                <button md-raised-button (click)="runJobForExchange(BatchJobTypeEnum.DividendSummary)"><md-icon>trending_up</md-icon> Run</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div class='row'>
+                            <div class='col-lg-1 pull-left'> Stock History </div>
+                            <div class='col-lg-3 pull=left'>
+                                Category
+                                <select [(ngModel)]='selectedCategory'>
+                                    <option *ngFor="let stock of pickedStocks | pickedStocksFilter ; let i = index" [value]="stock.key">{{stock.key}}</option>
+                                </select>
+                                <button md-raised-button (click)="runJobForPickedStocks(BatchJobTypeEnum.ScrapStockHistory)"><md-icon>trending_up</md-icon> Run</button>
+                            </div>
+                            <div class='col-lg-3 pull=left'>
+                                Exchange
+                                <select [(ngModel)]='selectedExchange'>
+                                    <option *ngFor="let exchange of exchanges; let i = index" [value]="exchange.exchange_name">{{exchange.exchange_name}}</option>
+                                </select>
+                                <button md-raised-button (click)="runJobForExchange(BatchJobTypeEnum.ScrapStockHistory)"><md-icon>trending_up</md-icon> Run</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">Bollinger Band</li>
                 </ul>
 
             </accordion-group>

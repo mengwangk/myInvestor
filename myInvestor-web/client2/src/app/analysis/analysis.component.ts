@@ -16,6 +16,7 @@ import { MdSnackBar, MdSnackBarConfig, MdSnackBarRef } from '@angular/material';
 import { PickedStocksDetailsComponent } from './picked-stocks-details';
 import { BatchJob } from '../shared/model';
 import { MyInvestorService, LoggerService } from "../core/service";
+import { BatchJobType } from "./batch-job-type.enum";
 
 @Component({
   selector: 'app-analysis',
@@ -25,6 +26,13 @@ import { MyInvestorService, LoggerService } from "../core/service";
 export class AnalysisComponent implements OnInit {
 
   pickedStocks: any;
+
+  exchanges: any;
+
+  selectedCategory: string;
+  selectedExchange: string;
+
+  BatchJobTypeEnum = BatchJobType;
 
   constructor(
     public toastr: ToastsManager,
@@ -36,13 +44,13 @@ export class AnalysisComponent implements OnInit {
     public snackBar: MdSnackBar
   ) {
     this.toastr.setRootViewContainerRef(vcr);
+    this.selectedCategory = '';
     this.pickedStocks = {};
   }
 
   ngOnInit() {
+    this.getExchanges();
     this.getPickedStocks();
-    var batchJob = new BatchJob('DividendAchiever', 'KLSE', []);
-    this.triggerJob(batchJob);
   }
 
   getPickedStocks() {
@@ -57,6 +65,20 @@ export class AnalysisComponent implements OnInit {
       },
       (error) => {
         this.logger.error('Error retrieving picked stocks', error);
+        this.showWarning('Unable to get the stocks! ' + JSON.stringify(error));
+        return Observable.throw(error);
+      }
+    );
+  }
+
+  private getExchanges() {
+    this.myInvestor.getExchanges().subscribe(
+      (exchanges) => {
+        this.exchanges = exchanges;
+      },
+      (error) => {
+        this.logger.error('Error retrieving exchanges', error);
+        this.showWarning('Unable to get the exchanges! ' + JSON.stringify(error));
         return Observable.throw(error);
       }
     );
@@ -77,16 +99,47 @@ export class AnalysisComponent implements OnInit {
     this.toastr.info(msg);
   }
 
-  triggerJob(batchJob: BatchJob) {
+  runJobForPickedStocks(jobType: BatchJobType) {
+    if (!this.selectedCategory || this.selectedCategory === '') {
+      this.showWarning('Select a stock category to run the job.');
+      return;
+    }
+    var jobName = BatchJobType[jobType] + "";
+    var stocks = this.pickedStocks[this.selectedCategory];
+    if (stocks.length > 0) {
+      var exchangeName = stocks[0].exchange_name;
+      var symbols = [];
+      for (var i = 0; i < stocks.length; i++) {
+        var stock = stocks[i];
+        symbols.push(stock.stock_symbol);
+      }
+      this.runJob(new BatchJob(jobName, exchangeName, symbols));
+
+    } else {
+      this.showWarning('No stocks in the category.');
+    }
+  }
+
+  runJobForExchange(jobType: BatchJobType) {
+    if (!this.selectedExchange || this.selectedExchange === '') {
+      this.showWarning('Select an exchange to run the job.');
+      return;
+    }
+    var jobName = BatchJobType[jobType] + "";
+    var symbols = [];
+    this.runJob(new BatchJob(jobName, this.selectedExchange, symbols));
+  }
+
+  runJob(batchJob: BatchJob) {
     this.myInvestor.triggerJob(batchJob).subscribe(
       (results) => {
         this.showInfo("[" + batchJob.jobName + "] job is triggered.");
       },
       (error) => {
         this.logger.error('Error triggering job', error);
+        this.showWarning('Error triggering job! ' + JSON.stringify(error));
         return Observable.throw(error);
       }
     );
   }
-
 }
