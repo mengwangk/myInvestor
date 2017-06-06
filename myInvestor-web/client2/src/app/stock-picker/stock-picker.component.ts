@@ -42,8 +42,10 @@ export class StockPickerComponent implements OnInit {
 
   private categoryName: string;
 
+  private selectAllFilteredStocks: boolean;
+
   constructor(
-    public toastr: ToastsManager, 
+    public toastr: ToastsManager,
     public vcr: ViewContainerRef,
     public route: ActivatedRoute,
     public router: Router,
@@ -69,6 +71,7 @@ export class StockPickerComponent implements OnInit {
     this.showResults = false;
     this.yearOption = environment.fundamental.yearOption;
     this.categoryName = 'My Stocks';
+    this.selectAllFilteredStocks = false;
     this.getStocks();
     this.getDividendSummary();
   }
@@ -161,7 +164,13 @@ export class StockPickerComponent implements OnInit {
     );
   }
 
-  searchByNameOrSymbol(){
+  onSelectAllFilteredStocks() {
+    this.filteredStocks.forEach(stock => {
+      stock.chosen = this.selectAllFilteredStocks;
+    });
+  }
+
+  searchByNameOrSymbol() {
     // TODO
   }
   pickStocks() {
@@ -176,18 +185,17 @@ export class StockPickerComponent implements OnInit {
     }
     var stocks = [];
     chosenStocks.forEach(stock => {
-      stocks.push({exchange_name: stock.exchangeName, stock_symbol: stock.stockSymbol, category: this.categoryName});
+      stocks.push({ exchange_name: stock.exchangeName, stock_symbol: stock.stockSymbol, category: this.categoryName });
     });
     this.myInvestor.saveChosenStocks(stocks).subscribe(
       (results) => {
-        this.showInfo(results.count +  ' stocks saved!');
+        this.showInfo(results.count + ' stocks saved!');
       },
       (error) => {
         this.logger.error('Error saving stocks', error);
         return Observable.throw(error);
       }
     );
-
   }
 
   showWarning(msg: string) {
@@ -208,7 +216,3 @@ function orderDividendDateDesc(dividendSummary1: DividendSummary, dividendSummar
   }
   return 0;
 }
-
-
-
-

@@ -67,6 +67,7 @@
         <md-card>
             <md-card-title>{{filteredStocks.length}} stocks</md-card-title>
             <md-card-content>
+                <md-checkbox [(ngModel)]="selectAllFilteredStocks" (change)="onSelectAllFilteredStocks()">Select All</md-checkbox>
                 <md-grid-list cols="3" rowHeight="50px">
                     <md-grid-tile *ngFor="let stock of filteredStocks; let i = index" style="background:lightblue">
                         <md-grid-tile-header>
