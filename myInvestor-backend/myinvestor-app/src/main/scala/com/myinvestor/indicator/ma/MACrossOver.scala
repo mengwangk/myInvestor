@@ -1,7 +1,7 @@
 package com.myinvestor.indicator.ma
 
 /**
-  * Created by MEKOH on 6/6/2017.
+  * Moving average cross-over.
   */
 class MACrossOver {
 
