@@ -30,7 +30,7 @@ export class LoggerService {
   timeEnd(label: string): void {
     console.timeEnd(label);
   }
-  
+
   trace(message?: any, ...optionalParams: any[]): void {
     console.trace(message, optionalParams);
   }
