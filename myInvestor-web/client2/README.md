@@ -20,6 +20,12 @@ npm i ag-grid --save
 npm i ag-grid-angular --save
 
 
+icons
+- http://www.flaticon.com/packs
+- http://www.flaticon.com/packs/stock-exchange
+- https://www.shutterstock.com/
+- https://www.pexels.com/
+- https://github.com/oblador/react-native-vector-icons
 
 # Instructions
 
