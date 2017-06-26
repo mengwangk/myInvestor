@@ -5,8 +5,8 @@
 
 'use strict';
 
-var React = require('React');
-var View = require('View');
+import React, { Component } from 'react';
+import { Text, View } from 'react-native';
 
 class Playground extends React.Component {
     state: {
@@ -20,7 +20,6 @@ class Playground extends React.Component {
             content.push(<Example key={name} render={render} />);
         };
         var Module = require('MyInvestorHeader');
-
         // $FlowFixMe: doesn't understand static
         Module.__cards__(define);
         this.state = { content };
