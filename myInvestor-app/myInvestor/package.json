@@ -12,15 +12,22 @@
         "moment": "^2.18.1",
         "react": "16.0.0-alpha.12",
         "react-native": "0.45.1",
+        "react-native-code-push": "^2.1.0-beta",
         "react-native-vector-icons": "^4.2.0",
         "react-redux": "^5.0.5",
         "react-relay": "^1.1.0",
-        "redux": "^3.7.1"
+        "redux": "^3.7.1",
+        "reselect": "^3.0.1"
     },
     "devDependencies": {
+        "babel-eslint": "^7.2.3",
         "babel-jest": "20.0.3",
+        "babel-polyfill": "^6.23.0",
         "babel-preset-react-native": "2.0.0",
+        "eslint": "^4.1.1",
+        "eslint-plugin-react": "^7.1.0",
         "jest": "20.0.4",
+        "jest-cli": "^20.0.4",
         "react-test-renderer": "16.0.0-alpha.12"
     },
     "jest": {

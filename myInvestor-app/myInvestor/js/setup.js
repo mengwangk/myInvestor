@@ -1,8 +1,6 @@
 /**
- *
  * @flow
  */
-
 'use strict';
 
 var MyInvestorAppApp = require('MyInvestorApp');
@@ -22,17 +20,17 @@ function setup(): ReactClass<{}> {
     constructor() {
       super();
       this.state = {
-        isLoading: true,
-        store: configureStore(() => this.setState({ isLoading: false })),
+        isLoading: false,
       };
     }
+
     render() {
       if (this.state.isLoading) {
         return null;
       }
       return (
         <Provider store={this.state.store}>
-          <F8App />
+          <MyInvestorApp />
         </Provider>
       );
     }
