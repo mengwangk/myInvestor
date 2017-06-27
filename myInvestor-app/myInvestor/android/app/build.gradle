@@ -87,7 +87,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 android {
     compileSdkVersion 23
@@ -111,12 +111,31 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYINVESTOR_RELEASE_STORE_FILE')) {
+                storeFile file(MYINVESTOR_RELEASE_STORE_FILE)
+                storePassword MYINVESTOR_RELEASE_STORE_PASSWORD
+                keyAlias MYINVESTOR_RELEASE_KEY_ALIAS
+                keyPassword MYINVESTOR_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
+    // https://stackoverflow.com/questions/35224255/to-run-dex-in-process-the-gradle-daemon-needs-a-larger-heap-it-currently-has-9
+    //lintOptions {
+    //    checkReleaseBuilds false
+    //    abortOnError false
+    //}
+    dexOptions {
+        javaMaxHeapSize "3g"
+    }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
-    }
+    }    
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->

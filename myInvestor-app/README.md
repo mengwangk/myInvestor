@@ -7,5 +7,10 @@ For React Native
 
 create-native-app using Expo. Run "npm run eject" to go native.
 
+keytool -genkey -v -keystore myinvestor.keystore -alias myinvestor -keyalg RSA -keysize 2048 -validity 10000
+
+cd android && ./gradlew assembleRelease
+gradlew clean assembleRelease -d
+
 # Reference
 http://makeitopen.com/ 
