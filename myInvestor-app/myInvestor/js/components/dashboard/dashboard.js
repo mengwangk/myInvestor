@@ -6,12 +6,13 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TabNavigator } from "react-navigation";
-import About from "./about";
+import Watchlist from "../watchlist/watchlist";
+import Portfolio from "../portfolio/portfolio";
 
 const Dashboard = TabNavigator(
   {
-    About1: { screen: About },
-    About2: { screen: About }
+    Watchlist: { screen: Watchlist },
+    Portfolio: { screen: Portfolio }
   },
   {
     tabBarPosition: "bottom"

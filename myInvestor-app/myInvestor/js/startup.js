@@ -6,7 +6,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
-import MyInvestorNavigator from "./MyInvestorNavigator";
+import MyInvestorApp from "./MyInvestorApp";
 import configureStore from "./store/configureStore";
 
 function startup(): ReactClass<{}> {
@@ -29,20 +29,13 @@ function startup(): ReactClass<{}> {
 
     render() {
       return (
-        <Provider store={this.store}>
-          <MyInvestorNavigator />
+        <Provider store={this.state.store}>
+          <MyInvestorApp />
         </Provider>
       );
     }
   }
   return Main;
 }
-
-global.LOG = (...args) => {
-  console.log("/------------------------------\\");
-  console.log(...args);
-  console.log("\\------------------------------/");
-  return args[args.length - 1];
-};
 
 module.exports = startup;
