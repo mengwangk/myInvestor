@@ -21,7 +21,7 @@ class MyInvestorApp extends React.Component {
     AppState.addEventListener("change", this.handleAppStateChange);
 
     // Dispatch
-    // this.props.dispatch(getWatchlist());
+    this.props.dispatch(getWatchlist());
   }
 
   handleAppStateChange(appState) {

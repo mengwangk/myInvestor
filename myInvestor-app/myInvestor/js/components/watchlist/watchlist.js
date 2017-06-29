@@ -9,7 +9,18 @@ import { connect } from "react-redux";
 
 class Watchlist extends React.Component {
   render() {
-    return <Text>Watchlist</Text>;
+    return (
+      <Text>
+        {this.props.watchlist}
+      </Text>
+    );
   }
 }
-export default connect()(Watchlist);
+
+function mapStateToProps(state, ownProps) {
+  return {
+    watchlist: state.watchlist
+  };
+}
+
+export default connect(mapStateToProps)(Watchlist);
