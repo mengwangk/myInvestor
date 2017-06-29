@@ -4,6 +4,7 @@
 
 "use strict";
 
+import { applyMiddleware, createStore } from "redux";
 import { persistStore, autoRehydrate } from "redux-persist";
 import { ASyncStorage } from "react-native";
 import thunk from "redux-thunk";
