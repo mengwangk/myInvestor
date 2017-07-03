@@ -1,8 +1,23 @@
 package com.myinvestor.indicator.ma
 
+import com.myinvestor.indicator.Indicator
+import com.myinvestor.{AppSettings, SparkContextUtils}
+import com.typesafe.scalalogging.Logger
+import org.apache.spark.SparkContext
+
 /**
-  * Created by MEKOH on 5/22/2017.
+  * Bollinger band indicator.
   */
-class BollingerBand {
+class BollingerBand extends Indicator{
+
+  val log = Logger(this.getClass.getName)
+
+  def run: Boolean = {
+    val settings = new AppSettings
+    val sc: SparkContext = SparkContextUtils.sparkContext
+    var status = true
+
+    status
+  }
 
 }
