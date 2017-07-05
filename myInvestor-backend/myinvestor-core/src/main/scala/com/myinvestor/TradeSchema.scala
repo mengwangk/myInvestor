@@ -22,6 +22,7 @@ object TradeSchema {
   val DividendSummaryTable = "dividend_summary"
   val DividendHistoryTable = "dividend_history"
   val G2YFinanceMappingTable = "g2yfinance_mapping"
+  val ChosenStockTable = "chosen_stock"
 
   // Columns
   val ExchangeNameColumn = "exchange_name"
@@ -31,6 +32,8 @@ object TradeSchema {
   val YahooStockSymbolColumn = "y_stock_symbol"
   val GoogleExchangeNameColumn = "g_exchange_name"
   val GoogleStockSymbolColumn = "g_stock_symbol"
+  val CategoryColumn = "category"
+
 
   // Classes
 
@@ -73,7 +76,6 @@ object TradeSchema {
         "info52weeksTo" -> "info_52weeks_to"
       )
     )
-
   }
 
   object JobType extends Enumeration {

@@ -4,27 +4,26 @@ import {
   Input,
   ViewContainerRef,
   ChangeDetectionStrategy
-} from '@angular/core';
+} from "@angular/core";
 
-import 'rxjs/add/operator/switchMap';
+import "rxjs/add/operator/switchMap";
 
-import { RouterModule, Routes, ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { environment } from '../../environments/environment';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { MdSnackBar, MdSnackBarConfig, MdSnackBarRef } from '@angular/material';
-import { PickedStocksDetailsComponent } from './picked-stocks-details';
-import { BatchJob } from '../shared/model';
+import { RouterModule, Routes, ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs/Observable";
+import { environment } from "../../environments/environment";
+import { ToastsManager } from "ng2-toastr/ng2-toastr";
+import { MdSnackBar, MdSnackBarConfig, MdSnackBarRef } from "@angular/material";
+import { PickedStocksDetailsComponent } from "./picked-stocks-details";
+import { BatchJob } from "../shared/model";
 import { MyInvestorService, LoggerService } from "../core/service";
 import { BatchJobType } from "./batch-job-type.enum";
 
 @Component({
-  selector: 'app-analysis',
-  templateUrl: './analysis.component.html',
-  styleUrls: ['./analysis.component.css']
+  selector: "app-analysis",
+  templateUrl: "./analysis.component.html",
+  styleUrls: ["./analysis.component.css"]
 })
 export class AnalysisComponent implements OnInit {
-
   pickedStocks: any;
 
   exchanges: any;
@@ -44,7 +43,7 @@ export class AnalysisComponent implements OnInit {
     public snackBar: MdSnackBar
   ) {
     this.toastr.setRootViewContainerRef(vcr);
-    this.selectedCategory = '';
+    this.selectedCategory = "";
     this.pickedStocks = {};
   }
 
@@ -55,7 +54,7 @@ export class AnalysisComponent implements OnInit {
 
   getPickedStocks() {
     this.myInvestor.getChosenStocks().subscribe(
-      (stocks) => {
+      stocks => {
         stocks.forEach(stock => {
           if (!this.pickedStocks[stock.category]) {
             this.pickedStocks[stock.category] = [];
@@ -63,22 +62,24 @@ export class AnalysisComponent implements OnInit {
           this.pickedStocks[stock.category].push(stock);
         });
       },
-      (error) => {
-        this.logger.error('Error retrieving picked stocks', error);
-        this.showWarning('Unable to get the stocks! ' + JSON.stringify(error));
+      error => {
+        this.logger.error("Error retrieving picked stocks", error);
+        this.showWarning("Unable to get the stocks! " + JSON.stringify(error));
         return Observable.throw(error);
       }
     );
   }
 
-  private getExchanges() {
+  getExchanges() {
     this.myInvestor.getExchanges().subscribe(
-      (exchanges) => {
+      exchanges => {
         this.exchanges = exchanges;
       },
-      (error) => {
-        this.logger.error('Error retrieving exchanges', error);
-        this.showWarning('Unable to get the exchanges! ' + JSON.stringify(error));
+      error => {
+        this.logger.error("Error retrieving exchanges", error);
+        this.showWarning(
+          "Unable to get the exchanges! " + JSON.stringify(error)
+        );
         return Observable.throw(error);
       }
     );
@@ -87,9 +88,10 @@ export class AnalysisComponent implements OnInit {
   showPickedStocks(category: string) {
     let config: MdSnackBarConfig = new MdSnackBarConfig();
     config.duration = 5000; // Show for 5 seconds
-    let component: MdSnackBarRef<PickedStocksDetailsComponent> = this.snackBar.openFromComponent(PickedStocksDetailsComponent, config);
+    let component: MdSnackBarRef<
+      PickedStocksDetailsComponent
+    > = this.snackBar.openFromComponent(PickedStocksDetailsComponent, config);
     component.instance.showDetails(category, this.pickedStocks[category]);
-
   }
   showWarning(msg: string) {
     this.toastr.warning(msg);
@@ -100,8 +102,8 @@ export class AnalysisComponent implements OnInit {
   }
 
   runJobForPickedStocks(jobType: BatchJobType) {
-    if (!this.selectedCategory || this.selectedCategory === '') {
-      this.showWarning('Select a stock category to run the job.');
+    if (!this.selectedCategory || this.selectedCategory === "") {
+      this.showWarning("Select a stock category to run the job.");
       return;
     }
     var jobName = BatchJobType[jobType] + "";
@@ -114,15 +116,14 @@ export class AnalysisComponent implements OnInit {
         symbols.push(stock.stock_symbol);
       }
       this.runJob(new BatchJob(jobName, exchangeName, symbols));
-
     } else {
-      this.showWarning('No stocks in the category.');
+      this.showWarning("No stocks in the category.");
     }
   }
 
   runJobForExchange(jobType: BatchJobType) {
-    if (!this.selectedExchange || this.selectedExchange === '') {
-      this.showWarning('Select an exchange to run the job.');
+    if (!this.selectedExchange || this.selectedExchange === "") {
+      this.showWarning("Select an exchange to run the job.");
       return;
     }
     var jobName = BatchJobType[jobType] + "";
@@ -132,12 +133,12 @@ export class AnalysisComponent implements OnInit {
 
   runJob(batchJob: BatchJob) {
     this.myInvestor.triggerJob(batchJob).subscribe(
-      (results) => {
+      results => {
         this.showInfo("[" + batchJob.jobName + "] job is triggered.");
       },
-      (error) => {
-        this.logger.error('Error triggering job', error);
-        this.showWarning('Error triggering job! ' + JSON.stringify(error));
+      error => {
+        this.logger.error("Error triggering job", error);
+        this.showWarning("Error triggering job! " + JSON.stringify(error));
         return Observable.throw(error);
       }
     );
