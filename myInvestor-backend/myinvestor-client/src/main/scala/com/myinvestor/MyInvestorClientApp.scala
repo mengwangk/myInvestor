@@ -3,7 +3,7 @@ package com.myinvestor
 import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Cancellable, PoisonPill, Props}
 import akka.cluster.Cluster
 import com.myinvestor.TradeEvent.{BollingerBand, QueryTask}
-import com.myinvestor.TradeSchema.{Analysis, ObjectModel}
+import com.myinvestor.TradeSchema.{Analysis, ModelBase}
 import com.myinvestor.cluster.ClusterAwareNodeGuardian
 import com.typesafe.config.ConfigFactory
 
@@ -78,7 +78,7 @@ private[myinvestor] class AutomatedApiActor extends Actor with ActorLogging {
   def receive: Actor.Receive = {
     case e: Analysis =>
       log.debug("Received {} from {}", e, sender)
-    case e: ObjectModel =>
+    case e: ModelBase =>
       log.debug("Received {} from {}", e, sender)
     case QueryTask => queries()
   }

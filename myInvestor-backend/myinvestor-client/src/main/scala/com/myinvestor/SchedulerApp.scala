@@ -15,7 +15,7 @@ import akka.stream.{ActorMaterializer, ActorMaterializerSettings}
 import akka.util.Timeout
 import com.myinvestor.TradeEvent._
 import com.myinvestor.TradeHelper.JsonApiProtocol
-import com.myinvestor.TradeSchema.{Analysis, ObjectModel}
+import com.myinvestor.TradeSchema.{Analysis, ModelBase}
 import com.myinvestor.cluster.ClusterAwareNodeGuardian
 import com.myinvestor.http.CorsSupport
 import com.typesafe.config.ConfigFactory
@@ -90,7 +90,7 @@ class SchedulerServiceActor extends Actor with ActorLogging with CorsSupport {
   def receive: Actor.Receive = {
     case e: Analysis =>
       log.debug("Received {} from {}", e, sender)
-    case e: ObjectModel =>
+    case e: ModelBase =>
       log.debug("Received {} from {}", e, sender)
     //case QueryTask => queries()
     case e =>

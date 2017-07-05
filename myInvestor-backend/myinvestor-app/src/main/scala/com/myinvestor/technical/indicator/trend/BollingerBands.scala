@@ -1,4 +1,4 @@
-package com.myinvestor.technical.indicator.ma
+package com.myinvestor.technical.indicator.trend
 
 import com.myinvestor.technical.indicator.Indicator
 import com.myinvestor.{AppSettings, SparkContextUtils}

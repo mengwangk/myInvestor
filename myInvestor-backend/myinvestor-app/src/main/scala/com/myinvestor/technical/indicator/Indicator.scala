@@ -1,4 +1,4 @@
-package com.myinvestor.indicator
+package com.myinvestor.technical.indicator
 
 import com.datastax.spark.connector._
 import com.myinvestor.{AppSettings, SparkContextUtils, TradeSchema}

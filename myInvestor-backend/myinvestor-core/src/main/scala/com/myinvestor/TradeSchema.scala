@@ -38,17 +38,17 @@ object TradeSchema {
   // Classes
 
   @SerialVersionUID(1L)
-  trait ObjectModel extends Serializable
+  trait ModelBase extends Serializable
 
   case class Request(requestId: UUID, success: Boolean, errorMsg: String, received: DateTime = DateTime.now())
 
-  case class Exchange(exchangeName: String, description: String, stockCount: Int) extends ObjectModel
+  case class Exchange(exchangeName: String, description: String, stockCount: Int) extends ModelBase
 
-  case class Stock(stockSymbol: String, stockName: String, exchangeName: String) extends ObjectModel
+  case class Stock(stockSymbol: String, stockName: String, exchangeName: String) extends ModelBase
 
   case class StockHistory(stockSymbol: String, exchangeName: String, historyDate: DateTime,
                           historyOpen: Double, historyHigh: Double, historyLow: Double, historyClose: Double,
-                          historyVolume: Double) extends ObjectModel
+                          historyVolume: Double) extends ModelBase
 
   case class StockInfo(stockSymbol: String, exchangeName: String,
                        info52weeksFrom: String, info52weeksTo: String,
@@ -57,15 +57,16 @@ object TradeSchema {
                        infoInstOwn: String, infoMarketCapital: String, infoOpen: String,
                        infoPe: String, infoRangeFrom: String, infoRangeTo: String, infoShares: String,
                        infoTime: String, infoVolume: String,
-                       infoExtractedTimestamp: DateTime = DateTime.now()) extends ObjectModel
+                       infoExtractedTimestamp: DateTime = DateTime.now()) extends ModelBase
 
   case class DividendSummary(gExchangeName: String, gStockSymbol: String, dividendYear: Int, dividend: Double,
-                             currentPrice: Double, priceDate: DateTime, dividendYield: Double) extends ObjectModel
+                             currentPrice: Double, priceDate: DateTime, dividendYield: Double) extends ModelBase
 
-  case class DividendHistory(yExchangeName: String, yStockSymbol: String, dividendDate: DateTime, dividend: Double) extends ObjectModel
+  case class DividendHistory(yExchangeName: String, yStockSymbol: String, dividendDate: DateTime, dividend: Double) extends ModelBase
 
-  case class G2YFinanceMapping(gStockSymbol: String, yStockSymbol: String, gExchangeName: String, gStockName: String, yExchangeName: String, yStockName: String)
-    extends ObjectModel
+  case class G2YFinanceMapping(gStockSymbol: String, yStockSymbol: String, gExchangeName: String, gStockName: String, yExchangeName: String, yStockName: String) extends ModelBase
+
+  case class ChosenStock(category: String, exchangeName: String, stockSymbol: String, createDate: DateTime) extends ModelBase
 
   // Object mapper
   object StockInfo {
@@ -76,6 +77,7 @@ object TradeSchema {
         "info52weeksTo" -> "info_52weeks_to"
       )
     )
+
   }
 
   object JobType extends Enumeration {
@@ -88,22 +90,25 @@ object TradeSchema {
 
   }
 
-  trait Job extends ObjectModel with Serializable {
+  trait Job extends ModelBase with Serializable {
     def jobName: String
+
     def exchangeName: String
+
     def symbols: Array[String]
   }
+
   case class BatchJob(jobName: String, exchangeName: String, symbols: Array[String]) extends Job
 
 
   // Web scraping request
-  trait WebScraping extends ObjectModel
+  trait WebScraping extends ModelBase
 
   case class WebScrapingResult(status: Boolean) extends WebScraping
 
 
   // ----- Processed trade analysis results
-  trait Analysis extends ObjectModel with Serializable {
+  trait Analysis extends ModelBase with Serializable {
     def status: Boolean
   }
 
@@ -119,4 +124,5 @@ object TradeSchema {
 
   // -- This is the result to be returned...
   case class BollingerBandAnalysis(status: Boolean) extends TA
+
 }
