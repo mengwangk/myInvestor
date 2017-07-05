@@ -1,6 +1,6 @@
-package com.myinvestor.indicator.ma
+package com.myinvestor.technical.indicator.ma
 
-import com.myinvestor.indicator.Indicator
+import com.myinvestor.technical.indicator.Indicator
 import com.myinvestor.{AppSettings, SparkContextUtils}
 import com.typesafe.scalalogging.Logger
 import org.apache.spark.SparkContext
@@ -8,9 +8,7 @@ import org.apache.spark.SparkContext
 /**
   * Bollinger band indicator.
   */
-class BollingerBand extends Indicator{
-
-  val log = Logger(this.getClass.getName)
+class BollingerBands(var category: String) extends Indicator{
 
   def run: Boolean = {
     val settings = new AppSettings

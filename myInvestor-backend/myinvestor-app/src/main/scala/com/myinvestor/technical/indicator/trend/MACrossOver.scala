@@ -1,4 +1,4 @@
-package com.myinvestor.indicator.ma
+package com.myinvestor.technical.indicator.ma
 
 /**
   * Moving average cross-over.
