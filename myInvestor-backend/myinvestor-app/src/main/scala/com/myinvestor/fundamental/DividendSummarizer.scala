@@ -36,7 +36,7 @@ class DividendSummarizer(val exchangeName: String, val symbols: Option[Array[Str
     if (total > 0) {
       stocks.foreach { stockSymbol =>
         current = current + 1
-        log.info(s"Summarizing stock dividend history for [$current/$total] ${exchangeName} - ${stockSymbol}")
+        log.info(s"Summarizing stock dividend history for [$current/$total] $exchangeName - $stockSymbol")
 
         var summaries: Map[Int, Double] = Map[Int, Double]()
         // Get a list of mapped stocks from Yahoo Finance
