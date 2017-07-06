@@ -1,8 +1,11 @@
 package com.myinvestor.technical.indicator
 
+import java.util
+
 import com.datastax.spark.connector._
 import com.myinvestor.{AppSettings, SparkContextUtils, TradeSchema}
 import com.typesafe.scalalogging.Logger
+import eu.verdelhan.ta4j.{Tick, TimeSeries}
 import org.apache.spark.SparkContext
 
 
@@ -11,18 +14,33 @@ import org.apache.spark.SparkContext
   */
 trait Indicator {
 
+  import TradeSchema._
+
   val log = Logger(this.getClass.getName)
+
+  val sc: SparkContext = SparkContextUtils.sparkContext
 
   // Stock category
   var category: String
 
-  def getChosenStock():Unit = {
-
+  def getChosenStocks: Array[ChosenStock] = {
     val settings = new AppSettings
-    import TradeSchema._
-
-    val sc: SparkContext = SparkContextUtils.sparkContext
-    val chosenStocks:Array[ChosenStock] =  sc.cassandraTable[ChosenStock](Keyspace, ChosenStockTable).where(CategoryColumn + " = ?", category).collect()
-
+    sc.cassandraTable[ChosenStock](Keyspace, ChosenStockTable).where(CategoryColumn + " = ?", category).collect()
   }
+
+  def getTimeSeries(exchangeName: String, stockSymbol: String): TimeSeries = {
+
+    // Get the stock as list instead of RDD
+    val stockHistories = sc.cassandraTable[StockHistory](Keyspace, StockHistoryTable).where(ExchangeNameColumn + " = ? AND " + StockSymbolColumn + " = ?", exchangeName, stockSymbol).collect()
+
+    // ta4j required ticks
+    val ticks = new util.ArrayList[Tick]()
+    stockHistories.foreach { history =>
+      ticks.add(new Tick(history.historyDate, history.historyOpen, history.historyHigh, history.historyLow, history.historyClose, history.historyVolume))
+    }
+    new TimeSeries(exchangeName + "-" + stockSymbol, ticks)
+  }
+
+  def run: Boolean
+
 }
