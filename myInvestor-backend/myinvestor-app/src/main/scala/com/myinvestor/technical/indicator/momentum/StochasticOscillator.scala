@@ -1,8 +1,8 @@
 package com.myinvestor.technical.indicator.momentum
 
 /**
-  * Created by MEKOH on 5/22/2017.
+  * Created by MEKOH on 7/6/2017.
   */
-class Stochastic {
+class StochasticOscillator {
 
 }

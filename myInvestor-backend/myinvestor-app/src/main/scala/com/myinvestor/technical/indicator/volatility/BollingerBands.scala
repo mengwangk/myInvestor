@@ -1,6 +1,6 @@
 package com.myinvestor.technical.indicator.trend
 
-import com.myinvestor.technical.indicator.Indicator
+import com.myinvestor.technical.indicator.TAIndicator
 import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator
 import eu.verdelhan.ta4j.indicators.statistics.StandardDeviationIndicator
 import eu.verdelhan.ta4j.indicators.trackers.EMAIndicator
@@ -8,7 +8,7 @@ import eu.verdelhan.ta4j.indicators.trackers.bollinger.{BollingerBandsLowerIndic
 /**
   * Bollinger band indicator. Used as confirming signal.
   */
-class BollingerBands(var category: String) extends Indicator {
+class BollingerBands(var category: String) extends TAIndicator {
 
   // Default values
   val NPeriod = 20  // N period moving average
