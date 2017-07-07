@@ -12,7 +12,7 @@ import org.apache.spark.SparkContext
 /**
   * Technical indicators.
   */
-trait Indicator {
+trait TAIndicator {
 
   import TradeSchema._
 

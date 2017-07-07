@@ -1,4 +1,4 @@
-package com.myinvestor.technical.indicator.trend
+package com.myinvestor.technical.indicator.volatility
 
 import com.myinvestor.technical.indicator.TAIndicator
 import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator

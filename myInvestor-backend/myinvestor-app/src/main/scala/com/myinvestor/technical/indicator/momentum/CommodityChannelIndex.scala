@@ -1,4 +1,4 @@
-package com.myinvestor.technical.indicator.other
+package com.myinvestor.technical.indicator.momentum
 
 /**
   * Commodity Channel Index (CCI) indicator.
