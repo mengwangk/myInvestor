@@ -7,9 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.appengine.*;
-
-// [START example]
 @SuppressWarnings("serial")
 public class HelloServlet extends HttpServlet {
 
@@ -19,4 +16,3 @@ public class HelloServlet extends HttpServlet {
     out.println("Hello, world");
   }
 }
-// [END example]
