@@ -4,6 +4,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
+	<!--
+	<servlet>
+		<servlet-name>hello</servlet-name>
+		<servlet-class>com.myinvestor.HelloServlet</servlet-class>
+	</servlet>
+
 	<servlet>
 		<servlet-name>EndpointsServlet</servlet-name>
 		<servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
@@ -13,7 +19,16 @@
 		</init-param>
 	</servlet>
 
+	-->
 	
+	<!--  commented out else endpoint will not work
+	<servlet-mapping>
+		<servlet-name>hello</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	-->
+
+	<!--
 	<servlet-mapping>
 		<servlet-name>EndpointsServlet</servlet-name>
 		<url-pattern>/_ah/api/*</url-pattern>
@@ -51,5 +66,6 @@
 		<filter-name>endpoints-api-controller</filter-name>
 		<servlet-name>EndpointsServlet</servlet-name>
 	</filter-mapping>
+	-->
 
 </web-app>

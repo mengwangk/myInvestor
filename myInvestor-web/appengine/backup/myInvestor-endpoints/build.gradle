@@ -22,7 +22,7 @@ task wrapper(type: Wrapper) {
     gradleVersion = '3.5.1'
 }
 
-// def projectId = 'myinvestor-prod'
+// def projectId = 'myinvestor-27094'
 def projectId = 'myinvestor-stg'
 
 apply plugin: 'eclipse'
@@ -49,11 +49,7 @@ dependencies {
   // Other dependencies
   compile group: 'com.googlecode.objectify', name: 'objectify', version: OBJECTIFY_VERSION
   compile group: 'com.google.guava', name: 'guava', version: GUAVA_VERSION
-  compile group: 'com.google.inject', name: 'guice', version: GUICE_VERSION
-  compile group: 'com.google.inject.extensions', name: 'guice-servlet', version: GUICE_VERSION
-  compile group: 'org.apache.commons', name: 'commons-lang3', version: COMMON_LANG_VERSION
-  compile group: 'org.slf4j', name: 'slf4j-api', version: SLF4J_VERSION
-  compile group: 'org.slf4j', name: 'slf4j-jdk14', version: SLF4J_VERSION
+  
 
 }
 
@@ -96,7 +92,7 @@ task reloadApp(type: Copy) {
 task replaceProjectId(type: Copy) {
     from 'src/main/webapp/WEB-INF/'
     include '*.xml'
-    into 'build/exploded-myInvestor/WEB-INF'		// Changed to the project name
+    into 'build/exploded-myInvestor-endpoints/WEB-INF'		// Changed to the project name
     expand(endpoints:[project:[id:projectId]])
     filteringCharset = 'UTF-8'
 }
