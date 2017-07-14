@@ -1,5 +1,5 @@
 
-package com.myinvestor;
+package com.myinvestor.service;
 
 import com.google.api.server.spi.auth.EspAuthenticator;
 import com.google.api.server.spi.auth.common.User;
@@ -12,6 +12,8 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.config.Nullable;
 import com.google.api.server.spi.response.UnauthorizedException;
+import com.myinvestor.entity.Email;
+import com.myinvestor.entity.Message;
 
 /** The Echo API which Endpoints will be exposing. */
 // [START echo_api_annotation]

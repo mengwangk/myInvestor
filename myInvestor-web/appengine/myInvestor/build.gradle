@@ -11,8 +11,8 @@ buildscript {    // Configuration for building
 
 repositories {   // repositories for Jar's you access in your code
   maven {
-     url 'https://maven-central.storage.googleapis.com'             // Google's mirror of Maven Central
-  	 // url 'https://oss.sonatype.org/content/repositories/snapshots'  // SNAPSHOT Repository (if needed)
+     url 'https://maven-central.storage.googleapis.com'             	// Google's mirror of Maven Central
+  	 // url 'https://oss.sonatype.org/content/repositories/snapshots'   // SNAPSHOT Repository (if needed)
   }
   jcenter()
   mavenCentral()
@@ -23,13 +23,18 @@ task wrapper(type: Wrapper) {
 }
 
 // def projectId = 'myinvestor-prod'
-def projectId = 'myinvestor-stg'
+def projectId = APPENGINE_PROJECT_ID
 
 apply plugin: 'eclipse'
 apply plugin: 'java'                              // standard Java tasks
 apply plugin: 'war'                               // standard Web Archive plugin
 apply plugin: 'com.google.cloud.tools.appengine'  // App Engine tasks
 apply plugin: 'com.google.cloud.tools.endpoints-framework-server'
+
+// To prevvent slf4j multiple bindings error
+configurations.all {
+   exclude group: 'org.slf4j', module: 'slf4j-nop'
+}
 
 dependencies {
    
@@ -54,14 +59,19 @@ dependencies {
   compile group: 'org.apache.commons', name: 'commons-lang3', version: COMMON_LANG_VERSION
   compile group: 'org.slf4j', name: 'slf4j-api', version: SLF4J_VERSION
   compile group: 'org.slf4j', name: 'slf4j-jdk14', version: SLF4J_VERSION
+  compile group: 'org.apache.commons', name: 'commons-configuration2', version: COMMONS_CONFIGURATION_VERSION
+  compile group: 'commons-beanutils', name: 'commons-beanutils', version: COMMONS_BEANUTILS_VERSION
+  compile group: 'commons-logging', name: 'commons-logging', version: COMMONS_LOGGING_VERSION
 
 }
 
 // [App Engine start]
 appengine {  					// App Engine tasks configuration
+
   run {      					// local (dev_appserver) configuration (standard environments only)
     port = 8080                 // default
-    //jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005', "-Dappengine.fullscan.seconds=5"]
+    // https://discuss.gradle.org/t/how-do-you-attach-a-debugger-to-gradle-so-that-i-can-debug-it-running-a-task/7526/10
+    //jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005', "-Dappengine.fullscan.seconds=5"]
   }
 
   deploy {   // deploy configuration
@@ -71,8 +81,8 @@ appengine {  					// App Engine tasks configuration
 }
 // [App Engine end]
 
-group = 'com.myinvestor'   // Generated output GroupId
-version = '0.1.0'          // Version in generated output
+group = APP_GROUP_ID   	// Generated output GroupId
+version = APP_VERSION   // Version in generated output
 
 endpointsServer {
   // Endpoints Framework Plugin server-side configuration

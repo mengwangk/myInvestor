@@ -1,29 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
 
-	<!-- 
-	<application>myinvestor-dev</application> 
-	
-	<version>1</version> 
-	-->
-	
-	
 	<threadsafe>true</threadsafe>
-
-	<runtime>java8</runtime>
-	
-	<!-- 
-	<basic-scaling>
-		<max-instances>2</max-instances>
-	</basic-scaling>
-	-->
 	
 	<system-properties>
 		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
 	</system-properties>
 
 	<env-variables>
+		<!--  Production -->
+		<!-- 
 		<env-var name="ENDPOINTS_SERVICE_NAME" value="echo-api.endpoints.${endpoints.project.id}.cloud.goog"/>
+		-->
+		
+		<!--  Development -->
+		<env-var name="ENDPOINTS_SERVICE_NAME" value="echo-api.endpoints.myinvestor-stg.cloud.goog"/>
+		
 	</env-variables>
 
 </appengine-web-app>

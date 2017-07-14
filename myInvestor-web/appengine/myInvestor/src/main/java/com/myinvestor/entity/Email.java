@@ -1,4 +1,4 @@
-package com.myinvestor;
+package com.myinvestor.entity;
 
 /** The email bean that will be used in the getUserEmail response. */
 public class Email {

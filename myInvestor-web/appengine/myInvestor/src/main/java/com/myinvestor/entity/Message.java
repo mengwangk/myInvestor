@@ -1,4 +1,4 @@
-package com.myinvestor;
+package com.myinvestor.entity;
 
 /** The message bean that will be used in the echo request and response. */
 public class Message {

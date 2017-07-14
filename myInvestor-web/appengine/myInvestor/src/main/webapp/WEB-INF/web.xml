@@ -4,52 +4,27 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
-	<servlet>
-		<servlet-name>EndpointsServlet</servlet-name>
-		<servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
-		<init-param>
-			<param-name>services</param-name>
-			<param-value>com.myinvestor.Echo</param-value>
-		</init-param>
-	</servlet>
+	<listener>
+		<listener-class>com.myinvestor.GuiceConfig</listener-class>
+	</listener>
 
-	
-	<servlet-mapping>
-		<servlet-name>EndpointsServlet</servlet-name>
-		<url-pattern>/_ah/api/*</url-pattern>
-	</servlet-mapping>
+	<!-- GUICE -->
+	<filter>
+		<filter-name>GuiceFilter</filter-name>
+		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>GuiceFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
 
+	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-
-
-	<filter>
-		<filter-name>endpoints-api-configuration</filter-name>
-		<filter-class>com.google.api.control.ServiceManagementConfigFilter</filter-class>
-	</filter>
-
-	<filter>
-		<filter-name>endpoints-api-controller</filter-name>
-		<filter-class>com.google.api.control.extensions.appengine.GoogleAppEngineControlFilter</filter-class>
-		<init-param>
-			<param-name>endpoints.projectId</param-name>
-			<param-value>${endpoints.project.id}</param-value>
-		</init-param>
-		<init-param>
-			<param-name>endpoints.serviceName</param-name>
-			<param-value>echo-api.endpoints.${endpoints.project.id}.cloud.goog</param-value>
-		</init-param>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>endpoints-api-configuration</filter-name>
-		<servlet-name>EndpointsServlet</servlet-name>
-	</filter-mapping>
-
-	<filter-mapping>
-		<filter-name>endpoints-api-controller</filter-name>
-		<servlet-name>EndpointsServlet</servlet-name>
-	</filter-mapping>
 
 </web-app>

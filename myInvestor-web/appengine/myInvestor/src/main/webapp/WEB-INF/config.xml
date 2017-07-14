@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xml>
+<configuration>
+	<appengine>
+
+		<api-pattern></api-pattern>
+
+		<!-- development -->
+		<project-id>myinvestor-stg</project-id>
+		
+		<!-- production -->
+		<!-- 
+		 <project-id>${endpoints.project.id}</project-id>
+		-->
+
+	</appengine>
+</configuration>
