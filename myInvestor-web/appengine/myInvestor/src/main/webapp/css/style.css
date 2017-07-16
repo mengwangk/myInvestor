@@ -1,0 +1,523 @@
+/*--
+    Author: W3layouts
+    Author URL: http://w3layouts.com
+    License: Creative Commons Attribution 3.0 Unported
+    License URL: http://creativecommons.org/licenses/by/3.0/
+--*/
+
+
+
+/*-- Reset Code --*/
+
+    html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+    article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
+    ol,ul{list-style:none;padding:0;margin:0;}
+    blockquote,q{quotes:none;}
+    blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+    table{border-collapse:collapse;border-spacing:0;}
+    /* start editing from here */
+    a{text-decoration:none;}
+    .txt-rt{text-align:right;}/* text align right */
+    .txt-lt{text-align:left;}/* text align left */
+    .txt-center{text-align:center;}/* text align center */
+    .float-rt{float:right;}/* float right */
+    .float-lt{float:left;}/* float left */
+    .clear{clear:both;}/* clear float */
+    .pos-relative{position:relative;}/* Position Relative */
+    .pos-absolute{position:absolute;}/* Position Absolute */
+    .vertical-base{ vertical-align:baseline;}/* vertical align baseline */
+    .vertical-top{  vertical-align:top;}/* vertical align top */
+    .underline{ padding-bottom:5px; border-bottom: 1px solid #eee; margin:0 0 20px 0;}/* Add 5px bottom padding and a underline */
+    nav.vertical ul li{ display:block;}/* vertical menu */
+    nav.horizontal ul li{   display: inline-block;}/* horizontal menu */
+    img{max-width:100%;}
+    /*img[width],img[height]{width:auto;height:auto;} wordpress hack to reset the attributes (while making responsive) */
+
+/*-- Reset Code --*/
+
+
+
+/*-- Index-Page-Styling --*/
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    background: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    /*--agileits--*/
+    /*--w3layouts--*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    text-align: center;
+}
+
+a, a:hover {    
+    -webkit-transition: all 0.5s ease 0s;
+    -moz-transition: all 0.5s ease 0s;
+    -o-transition: all 0.5s ease 0s;
+    -ms-transition: all 0.5s ease 0s;
+    transition: all 0.5s ease 0s;
+}
+
+.wrapper {
+    box-sizing: border-box;
+    width: 640px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 45px;
+    margin: 50px 0;
+}
+
+h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+    text-align: left;
+    /*--agileits--*/
+    /*--w3layouts--*/
+    margin-left: 15px;
+}
+
+.app-text {
+    margin-bottom: 30px;
+}
+
+.app-text li {
+    display: inline-block;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.app-text li.li1 {
+    color: #38ffd7;
+}
+
+li.li2 {
+    color: #fc39b9;
+    margin: 0 80px;
+}
+
+li.li3 {
+    color: #fced39;
+}
+
+.timer {
+    font-family: 'Roboto', sans-serif;
+    font-size: 100px;
+    font-weight: 100;
+    /*--agileits--*/
+    /*--w3layouts--*/
+    display: inline-block;
+    vertical-align: top;
+    letter-spacing: 5px;
+}
+
+.text {
+    font-size: 18px;
+}
+
+.clock .column {
+    display: inline-block;
+    width: 21%;
+}
+
+.days {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        width: 100%;
+        padding: 0 20px;
+    }
+    .timer {
+        font-size: 35px;
+    }
+}
+
+.clear-loading {
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.newsletter {
+    position: relative;
+    width: 75%;
+    margin: 50px auto 20px;
+}
+
+.newsletter .email {
+    width: 76%;
+    padding: 25px 50px 25px 15px;
+    border-radius: 3px;
+    color: #FFF;
+    /*--agileits--*/
+    /*--w3layouts--*/
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    background-color: transparent;
+    border: 2px solid #FFF;
+}
+
+.newsletter .submit {
+    width: 40px;
+    height: 40px;
+    background-image: url('../images/subscribe.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    background-color: transparent;
+    top: 15px;
+    right: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    /*--agileits--*/
+    /*--w3layouts--*/
+    -webkit-transition: all 0.5s ease 0s;
+    -moz-transition: all 0.5s ease 0s;
+    -o-transition: all 0.5s ease 0s;
+    -ms-transition: all 0.5s ease 0s;
+    transition: all 0.5s ease 0s;
+}
+
+.wrapper p {
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.social {
+    margin: 50px auto 0;
+}
+
+ul.social-icons li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+ul.social-icons li a {
+    font-size: 35px;
+    color: #EEE;
+}
+
+ul.social-icons li a.facebook:hover {
+    color: #3b5998;
+}
+
+ul.social-icons li a.twitter:hover {
+    color: #1dcaff;
+}
+
+ul.social-icons li a.googleplus:hover {
+    color: #d34836;
+}
+
+ul.social-icons li a.instagram:hover {
+    color: #517fa4;
+}
+
+ul.social-icons li a.youtube:hover {
+    color: #bb0000;
+}
+
+::-webkit-input-placeholder {
+    color: #FFF;
+}
+
+::-moz-placeholder {
+    color: #FFF;
+}
+
+::-moz-placeholder {
+    color: #FFF;
+}
+
+::-ms-input-placeholder {
+    color: #FFF;
+}
+
+.footer {
+    margin: 50px 10px 20px;
+}
+
+.footer p {
+    font-size: 14px;
+    color: #EEE;
+    /*--agileits--*/
+    /*--w3layouts--*/
+    line-height: 25px;
+}
+
+.footer p a {
+    color: #EEE;
+}
+
+.footer p a:hover {
+    color: #FFF;
+}
+
+/*-- //Index-Page-Styling --*/
+
+
+
+
+
+
+
+
+
+
+/*-- Responsive-Code --*/
+
+@media screen and (max-width: 1920px) {
+    h1 {
+        margin: 100px 0;
+    }
+    .footer {
+        margin: 150px 10px 20px;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    h1 {
+        margin: 50px 0;
+    }
+    .footer {
+        margin: 50px 10px 20px;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    h1 {
+        margin: 50px 0;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    h1 {
+        margin: 40px 0;
+    }
+    h2 {
+        margin-left: 35px;
+    }
+    .app-text li {
+        /*--agileits--*/
+        /*--w3layouts--*/
+        font-size: 35px;
+    }
+    li.li2 {
+        margin: 0 90px;
+    }
+    .timer {
+        font-size: 75px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    h1 {
+        font-size: 40px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 37px;
+        margin: 50px 0;
+    }
+    h2 {
+        margin-left: 50px;
+    }
+    .app-text li {
+        font-size: 33px;
+    }
+    .newsletter .email {
+        width: 65%;
+    }
+    .newsletter .submit {
+        right: 65px;
+    }
+}
+
+@media screen and (max-width: 667px) {
+    h1 {
+        font-size: 33px;
+        margin: 40px 0;
+        /*--agileits--*/
+        /*--w3layouts--*/
+    }
+    .app-text li {
+        font-size: 30px;
+    }
+    li.li2 {
+        margin: 0 50px;
+    }
+    h2 {
+        margin-left: 27px;
+    }
+    .newsletter .submit {
+        right: 55px;
+    }
+    .social {
+        margin: 30px auto 0;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    h1 {
+        font-size: 30px;
+    }
+    h2 {
+        margin-left: 20px;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .app-text li {
+        font-size: 25px;
+    }
+    h2 {
+        margin-left: 30px;
+    }
+    .timer {
+        font-size: 65px;
+        letter-spacing: 0;
+    }
+    .newsletter .email {
+        width: 70%;
+        padding: 20px 50px 20px 10px;
+    }
+    .newsletter .submit {
+        right: 30px;
+        /*--agileits--*/
+        /*--w3layouts--*/
+        top: 10px;
+    }
+    .footer p {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h2 {
+        margin-left: 15px;
+    }
+    .newsletter .email {
+        width: 80%;
+    }
+    .newsletter .submit {
+        right: 5px;
+        top: 12px;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    h1 {
+        font-size: 27px;
+    }
+    h2 {
+        margin-left: 10px;
+    }
+    .app-text li {
+        font-size: 23px;
+    }
+    .wrapper {
+        padding: 0 10px;
+    }
+    .timer {
+        font-size: 60px;
+    }
+    .text {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 384px) {
+    li.li2 {
+        margin: 0 30px;
+    }
+    .clock {
+        margin-left: -10px;
+    }
+    .clock .column {
+        width: 20%;
+    }
+    .timer {
+        font-size: 55px;
+    }
+    .newsletter .submit {
+        right: 0;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    h1 {
+        font-size: 25px;
+        margin: 30px 0;
+    }
+    .newsletter {
+        width: 90%;
+    }
+    .timer {
+        font-size: 40px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    h2 {
+        font-size: 20px;
+    }
+    .clock {
+        margin-left: -20px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    h1 {
+        font-size: 23px;
+    }
+    .app-text li {
+        font-size: 20px;
+    }
+    li.li2 {
+        margin: 0 10px;
+    }
+    h2 {
+        margin-left: 4px;
+    }
+    .wrapper p {
+        font-size: 13px;
+    }
+    .newsletter {
+        width: 100%;
+    }
+    .newsletter .email {
+        font-size: 13px;
+        /*--agileits--*/
+        /*--w3layouts--*/
+        padding: 15px 50px 15px 5px;
+    }
+    .newsletter .submit {
+        right: 0;
+        background-size: 25px;
+        top: 6px;
+    }
+    .clock {
+        margin-left: -10px;
+    }
+    .text {
+        font-size: 13px;
+    }
+}
+
+/*-- //Responsive-Code --*/

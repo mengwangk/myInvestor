@@ -1,21 +1,19 @@
 package com.myinvestor;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Map;
 
 import javax.inject.Singleton;
 import javax.servlet.ServletContextEvent;
 
-import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
 import com.google.api.control.ServiceManagementConfigFilter;
 import com.google.api.control.extensions.appengine.GoogleAppEngineControlFilter;
 import com.google.api.server.spi.EndpointsServlet;
 import com.google.appengine.api.appidentity.AppIdentityServiceFactory;
-import com.google.inject.AbstractModule;
 import com.google.common.collect.Maps;
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.matcher.Matchers;
@@ -36,8 +34,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GuiceConfig extends GuiceServletContextListener {
 
-	static final String URL_PATTERN_TEST_SERVICE = "/api/test/*";
-
 	static class MyInvestorServletModule extends ServletModule {
 
 		@Override
@@ -45,33 +41,34 @@ public class GuiceConfig extends GuiceServletContextListener {
 			filter("/*").through(ObjectifyFilter.class);
 
 			try {
-				
-				final URL url = getServletContext().getResource("/WEB-INF/config.xml");
-				Configurations configs = new Configurations();
-				System.out.println("-----" + configs.xml(url).getString("appengine.project-id"));
-				
-				final AppConfig config = new AppConfig();
-				final String appEngineId = config.getAppEngineId();
-				System.out.println("AppEngine id: -------" + appEngineId);
-
-				// -------- EndPoints servlet - testing ----------------------
+				// Initialize application configuration
+				initConfig();
 				Map<String, String> params = Maps.newHashMap();
-				params.put("services", "com.myinvestor.service.Echo");
-				serve(URL_PATTERN_TEST_SERVICE).with(EndpointsServlet.class, params);
+				params.put("services", "com.myinvestor.service.Investor");
+				serve(AppConfig.getEndPointsUrlPattern()).with(EndpointsServlet.class, params);
 
 				// EndPoints filter - https://stackoverflow.com/questions/9021672/how-to-map-a-filter-to-a-servlet-using-guice-servlet
 				Map<String, String> endPointsParams = Maps.newHashMap();
-				endPointsParams.put("endpoints.projectId", appEngineId);
-				endPointsParams.put("endpoints.serviceName", "echo-api.endpoints." + appEngineId + ".cloud.goog");
-				filter(URL_PATTERN_TEST_SERVICE).through(GoogleAppEngineControlFilter.class, endPointsParams);
-				filter(URL_PATTERN_TEST_SERVICE).through(ServiceManagementConfigFilter.class);
-				// ------- End --- testing --------------------------------------
+				endPointsParams.put("endpoints.projectId", AppConfig.getAppEngineProjectId());
+				endPointsParams.put("endpoints.serviceName", "investor-api.endpoints." + AppConfig.getAppEngineProjectId() + ".cloud.goog");
+				filter(AppConfig.getEndPointsUrlPattern()).through(GoogleAppEngineControlFilter.class, endPointsParams);
+				filter(AppConfig.getEndPointsUrlPattern()).through(ServiceManagementConfigFilter.class);
 				
 			} catch (ConfigurationException cex) {
 				log.error("[configureServlets] Unable to set up application correctory", cex);
 			} catch (MalformedURLException mex) {
 				log.error("[configureServlets] Unable to load configuration file", mex);
 			} 
+		}
+		
+		/**
+		 * Initialize application configuration.
+		 * 
+		 * @throws MalformedURLException
+		 * @throws ConfigurationException
+		 */
+		private void initConfig() throws MalformedURLException, ConfigurationException {
+			AppConfig.configure(getServletContext());
 		}
 	}
 

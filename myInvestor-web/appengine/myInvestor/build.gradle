@@ -86,7 +86,8 @@ version = APP_VERSION   // Version in generated output
 
 endpointsServer {
   // Endpoints Framework Plugin server-side configuration
-  hostname = "echo-api.endpoints.${projectId}.cloud.goog"
+  hostname = "investor-api.endpoints.${projectId}.cloud.goog"
+  serviceClasses=["com.myinvestor.service.Investor"]
 }
 
 sourceCompatibility = 1.7  // App Engine Standard uses Java 7

@@ -10,11 +10,11 @@
 	<env-variables>
 		<!--  Production -->
 		<!-- 
-		<env-var name="ENDPOINTS_SERVICE_NAME" value="echo-api.endpoints.${endpoints.project.id}.cloud.goog"/>
+		<env-var name="ENDPOINTS_SERVICE_NAME" value="investor-api.endpoints.${endpoints.project.id}.cloud.goog"/>
 		-->
 		
 		<!--  Development -->
-		<env-var name="ENDPOINTS_SERVICE_NAME" value="echo-api.endpoints.myinvestor-stg.cloud.goog"/>
+		<env-var name="ENDPOINTS_SERVICE_NAME" value="investor-api.endpoints.myinvestor-stg.cloud.goog"/>
 		
 	</env-variables>
 

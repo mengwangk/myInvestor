@@ -3,7 +3,7 @@
 <configuration>
 	<appengine>
 
-		<api-pattern></api-pattern>
+		<endpoints-url-pattern>/_ah/api/*</endpoints-url-pattern>
 
 		<!-- development -->
 		<project-id>myinvestor-stg</project-id>
