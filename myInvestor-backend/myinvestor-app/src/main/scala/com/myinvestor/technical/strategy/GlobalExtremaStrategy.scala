@@ -8,7 +8,7 @@ import eu.verdelhan.ta4j.trading.rules.{OverIndicatorRule, UnderIndicatorRule}
 /**
   * Global extrema strategy.
   */
-class GlobalExtreamStrategy (var category: String) extends TAStrategy {
+class GlobalExtremaStrategy(var category: String) extends TAStrategy {
 
   // We assume that there were at least one trade every 5 minutes during the whole week// We assume that there were at least one trade every 5 minutes during the whole week
   private val NB_TICKS_PER_WEEK = 12 * 24 * 7

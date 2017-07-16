@@ -6,7 +6,9 @@ import eu.verdelhan.ta4j.indicators.oscillators.CCIIndicator
 import eu.verdelhan.ta4j.trading.rules.{OverIndicatorRule, UnderIndicatorRule}
 
 /**
-  * Commodity Channel Index (CCI) indicator.
+  *
+  * Momentum indicator - Commodity Channel Index (CCI) indicator.
+  *
   */
 class CCICorrectionStrategy(var category: String) extends TAStrategy {
 
@@ -29,7 +31,7 @@ class CCICorrectionStrategy(var category: String) extends TAStrategy {
           .and(new UnderIndicatorRule(shortCci, minus100)); // Signal
 
         val exitRule = new UnderIndicatorRule(longCci, minus100) // Bear trend
-          .and(new OverIndicatorRule(shortCci, plus100)); // Signal
+          .and(new OverIndicatorRule(shortCci, plus100));        // Signal
 
         val strategy = new Strategy(entryRule, exitRule)
         strategy.setUnstablePeriod(ShortPeriod)

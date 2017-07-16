@@ -6,9 +6,10 @@ import com.datastax.spark.connector._
 import com.myinvestor.{AppSettings, SparkContextUtils, TradeSchema}
 import com.typesafe.scalalogging.Logger
 import eu.verdelhan.ta4j.analysis.criteria._
-import eu.verdelhan.ta4j.{Tick, TimeSeries, TradingRecord}
+import eu.verdelhan.ta4j._
 import org.apache.spark.SparkContext
 
+import collection.JavaConversions._
 
 /**
   * Technical indicators trading strategy.
@@ -79,9 +80,46 @@ trait TAStrategy {
     // Total profit vs buy-and-hold
     println("Custom strategy profit vs buy-and-hold strategy profit: " + new VersusBuyAndHoldCriterion(totalProfit).calculate(series, tradingRecord))
 
+    printTrade(series, tradingRecord)
+
     println()
     println()
 
+  }
+
+  def printTrade(series: TimeSeries, tradingRecord: TradingRecord):Unit = {
+    // Details of each trades
+    for (trade: Trade <- tradingRecord.getTrades) {
+
+      println("Entry Order")
+      println("------------")
+      val entryOrder: Order = trade.getEntry
+      val entryTick: Tick =  series.getTick(trade.getEntry.getIndex)
+      println(entryOrder.toString)
+      println(entryTick.toString)
+
+      println("Exit Order")
+      println("------------")
+      val exitOrder: Order = trade.getExit
+      val exitTick: Tick = series.getTick(trade.getExit.getIndex)
+      println(exitOrder.toString)
+      println(exitTick.toString)
+
+      /*
+      val exitClosePrice = series.getTick(trade.getExit.getIndex).getClosePrice
+      val entryClosePrice = series.getTick(trade.getEntry.getIndex).getClosePrice
+      println("Exit Price: " + exitClosePrice)
+      println("Entry Price: " + entryClosePrice)
+      if (trade.isClosed) {
+        val exitClosePrice = series.getTick(trade.getExit.getIndex).getClosePrice
+        val entryClosePrice = series.getTick(trade.getEntry.getIndex).getClosePrice
+        if (trade.getEntry.isBuy)
+          println(entryClosePrice)
+        else
+          println(exitClosePrice)
+      }
+      */
+    }
   }
 
   def run: Boolean
