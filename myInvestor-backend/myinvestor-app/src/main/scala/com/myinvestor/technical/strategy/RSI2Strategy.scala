@@ -6,7 +6,7 @@ import eu.verdelhan.ta4j.indicators.trackers.{RSIIndicator, SMAIndicator}
 import eu.verdelhan.ta4j.trading.rules.{CrossedDownIndicatorRule, CrossedUpIndicatorRule, OverIndicatorRule, UnderIndicatorRule}
 
 /**
-  * 2-Period RSI Strategy.
+  * Momentum indicator - 2-Period RSI (Relative Strength Index) strategy.
   */
 class RSI2Strategy(var category: String) extends TAStrategy {
 
@@ -15,8 +15,6 @@ class RSI2Strategy(var category: String) extends TAStrategy {
     try
         for (stock <- getChosenStocks) {
           val series = getTimeSeries(stock.exchangeName, stock.stockSymbol)
-
-
           val closePrice: ClosePriceIndicator = new ClosePriceIndicator(series)
           val shortSma: SMAIndicator = new SMAIndicator(closePrice, 5)
           val longSma: SMAIndicator = new SMAIndicator(closePrice, 200)
