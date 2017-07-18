@@ -13,20 +13,21 @@ import eu.verdelhan.ta4j.trading.rules.{CrossedDownIndicatorRule, CrossedUpIndic
   * Moving Average Convergence Divergence (MACD).
   *
   * <p>
-  *   As a lagging indicator, the
-  *   MACD is often paired with a leading indicator, like the Relative Strength Index (RSI).
+  * As a lagging indicator, the
+  * MACD is often paired with a leading indicator, like the Relative Strength Index (RSI).
   * </p>
   *
   * <p>
+  *
   * @see https://github.com/mdeverdelhan/ta4j/issues/68
-  * </p>
+  *      </p>
   *
   */
-class MACDStrategy  (var category: String) extends TAStrategy {
+class MACDStrategy(var category: String) extends TAStrategy {
 
   val ShortPeriod = 12
   val LongPeriod = 26
-  val SignalPeriod  = 9
+  val SignalPeriod = 9
 
   def run: Boolean = {
     var status = true

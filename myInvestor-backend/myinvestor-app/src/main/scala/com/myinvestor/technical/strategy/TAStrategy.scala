@@ -5,11 +5,11 @@ import java.util
 import com.datastax.spark.connector._
 import com.myinvestor.{AppSettings, SparkContextUtils, TradeSchema}
 import com.typesafe.scalalogging.Logger
-import eu.verdelhan.ta4j.analysis.criteria._
 import eu.verdelhan.ta4j._
+import eu.verdelhan.ta4j.analysis.criteria._
 import org.apache.spark.SparkContext
 
-import collection.JavaConversions._
+import scala.collection.JavaConversions._
 
 /**
   * Technical indicators trading strategy.
