@@ -7,6 +7,8 @@ import eu.verdelhan.ta4j.indicators.trackers.{EMAIndicator, MACDIndicator}
 import eu.verdelhan.ta4j.trading.rules.{CrossedDownIndicatorRule, CrossedUpIndicatorRule, OverIndicatorRule, UnderIndicatorRule}
 
 /**
+  * Leading indicator.
+  *
   * Momentum indicator - Moving momentum strategy.
   */
 class MovingMomentumStrategy (var category: String) extends TAStrategy {
