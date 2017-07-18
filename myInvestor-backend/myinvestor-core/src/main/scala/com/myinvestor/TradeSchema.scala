@@ -42,7 +42,7 @@ object TradeSchema {
 
   case class Request(requestId: UUID, success: Boolean, errorMsg: String, received: DateTime = DateTime.now())
 
-  case class Exchange(exchangeName: String, description: String, stockCount: Int) extends ModelBase
+  case class Exchange(exchangeName: String, description: String, stockCount: Int, yahooFinanceExchangeName: String) extends ModelBase
 
   case class Stock(stockSymbol: String, stockName: String, exchangeName: String) extends ModelBase
 
@@ -84,7 +84,7 @@ object TradeSchema {
 
     type JobType = Value
 
-    val NotDefined, ScrapeStockInfo, ScrapStockHistory, ScrapStockDividendHistory, DividendSummary, BollingerBand = Value
+    val NotDefined, ScrapeStockInfo, ScrapStockHistory, ScrapStockDividendHistory, DividendSummary, ScrapStock, BollingerBand = Value
 
     def getJob(s: String): Option[Value] = values.find(_.toString.equalsIgnoreCase(s))
 

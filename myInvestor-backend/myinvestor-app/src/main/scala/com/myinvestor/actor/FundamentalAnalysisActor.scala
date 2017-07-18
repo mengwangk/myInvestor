@@ -6,7 +6,6 @@ import com.myinvestor.AppSettings
 import com.myinvestor.TradeEvent.DividendAchiever
 import com.myinvestor.TradeSchema.DividendAchieverAnalysis
 import com.myinvestor.fundamental.DividendSummarizer
-import com.myinvestor.scraper.google.StockHistoryScraper
 
 import scala.concurrent.Future
 

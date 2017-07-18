@@ -21,8 +21,8 @@ CREATE TABLE exchange
     PRIMARY KEY(exchange_name)
 );
 
-INSERT INTO exchange(exchange_name, description, yahoo_finance_exchange_name) VALUES('KLSE', 'Kuala Lumpur Stock Exchange', 'KLS');
-INSERT INTO exchange(exchange_name, description, yahoo_finance_exchange_name) VALUES('NASDAQ', 'NASDAQ', 'NMS');
+INSERT INTO exchange(exchange_name, description, stock_count, yahoo_finance_exchange_name) VALUES('KLSE', 'Kuala Lumpur Stock Exchange', 0, 'KLS');
+INSERT INTO exchange(exchange_name, description, stock_count, yahoo_finance_exchange_name) VALUES('NASDAQ', 'NASDAQ', 0, 'NMS');
 
 CREATE TABLE stock
 (

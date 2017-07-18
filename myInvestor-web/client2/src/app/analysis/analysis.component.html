@@ -57,6 +57,22 @@
                 <ul class="list-group">
                     <li class="list-group-item">
                         <div class='row'>
+                            <div class='col-lg-1 pull-left'> Stock </div>
+                            <div class='col-lg-3 pull=left'>
+
+                            </div>
+                            <div class='col-lg-3 pull=left'>
+                                Exchange
+                                <select [(ngModel)]='selectedExchange'>
+                                    <option *ngFor="let exchange of exchanges; let i = index" [value]="exchange.exchange_name">{{exchange.exchange_name}}</option>
+                                </select>
+                                <button md-raised-button (click)="runJobForExchange(BatchJobTypeEnum.ScrapStock)"><md-icon>trending_up</md-icon> Run</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div class='row'>
                             <div class='col-lg-1 pull-left'> Stock Info </div>
                             <div class='col-lg-3 pull=left'>
                                 Category

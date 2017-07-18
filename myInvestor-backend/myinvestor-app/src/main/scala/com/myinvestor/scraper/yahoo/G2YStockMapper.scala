@@ -1,7 +1,7 @@
 package com.myinvestor.scraper.yahoo
 
 /**
-  * Created by MEKOH on 7/18/2017.
+  * Google Finance to Yahoo Finance stock symbol mapper.
   */
 class G2YStockMapper {
 

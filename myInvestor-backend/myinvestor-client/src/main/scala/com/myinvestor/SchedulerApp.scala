@@ -135,6 +135,9 @@ class SchedulerService(nodeGuardian: ActorSelection) extends Directives with Jso
         case JobType.DividendSummary => {
           nodeGuardian ! DividendAchiever(job.exchangeName, Option(job.symbols))
         }
+        case JobType.ScrapStock => {
+          nodeGuardian ! ScrapStock(job.exchangeName)
+        }
         case JobType.BollingerBand => {
           nodeGuardian ! BollingerBand(job.exchangeName, Option(job.symbols))
         }

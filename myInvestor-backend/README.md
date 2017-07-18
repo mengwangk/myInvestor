@@ -20,3 +20,12 @@ Web scraper
 https://github.com/sap1ens/scraper/blob/master/src/main/scala/com/sap1ens/scraper/PageParser.scala
 http://foat.me/articles/crawling-with-akka/
 
+
+
+Get PE from Yahoo Finance
+https://finance.yahoo.com/quote/ytlp.kl?p=ytlp.kl
+https://finance.yahoo.com/quote/6742.KL/
+https://finance.yahoo.com/quote/4677.kl?p=4677.kl
+https://finance.yahoo.com/quote/ytls.kl?p=ytls.kl
+
+

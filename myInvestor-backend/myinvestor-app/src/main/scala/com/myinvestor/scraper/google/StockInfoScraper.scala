@@ -4,12 +4,11 @@ import java.net.URLEncoder
 
 import com.datastax.spark.connector._
 import com.myinvestor.scraper.{ParserImplicits, ParserUtils}
+import com.myinvestor.{SparkContextUtils, TradeSchema}
 import com.typesafe.scalalogging.Logger
 import org.apache.spark.SparkContext
 import org.joda.time.DateTime
 import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import com.myinvestor.{SparkContextUtils, TradeSchema}
 
 /**
   * Grab stock information

@@ -21,7 +21,7 @@ object Versions {
   val JodaTime = "2.9.9"
   val Logback = "1.1.7"
   val Spark = "2.1.0"
-  val SparkCassandra = "2.0.0-M3"
+  val SparkCassandra = "2.0.3"
   val ScalaLogging = "3.5.0"
   val ScalaLoggingSlf4j = "2.1.2"
   val TAVersion = "0.8"
@@ -31,7 +31,7 @@ object Versions {
   val SuperSafe = "1.1.0"
   val Guava = "19.0"
   val Log4j = "1.2.17"
-  val SparkCassandraEmbedded = "2.0.0-M3"
+  val SparkCassandraEmbedded = "2.0.3"
 
   val AkkaQuartzScheduler = "1.6.0-akka-2.4.x"
 
