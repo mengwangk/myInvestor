@@ -60,7 +60,7 @@ class KafkaStreamActor(kafkaParams: Map[String, Object],
   kafkaStream.filter(KafkaFilter.filterStockHistory(_)).map(_.value.parseJson).map(_.convertTo[StockHistory]).saveToCassandra(Keyspace, StockHistoryTable)
 
   // Save to Stock_Info table
-  kafkaStream.filter(KafkaFilter.filterStockInfo(_)).map(_.value.parseJson).map(_.convertTo[StockInfo]).saveToCassandra(Keyspace, StockInfoTable)
+  kafkaStream.filter(KafkaFilter.filterStockInfo(_)).map(_.value.parseJson).map(_.convertTo[StockInfo2]).saveToCassandra(Keyspace, StockInfoTable)
 
   // Notifies the supervisor that the Spark Streams have been created and defined.
   // Now the [[StreamingContext]] can be started.

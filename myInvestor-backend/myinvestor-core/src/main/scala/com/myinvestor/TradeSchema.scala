@@ -51,13 +51,17 @@ object TradeSchema {
                           historyVolume: Double) extends ModelBase
 
   case class StockInfo(stockSymbol: String, exchangeName: String,
-                       info52weeksFrom: String, info52weeksTo: String,
-                       infoBeta: String, infoChange: String, infoChangePercentage: String,
-                       infoCurrentPrice: String, infoDividendYield: String, infoEps: String,
-                       infoInstOwn: String, infoMarketCapital: String, infoOpen: String,
-                       infoPe: String, infoRangeFrom: String, infoRangeTo: String, infoShares: String,
-                       infoTime: String, infoVolume: String,
-                       infoExtractedTimestamp: DateTime = DateTime.now()) extends ModelBase
+                        infoCurrentPrice: String, infoDividendYield: String, infoEps: String,
+                        infoPe: String, infoExtractedTimestamp: DateTime = DateTime.now()) extends ModelBase
+
+  case class StockInfo2(stockSymbol: String, exchangeName: String,
+                        info52weeksFrom: String, info52weeksTo: String,
+                        infoBeta: String, infoChange: String, infoChangePercentage: String,
+                        infoCurrentPrice: String, infoDividendYield: String, infoEps: String,
+                        infoInstOwn: String, infoMarketCapital: String, infoOpen: String,
+                        infoPe: String, infoRangeFrom: String, infoRangeTo: String, infoShares: String,
+                        infoTime: String, infoVolume: String,
+                        infoExtractedTimestamp: DateTime = DateTime.now()) extends ModelBase
 
   case class DividendSummary(gExchangeName: String, gStockSymbol: String, dividendYear: Int, dividend: Double,
                              currentPrice: Double, priceDate: DateTime, dividendYield: Double) extends ModelBase
@@ -69,15 +73,14 @@ object TradeSchema {
   case class ChosenStock(category: String, exchangeName: String, stockSymbol: String, createDate: DateTime) extends ModelBase
 
   // Object mapper
-  object StockInfo {
+  object StockInfo2 {
 
-    implicit object Mapper extends DefaultColumnMapper[StockInfo](
+    implicit object Mapper extends DefaultColumnMapper[StockInfo2](
       Map(
         "info52weeksFrom" -> "info_52weeks_from",
         "info52weeksTo" -> "info_52weeks_to"
       )
     )
-
   }
 
   object JobType extends Enumeration {

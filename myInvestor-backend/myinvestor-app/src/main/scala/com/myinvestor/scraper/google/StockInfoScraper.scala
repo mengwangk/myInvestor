@@ -58,7 +58,7 @@ class StockInfoScraper(val exchangeName: String, val symbols: Option[Array[Strin
           val pe = document.oneByCss("#market-data-div > div.snap-panel-and-plusone > div.snap-panel > table:nth-child(1) > tbody > tr:nth-child(6) > td.val")
           val instOwn = document.oneByCss("#market-data-div > div.snap-panel-and-plusone > div.snap-panel > table:nth-child(2) > tbody > tr:nth-child(5) > td.val")
 
-          val stockInfo = StockInfo(stockSymbol = stockSymbol, exchangeName = exchangeName,
+          val stockInfo = StockInfo2(stockSymbol = stockSymbol, exchangeName = exchangeName,
             info52weeksFrom = numberFromArr(_52Weeks, 0).toString, info52weeksTo = numberFromArr(_52Weeks, 1).toString,
             infoBeta = numberValue(beta).toString, infoChange = numberValue(priceChange).toString, infoChangePercentage = percentageValue(changePercentage).toString,
             infoCurrentPrice = numberValue(currentPrice).toString, infoDividendYield = stringValue(dividendYield), infoEps = numberValue(eps).toString,

@@ -34,7 +34,7 @@ object Dependencies {
     val technicalAnalysis: ModuleID = "eu.verdelhan" % "ta4j" % TAVersion
     val logback: ModuleID = "ch.qos.logback" % "logback-classic" % Logback
     val scalaLogging: ModuleID = "com.typesafe.scala-logging" %% "scala-logging" % ScalaLogging
-    val scalaLoggingSlf4j: ModuleID = "com.typesafe.scala-logging" %% "scala-logging-slf4j" % ScalaLoggingSlf4j % "provided"
+    val scalaLoggingSlf4j: ModuleID = "com.typesafe.scala-logging" %% "scala-logging-slf4j" % ScalaLoggingSlf4j  // % "provided"
     val scalaConfig: ModuleID = "com.typesafe" % "config" % ScalaConfig
     val jodaTime: ModuleID = "joda-time" % "joda-time" % JodaTime % "compile;runtime"
     val sparkCassandraConnector: ModuleID = "com.datastax.spark" %% "spark-cassandra-connector" % SparkCassandra
@@ -66,6 +66,8 @@ object Dependencies {
     // For Web scraping
     //val scaleScrape: ModuleID = "com.bfil" %% "scalescrape" % ScraperVersion
     val jSoup: ModuleID = "org.jsoup" % "jsoup" % JSoup
+
+    val yahooFinanceApi: ModuleID = "com.yahoofinance-api" % "YahooFinanceAPI" % YahooFinanceApi
   }
 
   object Test {
@@ -96,12 +98,14 @@ object Dependencies {
 
   val test = Seq(Test.akkaTestKit, Test.scalatest, Test.scalactic, Test.supersafe, Test.log4j)
 
+  val finance = Seq(yahooFinanceApi)
+
   // Module dependencies
   val core = spark ++ time ++ config ++ logging ++ akka ++ utils
 
   val client = spark ++ ta ++ akka ++ test
 
-  val app = spark ++ ta ++ akka ++ Seq(kafka, kafkaStream) ++ test ++ scheduler
+  val app = spark ++ ta ++ akka ++ Seq(kafka, kafkaStream) ++ test ++ scheduler ++ finance ++ logging
 
   val example = spark ++ ta
 

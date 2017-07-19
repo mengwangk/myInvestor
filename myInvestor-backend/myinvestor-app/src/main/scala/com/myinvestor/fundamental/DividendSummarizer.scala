@@ -49,10 +49,10 @@ class DividendSummarizer(val exchangeName: String, val symbols: Option[Array[Str
             summaries += (dividendHistory.dividendDate.getYearOfEra -> (dividendHistory.dividend + (if (dividend.isDefined) dividend.get else 0)))
           }
         }
-        var stockInfo: StockInfo = null
+        var stockInfo: StockInfo2 = null
 
         // Get the latest price from stock info table, calculate the dividend yield to see if it is a dividend achiever
-        val stockInfos = sc.cassandraTable[StockInfo](Keyspace, StockInfoTable).where(StockSymbolColumn + " = ? AND " + ExchangeNameColumn + "= ?", stockSymbol, exchangeName).collect
+        val stockInfos = sc.cassandraTable[StockInfo2](Keyspace, StockInfoTable).where(StockSymbolColumn + " = ? AND " + ExchangeNameColumn + "= ?", stockSymbol, exchangeName).collect
         if (stockInfos.length > 0) {
           stockInfo = stockInfos.head
         }

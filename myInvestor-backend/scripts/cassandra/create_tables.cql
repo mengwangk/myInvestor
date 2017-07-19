@@ -51,6 +51,18 @@ CREATE TABLE stock_info
 (
     stock_symbol TEXT,
     exchange_name TEXT,
+    info_current_price DECIMAL,
+    info_dividend_yield TEXT,
+    info_eps DECIMAL,
+    info_pe DECIMAl,
+    info_extracted_timestamp TIMESTAMP,
+    PRIMARY KEY(exchange_name, stock_symbol)
+);
+
+CREATE TABLE stock_info2
+(
+    stock_symbol TEXT,
+    exchange_name TEXT,
     info_52weeks_from DECIMAL,
     info_52weeks_to DECIMAL,
     info_beta DECIMAL,

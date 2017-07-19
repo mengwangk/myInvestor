@@ -139,7 +139,7 @@ class HttpDataFeedService(kafka: ActorRef) extends Directives with JsonApiProtoc
       } ~
       post {
         path("stockinfo") {
-          entity(as[StockInfo]) { stockInfo =>
+          entity(as[StockInfo2]) { stockInfo =>
             val identifier = UUIDVersion4
             val saved: Future[Done] = produceMessage(identifier, KafkaTopicStockInfo, stockInfo.toJson.compactPrint)
             onComplete(saved) { done =>
