@@ -5,8 +5,8 @@ import akka.pattern.pipe
 import com.myinvestor.AppSettings
 import com.myinvestor.TradeEvent.{ScrapStock, ScrapStockDividendHistory, ScrapStockHistory, ScrapStockInfo}
 import com.myinvestor.TradeSchema.WebScrapingResult
-import com.myinvestor.scraper.google.{StockHistoryScraper, StockInfoScraper, StockScraper}
-import com.myinvestor.scraper.yahoo.DividendHistoryScraper
+import com.myinvestor.scraper.google.{StockHistoryScraper, StockScraper}
+import com.myinvestor.scraper.yahoo.{DividendHistoryScraper, StockInfoScraper2}
 
 import scala.concurrent.Future
 
@@ -24,7 +24,8 @@ class WebScraperActor(settings: AppSettings) extends ActorBase with ActorLogging
 
   def scrapStockInfo(exchangeName: String, symbols: Option[Array[String]], requester: ActorRef): Unit = {
     val scrapingResult: Future[WebScrapingResult] = Future {
-      val stockInfoScraper = new StockInfoScraper(exchangeName, symbols)
+      //val stockInfoScraper = new StockInfoScraper(exchangeName, symbols) // Scrap from Google
+      val stockInfoScraper = new StockInfoScraper2(exchangeName, symbols) // Scrap from Yahoo
       WebScrapingResult(stockInfoScraper.run)
     }
     scrapingResult pipeTo requester

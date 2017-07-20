@@ -19,6 +19,7 @@ object TradeSchema {
   val StockTable = "stock"
   val StockHistoryTable = "stock_history"
   val StockInfoTable = "stock_info"
+  val StockInfo2Table = "stock_info2"
   val DividendSummaryTable = "dividend_summary"
   val DividendHistoryTable = "dividend_history"
   val G2YFinanceMappingTable = "g2yfinance_mapping"
@@ -51,8 +52,7 @@ object TradeSchema {
                           historyVolume: Double) extends ModelBase
 
   case class StockInfo(stockSymbol: String, exchangeName: String,
-                        infoCurrentPrice: String, infoDividendYield: String, infoEps: String,
-                        infoPe: String, infoExtractedTimestamp: DateTime = DateTime.now()) extends ModelBase
+                       infoCurrentPrice: BigDecimal, infoPe: BigDecimal, infoExtractedTimestamp: DateTime = DateTime.now()) extends ModelBase
 
   case class StockInfo2(stockSymbol: String, exchangeName: String,
                         info52weeksFrom: String, info52weeksTo: String,
@@ -81,6 +81,7 @@ object TradeSchema {
         "info52weeksTo" -> "info_52weeks_to"
       )
     )
+
   }
 
   object JobType extends Enumeration {

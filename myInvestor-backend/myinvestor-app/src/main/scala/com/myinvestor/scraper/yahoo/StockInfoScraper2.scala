@@ -15,7 +15,10 @@ import yahoofinance.YahooFinance
   * @see https://support.klipfolio.com/hc/en-us/articles/215546368-Use-Yahoo-Finance-as-a-data-source-
   * @see http://wern-ancheta.com/blog/2015/04/05/getting-started-with-the-yahoo-finance-api/
   * @see https://stackoverflow.com/questions/10040954/alternative-to-google-finance-api
-  *      </p>
+  * @see http://thesimplesynthesis.com/article/finance-apis#yahoo-csv-finance-api
+  * @see http://www.finiki.org/wiki/Gummy-stuff
+  * @see http://www.financialwisdomforum.org/gummy-stuff/Yahoo-data.htm
+  *
   */
 class StockInfoScraper2(val exchangeName: String, val symbols: Option[Array[String]]) extends ParserUtils with ParserImplicits {
 
@@ -43,9 +46,16 @@ class StockInfoScraper2(val exchangeName: String, val symbols: Option[Array[Stri
         log.info(s"Grabbing stock info for [$current/$total] ${mappedStock.yExchangeName}  - ${mappedStock.yStockSymbol}")
         try {
           // Grab stock information for each stock
-          val stock = YahooFinance.get(mappedStock.yStockSymbol, true)
-          stock.print()
+          val stock = YahooFinance.get(mappedStock.yStockSymbol)
+          val currentPrice = stock.getQuote(true).getPrice
+          val pe = stock.getStats.getPe
+          log.info(s"currentPrice: $currentPrice, PE: $pe")
 
+          // Update table
+          if (currentPrice.doubleValue() > 0 && pe.doubleValue() > 0) {
+            val stockInfo = StockInfo(stockSymbol = stockSymbol, exchangeName = exchangeName, infoCurrentPrice = currentPrice, infoPe = pe)
+            sc.parallelize(Seq(stockInfo)).saveToCassandra(Keyspace, StockInfoTable)
+          }
         } catch {
           case e: Exception => {
             log.warn(s"Skipping symbol - $stockSymbol, cause: ${e.getMessage}")
