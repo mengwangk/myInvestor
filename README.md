@@ -1,2 +1,2 @@
 # myInvestor
-A personal investment app used for stock analysis, prediction and portfolio management. 
+A personal investment app used for stock analysis, prediction and portfolio management, leveraging Akka, Spark, Kafka, react-native, angular, Google Cloud Platform and the beautiful scala language.
