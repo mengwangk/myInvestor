@@ -80,7 +80,7 @@ class StockHistoryScraper(val exchangeName: String, val symbols: Option[Array[St
 
               // Save to database
               val stockHistory = StockHistory(stockSymbol = stockSymbol, exchangeName = exchangeName, historyDate = parsedDt,
-                historyOpen = open, historyHigh = high, historyLow = low, historyClose = close, historyVolume = volume)
+                                  historyOpen = open, historyHigh = high, historyLow = low, historyClose = close, historyVolume = volume)
               // println (stockHistory)
               sc.parallelize(Seq(stockHistory)).saveToCassandra(Keyspace, StockHistoryTable)
             }

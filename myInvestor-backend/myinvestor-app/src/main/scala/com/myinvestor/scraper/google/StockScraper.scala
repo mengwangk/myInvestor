@@ -26,8 +26,8 @@ class StockScraper(val exchangeName: String) extends ParserUtils with ParserImpl
 
     try {
       val response = Jsoup.connect(GoogleFinanceUrl).timeout(ConnectionTimeout)
-        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
-        .execute()
+                      .userAgent(USER_AGENT)
+                      .execute()
       if (response.statusCode() == 200) {
         val document = response.parse()
         var stockCount = 0

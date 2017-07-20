@@ -15,6 +15,9 @@ trait ParserUtils {
 
   val ConnectionTimeout = 7000 // millis
 
+  // "Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6"
+  protected var USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1"
+
   def fileDownloader(url: String, filename: String): Unit = {
     new URL(url) #> new File(filename) !!
   }
@@ -100,3 +103,5 @@ trait ParserImplicits {
   }
 
 }
+
+

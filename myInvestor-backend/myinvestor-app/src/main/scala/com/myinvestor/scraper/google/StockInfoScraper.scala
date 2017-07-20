@@ -39,7 +39,7 @@ class StockInfoScraper(val exchangeName: String, val symbols: Option[Array[Strin
       log.info(s"Grabbing stock info for [$current/$total] $exchangeName - $stockSymbol")
       try {
         val response = Jsoup.connect(GoogleFinanceUrl).timeout(ConnectionTimeout).ignoreContentType(true)
-          .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1").execute()
+          .userAgent(USER_AGENT).execute()
         if (response.statusCode() == 200) {
           val document = response.parse()
           val currentPrice = document.oneByCss("#price-panel > div:nth-child(1) > span")
