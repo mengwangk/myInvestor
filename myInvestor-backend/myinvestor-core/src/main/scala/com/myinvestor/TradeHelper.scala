@@ -58,6 +58,7 @@ object TradeHelper {
     implicit val exchangeFormat = jsonFormat4(Exchange)
     implicit val stockFormat = jsonFormat3(Stock)
     implicit val stockHistoryFormat = jsonFormat8(StockHistory)
+    implicit val g2YFinanceMappingFormat = jsonFormat6(G2YFinanceMapping)
     implicit val stockInfoFormat = jsonFormat5(StockInfo.apply)
     implicit val stockInfo2Format = jsonFormat20(StockInfo2.apply)
     implicit val dividendSummary = jsonFormat7(DividendSummary.apply)

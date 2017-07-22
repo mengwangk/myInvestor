@@ -88,7 +88,8 @@ object TradeSchema {
 
     type JobType = Value
 
-    val NotDefined, ScrapeStockInfo, ScrapStockHistory, ScrapStockDividendHistory, DividendSummary, ScrapStock, BollingerBand = Value
+    val NotDefined, ScrapStockInfo, ScrapStockHistory, ScrapStockDividendHistory, DividendSummary, ScrapStock, ScrapStockMappingBySymbol, ScrapStockMappingByName,
+    StockDataGenerator, BollingerBand = Value
 
     def getJob(s: String): Option[Value] = values.find(_.toString.equalsIgnoreCase(s))
 
@@ -109,6 +110,11 @@ object TradeSchema {
   trait WebScraping extends ModelBase
 
   case class WebScrapingResult(status: Boolean) extends WebScraping
+
+  // For data generation request
+  trait DataGenerator extends ModelBase
+
+  case class DataGeneratorResult(status: Boolean) extends DataGenerator
 
 
   // ----- Processed trade analysis results

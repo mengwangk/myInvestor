@@ -3,10 +3,10 @@ package com.myinvestor.actor
 import akka.actor.{Actor, ActorLogging, ActorRef}
 import akka.pattern.pipe
 import com.myinvestor.AppSettings
-import com.myinvestor.TradeEvent.{ScrapStock, ScrapStockDividendHistory, ScrapStockHistory, ScrapStockInfo}
+import com.myinvestor.TradeEvent._
 import com.myinvestor.TradeSchema.WebScrapingResult
 import com.myinvestor.scraper.google.{StockHistoryScraper, StockScraper}
-import com.myinvestor.scraper.yahoo.{DividendHistoryScraper, StockInfoScraper2}
+import com.myinvestor.scraper.yahoo.{DividendHistoryScraper, G2YStockMapper, G2YStockMapperByName, StockInfoScraper2}
 
 import scala.concurrent.Future
 
@@ -20,6 +20,8 @@ class WebScraperActor(settings: AppSettings) extends ActorBase with ActorLogging
     case e: ScrapStockHistory => scrapStockHistory(e.exchangeName, e.symbols, sender)
     case e: ScrapStockDividendHistory => scrapStockDividendHistory(e.exchangeName, e.symbols, sender)
     case e: ScrapStock => scrapStock(e.exchangeName, sender)
+    case e: ScrapStockMappingBySymbol => scrapStockMappingBySymbol(e.exchangeName, sender)
+    case e: ScrapStockMappingByName => scrapStock(e.exchangeName, sender)
   }
 
   def scrapStockInfo(exchangeName: String, symbols: Option[Array[String]], requester: ActorRef): Unit = {
@@ -50,6 +52,22 @@ class WebScraperActor(settings: AppSettings) extends ActorBase with ActorLogging
   def scrapStock(exchangeName: String, requester: ActorRef): Unit = {
     val scrapingResult: Future[WebScrapingResult] = Future {
       val stockScraper = new StockScraper(exchangeName)
+      WebScrapingResult(stockScraper.run)
+    }
+    scrapingResult pipeTo requester
+  }
+
+  def scrapStockMappingBySymbol(exchangeName: String, requester: ActorRef): Unit = {
+    val scrapingResult: Future[WebScrapingResult] = Future {
+      val stockScraper = new G2YStockMapper(exchangeName)
+      WebScrapingResult(stockScraper.run)
+    }
+    scrapingResult pipeTo requester
+  }
+
+  def scrapStockMappingByName(exchangeName: String, requester: ActorRef): Unit = {
+    val scrapingResult: Future[WebScrapingResult] = Future {
+      val stockScraper = new G2YStockMapperByName(exchangeName)
       WebScrapingResult(stockScraper.run)
     }
     scrapingResult pipeTo requester

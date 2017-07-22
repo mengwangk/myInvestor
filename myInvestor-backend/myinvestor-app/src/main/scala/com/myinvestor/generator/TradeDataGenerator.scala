@@ -1,17 +1,16 @@
 package com.myinvestor.generator
 
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import com.myinvestor.generator.DataGenerator.JsonGeneratorProtocol.DateTimeFormat.formatter
 import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormatter, ISODateTimeFormat}
 import spray.json.{DefaultJsonProtocol, JsNumber, JsObject, JsString, JsValue, RootJsonFormat, deserializationError}
 
-object DataGenerator {
+object TradeDataGenerator {
 
   case class StockDetails(exchangeName: String, stockSymbol: String, stockName: String,
                           currentPE: BigDecimal, currentPrice: BigDecimal, extractedTimestamp: DateTime)
 
-  object JsonGeneratorProtocol extends SprayJsonSupport with DefaultJsonProtocol {
+  object JsonGeneratorProtocol extends DefaultJsonProtocol with SprayJsonSupport {
 
     implicit object DateTimeFormat extends RootJsonFormat[DateTime] {
       val formatter: DateTimeFormatter = ISODateTimeFormat.basicDateTimeNoMillis
@@ -37,6 +36,7 @@ object DataGenerator {
       }
     }
 
+    /*
     implicit object StockDetailsFormat extends RootJsonFormat[StockDetails] {
       val formatter: DateTimeFormatter = ISODateTimeFormat.basicDateTimeNoMillis
 
@@ -52,8 +52,9 @@ object DataGenerator {
         null  // Not implemented
       }
     }
+    */
 
-    implicit val stockDetails = jsonFormat6(StockDetails)
+    implicit val stockDetailsFormat: RootJsonFormat[StockDetails] = jsonFormat6(StockDetails)
   }
 
 }

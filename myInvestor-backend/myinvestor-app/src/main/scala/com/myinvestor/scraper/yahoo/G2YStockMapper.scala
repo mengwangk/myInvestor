@@ -14,7 +14,7 @@ import scala.util.parsing.json.JSON
 /**
   * Google Finance to Yahoo Finance stock symbol mapper.
   */
-class G2YStockMapper(val exchangeName: String, val symbols: Option[Array[String]]) extends ParserUtils with ParserImplicits {
+class G2YStockMapper(val exchangeName: String) extends ParserUtils with ParserImplicits {
 
   protected var mappedByName: Boolean = false
 
@@ -37,6 +37,9 @@ class G2YStockMapper(val exchangeName: String, val symbols: Option[Array[String]
       log.error(s"Invalid exchange name - $exchangeName")
       return false
     }
+
+    // Delete existing mappings
+    sc.cassandraTable(Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ?", exchangeName).deleteFromCassandra(Keyspace, G2YFinanceMappingTable)
 
     var stocks = Array[Stock]()
     stocks = sc.cassandraTable[Stock](Keyspace, StockTable).where(ExchangeNameColumn + " = ?", exchangeName).collect()

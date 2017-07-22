@@ -87,6 +87,9 @@ final class AppSettings(conf: Option[Config] = None) extends Serializable {
   // Application settings
   val AppName: String = myInvestor.getString("app-name")
 
+  // Data generator output folder
+  val DataGeneratorOutput: String = myInvestor.getString("data-generator-output")
+
   /**
     * Attempts to acquire from environment, then java system properties.
     *

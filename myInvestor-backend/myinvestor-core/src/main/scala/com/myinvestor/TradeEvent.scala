@@ -35,4 +35,11 @@ object TradeEvent {
   case class ScrapStockHistory(exchangeName: String, symbols: Option[Array[String]]) extends WebScrapingRequest
   case class ScrapStockDividendHistory(exchangeName: String, symbols: Option[Array[String]]) extends WebScrapingRequest
   case class ScrapStock(exchangeName: String) extends WebScrapingRequest
+  case class ScrapStockMappingByName(exchangeName: String) extends WebScrapingRequest
+  case class ScrapStockMappingBySymbol(exchangeName: String) extends WebScrapingRequest
+
+
+  // Fundamental analysis
+  trait GeneratorRequest extends TradeActivity
+  case class StockDataGenerator(exchangeName: String) extends FARequest
 }

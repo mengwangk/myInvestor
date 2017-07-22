@@ -123,7 +123,7 @@ class SchedulerService(nodeGuardian: ActorSelection) extends Directives with Jso
       // Run the job
       val jobType = JobType.getJob(job.jobName).getOrElse(JobType.NotDefined)
       jobType match {
-        case JobType.ScrapeStockInfo => {
+        case JobType.ScrapStockInfo => {
           nodeGuardian ! ScrapStockInfo(job.exchangeName, Option(job.symbols))
         }
         case JobType.ScrapStockDividendHistory => {
@@ -137,6 +137,15 @@ class SchedulerService(nodeGuardian: ActorSelection) extends Directives with Jso
         }
         case JobType.ScrapStock => {
           nodeGuardian ! ScrapStock(job.exchangeName)
+        }
+        case JobType.ScrapStockMappingBySymbol => {
+          nodeGuardian ! ScrapStockMappingBySymbol(job.exchangeName)
+        }
+        case JobType.ScrapStockMappingByName => {
+          nodeGuardian ! ScrapStockMappingByName(job.exchangeName)
+        }
+        case JobType.StockDataGenerator => {
+          nodeGuardian ! StockDataGenerator(job.exchangeName)
         }
         case JobType.BollingerBand => {
           nodeGuardian ! BollingerBand(job.exchangeName, Option(job.symbols))
