@@ -138,14 +138,11 @@ class SchedulerService(nodeGuardian: ActorSelection) extends Directives with Jso
         case JobType.ScrapStock => {
           nodeGuardian ! ScrapStock(job.exchangeName)
         }
-        case JobType.ScrapStockMappingBySymbol => {
-          nodeGuardian ! ScrapStockMappingBySymbol(job.exchangeName)
-        }
-        case JobType.ScrapStockMappingByName => {
-          nodeGuardian ! ScrapStockMappingByName(job.exchangeName)
+        case JobType.ScrapStockMapping => {
+          nodeGuardian ! ScrapStockMapping(job.exchangeName)
         }
         case JobType.StockDataGenerator => {
-          nodeGuardian ! StockDataGenerator(job.exchangeName)
+          nodeGuardian ! GenerateStockData(job.exchangeName)
         }
         case JobType.BollingerBand => {
           nodeGuardian ! BollingerBand(job.exchangeName, Option(job.symbols))

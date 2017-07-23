@@ -47,14 +47,16 @@ class StockInfoScraper2(val exchangeName: String, val symbols: Option[Array[Stri
         try {
           // Grab stock information for each stock
           val stock = YahooFinance.get(mappedStock.yStockSymbol)
-          val currentPrice = stock.getQuote(true).getPrice
+          val currentPrice = stock.getQuote(false).getPrice
           val pe = stock.getStats.getPe
           log.info(s"currentPrice: $currentPrice, PE: $pe")
 
           // Update table
-          if (currentPrice.doubleValue() > 0 && pe.doubleValue() > 0) {
+          if (currentPrice.doubleValue() > 0 && pe != null && pe.doubleValue() > 0) {
             val stockInfo = StockInfo(stockSymbol = stockSymbol, exchangeName = exchangeName, infoCurrentPrice = currentPrice, infoPe = pe)
             sc.parallelize(Seq(stockInfo)).saveToCassandra(Keyspace, StockInfoTable)
+          } else {
+            log.info(s"Skipping symbol - $stockSymbol")
           }
         } catch {
           case e: Exception => {

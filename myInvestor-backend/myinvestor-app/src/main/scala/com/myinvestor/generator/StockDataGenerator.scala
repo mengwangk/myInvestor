@@ -27,7 +27,7 @@ import scala.util.Try
   *      </p>
   *
   */
-class StockInfoGenerator(val exchangeName: String) extends JsonApiProtocol {
+class StockDataGenerator(val exchangeName: String) extends JsonApiProtocol {
 
   def run(): Boolean = {
     var status = true

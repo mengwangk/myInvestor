@@ -20,8 +20,7 @@ class WebScraperActor(settings: AppSettings) extends ActorBase with ActorLogging
     case e: ScrapStockHistory => scrapStockHistory(e.exchangeName, e.symbols, sender)
     case e: ScrapStockDividendHistory => scrapStockDividendHistory(e.exchangeName, e.symbols, sender)
     case e: ScrapStock => scrapStock(e.exchangeName, sender)
-    case e: ScrapStockMappingBySymbol => scrapStockMappingBySymbol(e.exchangeName, sender)
-    case e: ScrapStockMappingByName => scrapStock(e.exchangeName, sender)
+    case e: ScrapStockMapping => scrapStockMapping(e.exchangeName, sender)
   }
 
   def scrapStockInfo(exchangeName: String, symbols: Option[Array[String]], requester: ActorRef): Unit = {
@@ -57,19 +56,18 @@ class WebScraperActor(settings: AppSettings) extends ActorBase with ActorLogging
     scrapingResult pipeTo requester
   }
 
-  def scrapStockMappingBySymbol(exchangeName: String, requester: ActorRef): Unit = {
+  def scrapStockMapping(exchangeName: String, requester: ActorRef): Unit = {
     val scrapingResult: Future[WebScrapingResult] = Future {
-      val stockScraper = new G2YStockMapper(exchangeName)
-      WebScrapingResult(stockScraper.run)
+      val stockScraper = new G2YStockMapperByName(exchangeName)
+      stockScraper.purge
+      if (stockScraper.run) {
+        val stockScraper = new G2YStockMapper(exchangeName)
+        WebScrapingResult(stockScraper.run)
+      } else {
+        WebScrapingResult(false)
+      }
     }
     scrapingResult pipeTo requester
   }
 
-  def scrapStockMappingByName(exchangeName: String, requester: ActorRef): Unit = {
-    val scrapingResult: Future[WebScrapingResult] = Future {
-      val stockScraper = new G2YStockMapperByName(exchangeName)
-      WebScrapingResult(stockScraper.run)
-    }
-    scrapingResult pipeTo requester
-  }
 }

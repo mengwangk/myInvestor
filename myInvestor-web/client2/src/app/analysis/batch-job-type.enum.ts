@@ -1,7 +1,7 @@
 export enum BatchJobType {
   NotDefined = 0,
 
-  ScrapeStockInfo = 1,
+  ScrapStockInfo = 1,
 
   ScrapStockHistory = 2,
 
@@ -11,5 +11,9 @@ export enum BatchJobType {
 
   ScrapStock = 5,
 
-  BollingerBand = 6
+  ScrapStockMapping = 6,
+
+  StockDataGenerator = 7,
+
+  BollingerBand = 8
 }

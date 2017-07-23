@@ -21,7 +21,7 @@ import scala.Array._
 class DividendHistoryScraper(val exchangeName: String, val symbols: Option[Array[String]]) extends ParserUtils with ParserImplicits {
 
   val log = Logger(this.getClass.getName)
-
+  val cookie = "B=aih3bu9cdvb24&b=3&s=27;PRF=t%3D6742.KL%252BYHOO%252B4448.KL%252B%255EIXIC%252BTKCS.KL%252B4448P.KL%252B4952.KL%252B5185.KL%252BMRCY%252B6556.KL%252B0823EA.KL%252B2577.KL"
   /*
    ## Capture by Fiddler
    GET /v7/finance/download/6742.KL?period1=1274803200&period2=1495728000&interval=1d&events=div&crumb=xZCgl1rxPCP HTTP/1.1
@@ -39,7 +39,7 @@ class DividendHistoryScraper(val exchangeName: String, val symbols: Option[Array
       val url = new URL(sourceURL)
       val httpConn = url.openConnection.asInstanceOf[HttpURLConnection]
       // IMPORTANT
-      httpConn.setRequestProperty("Cookie", "B=aih3bu9cdvb24&b=3&s=27;PRF=t%3D6742.KL%252BYHOO%252B4448.KL%252B%255EIXIC%252BTKCS.KL%252B4448P.KL%252B4952.KL%252B5185.KL%252BMRCY%252B6556.KL%252B0823EA.KL%252B2577.KL")
+      httpConn.setRequestProperty("Cookie", cookie)
       val responseCode = httpConn.getResponseCode
       // always check HTTP response code first
       if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -112,6 +112,9 @@ class DividendHistoryScraper(val exchangeName: String, val symbols: Option[Array
       stocks.foreach { stock =>
         val symbol = URLEncoder.encode(stock.yStockSymbol, "UTF-8")
         val YahooFinanceDividendHistoryUrl = s"https://query1.finance.yahoo.com/v7/finance/download/$symbol?period1=$past10years&period2=$now&interval=1d&events=div&crumb=xZCgl1rxPCP"
+
+        println(YahooFinanceDividendHistoryUrl)
+
         current = current + 1
         log.info(s"Grabbing stock dividend history for [$current/$total] ${stock.yExchangeName} - ${stock.yStockSymbol}")
         try {

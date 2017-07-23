@@ -3,6 +3,7 @@ package com.myinvestor.scraper.yahoo
 import java.net.URLEncoder
 
 import com.datastax.spark.connector._
+import com.myinvestor.TradeSchema.{G2YFinanceMappingTable, GoogleExchangeNameColumn, Keyspace}
 import com.myinvestor.scraper.{ParserImplicits, ParserUtils}
 import com.myinvestor.{SparkContextUtils, TradeSchema}
 import com.typesafe.scalalogging.Logger
@@ -22,6 +23,16 @@ class G2YStockMapper(val exchangeName: String) extends ParserUtils with ParserIm
 
   val IGNORE_WORDS = Array("berhad", "bhd")
 
+  def purge: Boolean = {
+    val sc: SparkContext = SparkContextUtils.sparkContext
+
+    // Delete existing mappings
+    log.info(s"Purging mapping for $exchangeName")
+    sc.cassandraTable(Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ?", exchangeName).deleteFromCassandra(Keyspace, G2YFinanceMappingTable)
+
+    true
+  }
+
   def run: Boolean = {
 
     import TradeSchema._
@@ -37,17 +48,13 @@ class G2YStockMapper(val exchangeName: String) extends ParserUtils with ParserIm
       log.error(s"Invalid exchange name - $exchangeName")
       return false
     }
-
-    // Delete existing mappings
-    sc.cassandraTable(Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ?", exchangeName).deleteFromCassandra(Keyspace, G2YFinanceMappingTable)
-
     var stocks = Array[Stock]()
     stocks = sc.cassandraTable[Stock](Keyspace, StockTable).where(ExchangeNameColumn + " = ?", exchangeName).collect()
     val total = stocks.length
     var current = 0
     stocks.foreach { stock =>
       current = current + 1
-      log.info(s"Mapping stock info for [$current/$total] $exchangeName  - ${stock.stockSymbol}")
+      log.info(s"Mapping stock [$current/$total] $exchangeName  - ${stock.stockSymbol}")
       try {
         var searchTerm = ""
         if (mappedByName) {

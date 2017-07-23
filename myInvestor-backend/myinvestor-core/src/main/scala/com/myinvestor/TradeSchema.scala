@@ -88,7 +88,7 @@ object TradeSchema {
 
     type JobType = Value
 
-    val NotDefined, ScrapStockInfo, ScrapStockHistory, ScrapStockDividendHistory, DividendSummary, ScrapStock, ScrapStockMappingBySymbol, ScrapStockMappingByName,
+    val NotDefined, ScrapStockInfo, ScrapStockHistory, ScrapStockDividendHistory, DividendSummary, ScrapStock, ScrapStockMapping,
     StockDataGenerator, BollingerBand = Value
 
     def getJob(s: String): Option[Value] = values.find(_.toString.equalsIgnoreCase(s))

@@ -3,6 +3,7 @@ package com.myinvestor
 import akka.actor.{Actor, ActorContext, ActorRef, Props}
 import com.myinvestor.actor._
 import com.myinvestor.cluster.ClusterAwareNodeGuardian
+import com.myinvestor.generator.StockDataGenerator
 import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.kafka010.DirectKafkaInputDStream
 
@@ -30,6 +31,7 @@ class NodeGuardian(kafkaParams: Map[String, Object], settings: AppSettings) exte
   val technicalAnalysis: ActorRef = context.actorOf(Props(new TechnicalAnalysisActor(settings)), "technical-analysis")
   val fundamentalAnalysis: ActorRef = context.actorOf(Props(new FundamentalAnalysisActor(settings)), "fundamental-analysis")
   val webScraperActor: ActorRef = context.actorOf(Props(new WebScraperActor(settings)), "web-scraping")
+  val dataGeneratorActor: ActorRef = context.actorOf(Props(new StockDataGeneratorActor(settings)), "stock-data-generator")
 
   override def preStart(): Unit = {
     super.preStart()
@@ -63,6 +65,10 @@ class NodeGuardian(kafkaParams: Map[String, Object], settings: AppSettings) exte
     case e: WebScrapingRequest => {
       log.info("Received scraping request")
       webScraperActor forward e
+    }
+    case e: DataGeneratorRequest => {
+      log.info("Received data generator request")
+      dataGeneratorActor forward e
     }
     case GracefulShutdown => {
       log.info("Perform graceful shutdown")
