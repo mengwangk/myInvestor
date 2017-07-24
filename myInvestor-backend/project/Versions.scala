@@ -37,6 +37,7 @@ object Versions {
 
   val JSoup = "1.10.2"
   val YahooFinanceApi = "3.8.0"
+  val Spray = "1.3.4"
 
   // Plugins
 

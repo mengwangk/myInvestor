@@ -70,7 +70,7 @@ public final class Investor {
 
 	@ApiMethod(name = "mapping", httpMethod = ApiMethod.HttpMethod.POST, path = "mapping")
 	public void saveMapping(Message message) {
-
+		log.info("message ---" + message.getMessage());
 	}
 
 	@ApiMethod(name = "dividend", httpMethod = ApiMethod.HttpMethod.GET, path = "dividend")
@@ -80,7 +80,7 @@ public final class Investor {
 
 	@ApiMethod(name = "dividend", httpMethod = ApiMethod.HttpMethod.POST, path = "dividend")
 	public void saveDividend(Message message) {
-
+		log.info("message ---" + message.getMessage());
 	}
 
 }

@@ -10,6 +10,8 @@ object TradeDataGenerator {
   case class StockDetails(exchangeName: String, stockSymbol: String, stockName: String,
                           currentPE: BigDecimal, currentPrice: BigDecimal, extractedTimestamp: DateTime)
 
+  case class Message(message: String)
+
   object JsonGeneratorProtocol extends DefaultJsonProtocol with SprayJsonSupport {
 
     implicit object DateTimeFormat extends RootJsonFormat[DateTime] {
@@ -55,6 +57,7 @@ object TradeDataGenerator {
     */
 
     implicit val stockDetailsFormat: RootJsonFormat[StockDetails] = jsonFormat6(StockDetails)
+    implicit val messageFormat: RootJsonFormat[Message] = jsonFormat1(Message)
   }
 
 }

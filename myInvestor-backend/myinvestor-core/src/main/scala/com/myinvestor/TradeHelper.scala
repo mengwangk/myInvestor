@@ -2,7 +2,6 @@ package com.myinvestor
 
 import java.util.UUID
 
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import com.myinvestor.TradeSchema._
 import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormatter, ISODateTimeFormat}
@@ -28,7 +27,7 @@ object TradeHelper {
     */
   def UUIDFromString(uuid: String): UUID = java.util.UUID.fromString(uuid)
 
-  trait JsonApiProtocol extends SprayJsonSupport with DefaultJsonProtocol {
+  trait JsonApiProtocol extends DefaultJsonProtocol {
 
     implicit object DateTimeFormat extends RootJsonFormat[DateTime] {
       val formatter: DateTimeFormatter = ISODateTimeFormat.basicDateTimeNoMillis

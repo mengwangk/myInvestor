@@ -68,6 +68,10 @@ object Dependencies {
     val jSoup: ModuleID = "org.jsoup" % "jsoup" % JSoup
 
     val yahooFinanceApi: ModuleID = "com.yahoofinance-api" % "YahooFinanceAPI" % YahooFinanceApi
+
+    // For spray http
+    val sprayHttpx : ModuleID = "io.spray" %% "spray-httpx" % Spray
+    val sprayClient: ModuleID = "io.spray" %% "spray-client" % Spray
   }
 
   object Test {
@@ -92,7 +96,7 @@ object Dependencies {
 
   val config = Seq(scalaConfig)
 
-  val scheduler = Seq(akkaQuartzScheduler, jSoup)
+  val scheduler = Seq(akkaQuartzScheduler, jSoup, sprayHttpx, sprayClient)
 
   val akka = Seq(akkaActor, akkaAgent, akkaCluster, akkaClusterMetrics, akkaSlf4j, akkaStream, akkaRemote, akkaPersistence, akkaHttp, akkaHttpCore, akkaHttpJson)
 
