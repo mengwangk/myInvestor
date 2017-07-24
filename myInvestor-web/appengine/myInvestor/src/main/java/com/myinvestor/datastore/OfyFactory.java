@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.googlecode.objectify.ObjectifyFactory;
+import com.myinvestor.entity.Stock;
 
 /**
  * Our version of ObjectifyFactory which integrates with Guice.  You could and convenience methods here too.
@@ -27,7 +28,7 @@ public class OfyFactory extends ObjectifyFactory
 		long time = System.currentTimeMillis();
 		
 		// Register classes
-		//this.register(User.class);
+		this.register(Stock.class);
 		
 		long millis = System.currentTimeMillis() - time;
 		log.info("Registration took " + millis + " millis");

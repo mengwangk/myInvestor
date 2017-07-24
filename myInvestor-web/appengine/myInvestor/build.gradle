@@ -62,6 +62,8 @@ dependencies {
   compile group: 'org.apache.commons', name: 'commons-configuration2', version: COMMONS_CONFIGURATION_VERSION
   compile group: 'commons-beanutils', name: 'commons-beanutils', version: COMMONS_BEANUTILS_VERSION
   compile group: 'commons-logging', name: 'commons-logging', version: COMMONS_LOGGING_VERSION
+  compile group: 'com.google.code.gson', name: 'gson', version: GSON_VERSION
+  
 
 }
 
