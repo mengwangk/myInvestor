@@ -1,4 +1,4 @@
-package com.myinvestor.util;
+package com.myinvestor;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,6 +14,8 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
  * 
  */
 public final class AppConfig {
+	
+	public static final String UNIVERSAL_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssz";
 
 	// https://stackoverflow.com/questions/2797162/getresourceasstream-is-always-returning-null
 

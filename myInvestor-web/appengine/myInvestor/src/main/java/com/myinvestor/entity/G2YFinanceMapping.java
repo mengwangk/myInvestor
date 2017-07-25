@@ -1,24 +1,20 @@
 package com.myinvestor.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.Date;
-
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Cache
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-public class Stock {
-	
+public class G2YFinanceMapping {
 
 	@Getter
 	@Setter
@@ -28,23 +24,28 @@ public class Stock {
 	@Getter
 	@Setter
 	@Index
-	private String exchangeName;
+	private String gExchangeName;
 	
 	@Getter
 	@Setter
 	@Index
-	private String stockSymbol;
+	private String gStockSymbol;
 	
 	@Getter
 	@Setter
-	private Double currentPE;
+	private String gStockName;
 	
 	@Getter
 	@Setter
-	private Double currentPrice;
+	@Index
+	private String yExchangeName;
 	
 	@Getter
 	@Setter
-	private Date extractedTimestamp ;
-
+	@Index
+	private String yStockSymbol;
+	
+	@Getter
+	@Setter
+	private String yStockName;
 }

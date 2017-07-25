@@ -1,4 +1,4 @@
-package com.myinvestor.common;
+package com.myinvestor.util;
 
 public final class EntityHelper {
 

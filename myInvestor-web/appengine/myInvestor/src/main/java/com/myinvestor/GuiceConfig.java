@@ -21,7 +21,6 @@ import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import com.googlecode.objectify.ObjectifyFilter;
 import com.myinvestor.datastore.OfyService;
-import com.myinvestor.util.AppConfig;
 import com.myinvestor.util.txn.Transact;
 import com.myinvestor.util.txn.TransactInterceptor;
 

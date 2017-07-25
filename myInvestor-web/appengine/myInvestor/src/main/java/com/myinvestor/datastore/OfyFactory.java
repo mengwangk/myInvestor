@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.googlecode.objectify.ObjectifyFactory;
+import com.myinvestor.entity.DividendSummary;
+import com.myinvestor.entity.G2YFinanceMapping;
 import com.myinvestor.entity.Stock;
 
 /**
@@ -29,6 +31,8 @@ public class OfyFactory extends ObjectifyFactory
 		
 		// Register classes
 		this.register(Stock.class);
+		this.register(G2YFinanceMapping.class);
+		this.register(DividendSummary.class);
 		
 		long millis = System.currentTimeMillis() - time;
 		log.info("Registration took " + millis + " millis");
