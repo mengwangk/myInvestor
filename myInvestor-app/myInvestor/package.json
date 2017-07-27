@@ -1,43 +1,43 @@
 {
-    "name": "myInvestor",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-        "start": "node node_modules/react-native/local-cli/cli.js start",
-        "test": "jest"
-    },
-    "dependencies": {
-        "art": "^0.10.1",
-        "babel-cli": "^6.24.1",
-        "babel-relay-plugin": "^0.11.0",
-        "moment": "^2.18.1",
-        "react": "16.0.0-alpha.12",
-        "react-native": "0.45.1",
-        "react-native-code-push": "^2.1.0-beta",
-        "react-native-vector-icons": "^4.2.0",
-        "react-navigation": "^1.0.0-beta.11",
-        "react-redux": "^5.0.5",
-        "react-relay": "^1.1.0",
-        "realm": "^1.8.3",
-        "redux": "^3.7.1",
-        "redux-logger": "^3.0.6",
-        "redux-persist": "^4.8.1",
-        "redux-thunk": "^2.2.0",
-        "reselect": "^3.0.1"
-    },
-    "devDependencies": {
-        "babel-eslint": "^7.2.3",
-        "babel-jest": "20.0.3",
-        "babel-polyfill": "^6.23.0",
-        "babel-preset-react-native": "2.0.0",
-        "eslint": "^4.1.1",
-        "eslint-plugin-react": "^7.1.0",
-        "jest": "20.0.4",
-        "jest-cli": "^20.0.4",
-        "react-test-renderer": "16.0.0-alpha.12",
-        "redux-devtools": "^3.4.0"
-    },
-    "jest": {
-        "preset": "react-native"
-    }
+  "name": "myInvestor",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "art": "^0.10.1",
+    "babel-cli": "^6.24.1",
+    "babel-relay-plugin": "^0.11.0",
+    "moment": "^2.18.1",
+    "react": "16.0.0-alpha.12",
+    "react-native": "^0.46.4",
+    "react-native-code-push": "^2.1.0-beta",
+    "react-native-vector-icons": "^4.2.0",
+    "react-navigation": "^1.0.0-beta.12",
+    "react-redux": "^5.0.5",
+    "react-relay": "^1.1.0",
+    "realm": "^1.10.0",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^4.8.2",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "20.0.3",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-react-native": "2.1.0",
+    "eslint": "^4.3.0",
+    "eslint-plugin-react": "^7.1.0",
+    "jest": "20.0.4",
+    "jest-cli": "^20.0.4",
+    "react-test-renderer": "16.0.0-alpha.12",
+    "redux-devtools": "^3.4.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
 }

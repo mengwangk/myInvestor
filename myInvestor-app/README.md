@@ -16,3 +16,10 @@ keytool -genkey -v -keystore myinvestor.keystore -alias myinvestor -keyalg RSA -
 
 # Reference
 http://makeitopen.com/ 
+https://www.codementor.io/mz026/getting-started-with-react-redux-an-intro-8r6kurcxf
+
+# Libraries
+https://github.com/visionmedia/superagent
+https://github.com/redux-observable/redux-observable
+https://github.com/reactjs/redux/examples
+
