@@ -17,6 +17,9 @@ keytool -genkey -v -keystore myinvestor.keystore -alias myinvestor -keyalg RSA -
 # Reference
 http://makeitopen.com/ 
 https://www.codementor.io/mz026/getting-started-with-react-redux-an-intro-8r6kurcxf
+https://github.com/react-community/react-navigation/issues/131
+https://github.com/kyaroru/ReactNavDrawer
+
 
 # Libraries
 https://github.com/visionmedia/superagent
