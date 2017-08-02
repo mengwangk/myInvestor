@@ -1,41 +1,26 @@
+/*
+ * @Author: mwk 
+ * @Date: 2017-08-01 14:14:24 
+ * @Last Modified by: mwk
+ * @Last Modified time: 2017-08-01 19:37:13
+ */
 import React, { Component } from "react";
 import { DrawerNavigator, StackNavigator, DrawerItems } from "react-navigation";
 import { ScrollView, Image } from "react-native";
-import HomeScreen from "../Containers/HomeScreen";
-import WatchlistScreen from "../Containers/WatchlistScreen";
-import SettingsScreen from "../Containers/SettingsScreen";
-import LaunchScreen from "../Containers/LaunchScreen";
-import SampleContainer from "../Containers/SampleContainer";
-import SampleScreen from "../Containers/SampleScreen";
-
+import NavigationDrawer from "../Components/NavigationDrawer";
 import styles from "./Styles/NavigationStyles";
 
-class DrawerView extends React.Component {
-  render() {
-    return (
-      <ScrollView><DrawerItems {...this.props} /></ScrollView>
-    );
-  }
-}
 
-// Manifest of possible screens
-const PrimaryNav = DrawerNavigator(
+const createStackNavigator = StackNavigator(
   {
-    HomeScreen: { screen: HomeScreen },
-    WatchlistScreen: { screen: WatchlistScreen },
-    SettingsScreen: { screen: SettingsScreen },
-    LaunchScreen: { screen: LaunchScreen },
-    SampleContainer: { screen: SampleContainer },
-    SampleScreen: { screen: SampleScreen }
+    NavigationDrawer: { screen: NavigationDrawer }
   },
   {
-    // Default config for all screens
-    initialRouteName: "HomeScreen",
-    contentComponent: DrawerView,    
-    navigationOptions: {
-      headerStyle: styles.header
-    }
+    initialRouteName: "NavigationDrawer"
   }
 );
+
+// Manifest of possible screens
+const PrimaryNav = createStackNavigator;
 
 export default PrimaryNav;

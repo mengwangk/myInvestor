@@ -24,7 +24,7 @@
   "dependencies": {
     "apisauce": "^0.14.0",
     "format-json": "^1.0.3",
-    "lodash": "^4.17.2",
+    "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "querystringify": "0.0.4",
     "ramda": "^0.24.1",

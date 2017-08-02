@@ -1,9 +1,12 @@
 /*
  * @Author: mwk 
  * @Date: 2017-07-31 23:58:29 
- * @Last Modified by:   mwk 
- * @Last Modified time: 2017-07-31 23:58:29 
+ * @Last Modified by: mwk
+ * @Last Modified time: 2017-08-01 16:26:53
  */
+
+import { DrawerItems } from "react-navigation";
+import { ScrollView } from "react-native";
 
 export const getNavigationOptions = (title, backgroundColor, color) => ({
   title,
@@ -60,5 +63,5 @@ export const getDrawerConfig = (
 ) => ({
   drawerWidth,
   drawerPosition,
-  initialRouteName
+  initialRouteName,
 });
