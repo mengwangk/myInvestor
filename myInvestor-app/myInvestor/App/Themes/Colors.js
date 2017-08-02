@@ -1,3 +1,9 @@
+/*
+ * @Author: mwk 
+ * @Date: 2017-08-02 14:25:42 
+ * @Last Modified by:   mwk 
+ * @Last Modified time: 2017-08-02 14:25:42 
+ */
 const colors = {
   background: '#1F0808',
   clear: 'rgba(0,0,0,0)',
@@ -21,10 +27,7 @@ const colors = {
   eggplant: '#251a34',
   border: '#483F53',
   banner: '#5F3E63',
-  text: '#E0D7E5',
-  // myInvestor
-  primary: '#3498db',
-  secondary: '#ddd'
+  text: '#E0D7E5'
 }
 
 export default colors

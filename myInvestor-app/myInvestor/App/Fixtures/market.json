@@ -1,0 +1,18 @@
+[
+  {
+    "symbol": "KLSE",
+    "name": "FTSE Bursa Malaysia"
+  },
+  {
+    "symbol": "NASDAQ",
+    "name": "Nasdaq Stock Market"
+  },
+  {
+    "symbol": "NYSE",
+    "name": "The New York Stock Exchange"
+  },
+  {
+    "symbol": "SGX",
+    "name": "Singapore Exchange"
+  }
+]

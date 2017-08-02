@@ -1,7 +1,13 @@
+/*
+ * @Author: mwk 
+ * @Date: 2017-08-02 16:57:48 
+ * @Last Modified by:   mwk 
+ * @Last Modified time: 2017-08-02 16:57:48 
+ */
 import React, { Component } from "react";
 import { View, ListView, Text, Image } from "react-native";
 import { connect } from "react-redux";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from "react-native-vector-icons/FontAwesome";
 
 // For empty lists
 // import AlertMessage from '../Components/AlertMessage'
@@ -10,12 +16,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from "./Styles/HomeScreenStyle";
 
 class HomeScreen extends Component {
-  static navigationOptions = {
-    drawerLabel: "Home",
-    drawerIcon: ({ tintColor }) =>
-      <Icon name="rocket" size={30} color="#900" />
-  };
-
   constructor(props) {
     super(props);
 
