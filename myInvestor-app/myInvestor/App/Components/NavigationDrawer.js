@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-01 10:30:30 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-02 17:12:34
+ * @Last Modified time: 2017-08-03 17:45:11
  */
 import I18n from "react-native-i18n";
 import React, { Component } from "react";
@@ -15,6 +15,8 @@ import {
   getDrawerConfig
 } from "../Lib/Navigation";
 import NavBarItem from "./NavBarItem";
+
+import NavigationToolbar from "./NavigationToolbar";
 import { Fonts, Colors, Metrics } from "../Themes/";
 import styles from "./Styles/NavigationDrawerStyles";
 import StockSearchBar from "../Components/StockSearchBar";
@@ -47,11 +49,13 @@ const homeDrawerIcon = ({ tintColor }) => getDrawerIcon("home", tintColor);
 const analyticsDrawerIcon = ({ tintColor }) =>
   getDrawerIcon("bar-chart", tintColor);
 
+
 const homeNavOptions = getDrawerNavigationOptions(
   I18n.t("homeScreen"),
   Colors.background,
   Colors.text,
-  homeDrawerIcon
+  homeDrawerIcon,
+  <NavigationToolbar/>
 );
 
 const analyticsNavOptions = getDrawerNavigationOptions(
