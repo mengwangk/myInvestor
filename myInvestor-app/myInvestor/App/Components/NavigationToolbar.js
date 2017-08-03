@@ -2,18 +2,13 @@
  * @Author: mwk 
  * @Date: 2017-08-03 17:31:29 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-03 17:44:51
+ * @Last Modified time: 2017-08-04 00:43:45
  */
 import React, { Component } from "react";
 // import PropTypes from 'prop-types';
 import { View, Text } from "react-native";
-import Menu, {
-  MenuContext,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger
-} from "react-native-menu";
-import NavigationMenu from "./NavigationMenu";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { Fonts, Colors, Metrics } from "../Themes/";
 import styles from "./Styles/NavigationToolbarStyle";
 
 export default class NavigationToolbar extends Component {
@@ -30,14 +25,13 @@ export default class NavigationToolbar extends Component {
 
   render() {
     return (
-      <MenuContext style={{ flex: 1 }}>
-        <NavigationMenu/>
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <Text>Hello!</Text>
-        </View>
-      </MenuContext>
+      <Icon.Button name="search" size={Metrics.icons.tiny} backgroundColor={Colors.background} iconStyle={styles.searchButton} onPress={this.searchStock}/>
     );
   }
+
+  searchStock(){
+    console.log('searching');
+  }
+
+
 }
