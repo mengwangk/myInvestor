@@ -9,6 +9,7 @@ import {
   Alert
 } from "react-native";
 import { connect } from "react-redux";
+import FixtureApi  from "../Services/FixtureApi";
 
 // For empty lists
 // import AlertMessage from '../Components/AlertMessage'
@@ -25,7 +26,7 @@ class AnalyticsScreen extends Component {
     * This is an array of objects with the properties you desire
     * Usually this should come from Redux mapStateToProps
     *************************************************************/
-    const dataObjects = require("../Fixtures/market.json");
+    const dataObjects = FixtureApi.getMarkets().data;
     /* ***********************************************************
     * STEP 2
     * Teach datasource how to detect if rows are different
@@ -34,17 +35,15 @@ class AnalyticsScreen extends Component {
     *   The same goes for sectionHeaderHasChanged
     *************************************************************/
     const rowHasChanged = (r1, r2) => r1 !== r2;
-    const sectionHeaderHasChanged = (s1, s2) => s1 !== s2;
 
     // DataSource configured
-    const ds = new ListView.DataSource({
-      rowHasChanged,
-      sectionHeaderHasChanged
+    this.ds = new ListView.DataSource({
+      rowHasChanged
     });
 
     // Datasource is always in state
     this.state = {
-      dataSource: ds.cloneWithRows(dataObjects)
+      dataSource: this.ds.cloneWithRows(dataObjects)
     };
   }
 

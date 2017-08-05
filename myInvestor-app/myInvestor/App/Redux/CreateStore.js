@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-05 11:50:59 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-05 12:42:25
+ * @Last Modified time: 2017-08-05 14:45:28
  */
 import { createStore, applyMiddleware, compose } from "redux";
 import { autoRehydrate } from "redux-persist";
@@ -32,8 +32,8 @@ export default (rootReducer, rootSaga) => {
   middleware.push(sagaMiddleware);
 
   /*---- myInvestor - Redux Logger Middleware ------------ */
-  const logger = createLogger();
-  middleware.push(logger);
+  // const logger = createLogger();
+  // middleware.push(logger);
   
   /* ------------- Assemble Middleware ------------- */
 
