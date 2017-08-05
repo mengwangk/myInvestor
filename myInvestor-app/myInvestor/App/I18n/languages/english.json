@@ -2,12 +2,14 @@
  * @Author: mwk 
  * @Date: 2017-08-02 14:25:32 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-02 17:18:59
+ * @Last Modified time: 2017-08-05 09:52:07
  */
 {
   "appName": "myInvestor",
   "homeScreen": "Home",
   "analyticsScreen": "Analytics",
+  "markets": "Markets",
+  
   "signIn": "Sign In",
   "logOut": "Log Out",
   "loginLogoutExampleTitle": "Login/Logout Redux + Sagas Example",

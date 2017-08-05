@@ -1,18 +1,22 @@
 [
   {
     "symbol": "KLSE",
-    "name": "FTSE Bursa Malaysia"
+    "name": "FTSE Bursa Malaysia",
+    "count": 900
   },
   {
     "symbol": "NASDAQ",
-    "name": "Nasdaq Stock Market"
+    "name": "Nasdaq Stock Market",
+    "count": 900
   },
   {
     "symbol": "NYSE",
-    "name": "The New York Stock Exchange"
+    "name": "The New York Stock Exchange",
+    "count": 900
   },
   {
     "symbol": "SGX",
-    "name": "Singapore Exchange"
+    "name": "Singapore Exchange",
+    "count": 1000
   }
 ]

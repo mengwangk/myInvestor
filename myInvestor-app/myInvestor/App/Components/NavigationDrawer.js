@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-01 10:30:30 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-04 00:08:55
+ * @Last Modified time: 2017-08-04 21:04:09
  */
 import I18n from "react-native-i18n";
 import React, { Component } from "react";
@@ -86,7 +86,7 @@ const NavigationDrawer = DrawerNavigator(
   getDrawerConfig(
     300,
     "left",
-    "HomeScreen",
+    "AnalyticsScreen",
     ScrollDrawerContentComponent,
     navigationDrawerContentOptions
   )
