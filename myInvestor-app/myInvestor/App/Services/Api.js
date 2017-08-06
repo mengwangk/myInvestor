@@ -7,7 +7,8 @@ if (__DEV__) {
 }
 
 // our "constructor"
-const create = (baseURL = apiURL) => {
+//const create = (baseURL = apiURL) => {
+const create = (baseURL = 'https://api.github.com/') => {
   // ------
   // STEP 1
   // ------
@@ -40,7 +41,9 @@ const create = (baseURL = apiURL) => {
   // way at this level.
   //
   const getStocks = () => api.get("stocks/");
-
+  const getRoot = () => api.get('')
+  const getRate = () => api.get('rate_limit')
+  const getUser = (username) => api.get('search/users', {q: username})
   // ------
   // STEP 3
   // ------
@@ -55,7 +58,10 @@ const create = (baseURL = apiURL) => {
   //
   return {
     // a list of the API functions from step 2
-    getStocks
+    getStocks,
+    getRoot,
+    getRate,
+    getUser
   };
 };
 

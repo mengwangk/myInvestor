@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-05 11:52:40 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-05 12:33:59
+ * @Last Modified time: 2017-08-05 21:47:58
  */
 import Config from "../Config/DebugConfig";
 import Immutable from "seamless-immutable";
@@ -14,7 +14,7 @@ if (Config.useReactotron) {
   
   // https://github.com/infinitered/reactotron/issues/431
   // https://github.com/infinitered/reactotron for more options!
-  Reactotron.configure({  host: '192.168.0.103', name: "myInvestor" })
+  Reactotron.configure({  host: '192.168.0.104', name: "myInvestor" })
     .useReactNative()
     .use(reduxPlugin({ onRestore: Immutable }))
     .use(sagaPlugin())
