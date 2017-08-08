@@ -9,33 +9,15 @@ import {
   Alert
 } from "react-native";
 import { connect } from "react-redux";
-import FixtureApi  from "../Services/FixtureApi";
-
-// For empty lists
-// import AlertMessage from '../Components/AlertMessage'
-
-// Styles
+import FixtureApi from "../Services/FixtureApi";
+import StockPickerScreen from "./StockPickerScreen";
 import styles from "./Styles/AnalyticsScreenStyle";
 
 class AnalyticsScreen extends Component {
   constructor(props) {
     super(props);
-
-    /* ***********************************************************
-    * STEP 1
-    * This is an array of objects with the properties you desire
-    * Usually this should come from Redux mapStateToProps
-    *************************************************************/
-    const dataObjects = FixtureApi.getMarkets().data;
-    /* ***********************************************************
-    * STEP 2
-    * Teach datasource how to detect if rows are different
-    * Make this function fast!  Perhaps something like:
-    *   (r1, r2) => r1.id !== r2.id}
-    *   The same goes for sectionHeaderHasChanged
-    *************************************************************/
+    const markets = FixtureApi.getMarkets().data;
     const rowHasChanged = (r1, r2) => r1 !== r2;
-
     // DataSource configured
     this.ds = new ListView.DataSource({
       rowHasChanged
@@ -43,25 +25,18 @@ class AnalyticsScreen extends Component {
 
     // Datasource is always in state
     this.state = {
-      dataSource: this.ds.cloneWithRows(dataObjects)
+      dataSource: this.ds.cloneWithRows(markets)
     };
   }
 
   selectMarket() {
-    Alert.alert("afsdf", "Afsdfs");
+    const { navigate } = this.props.navigation;
+    navigate("StockPickerScreen");
   }
 
-  /* ***********************************************************
-  * STEP 3
-  * `renderRow` function -How each cell/row should be rendered
-  * It's our best practice to place a single component here:
-  *
-  * e.g.
-    return <MyCustomCell title={rowData.title} description={rowData.description} />
-  *************************************************************/
   renderRow(rowData) {
     return (
-      <TouchableOpacity style={styles.row} onPress={this.selectMarket}>
+      <TouchableOpacity style={styles.row} onPress={this.selectMarket.bind(this)}>
         <Text style={styles.boldLabel}>
           {rowData.symbol}
         </Text>
@@ -71,24 +46,6 @@ class AnalyticsScreen extends Component {
       </TouchableOpacity>
     );
   }
-
-  /* ***********************************************************
-  * STEP 4
-  * If your datasource is driven by Redux, you'll need to
-  * reset it when new data arrives.
-  * DO NOT! place `cloneWithRowsAndSections` inside of render, since render
-  * is called very often, and should remain fast!  Just replace
-  * state's datasource on newProps.
-  *
-  * e.g.
-    componentWillReceiveProps (newProps) {
-      if (newProps.someData) {
-        this.setState(prevState => ({
-          dataSource: prevState.dataSource.cloneWithRowsAndSections(newProps.someData)
-        }))
-      }
-    }
-  *************************************************************/
 
   // Used for friendly AlertMessage
   // returns true if the dataSource is empty
@@ -121,10 +78,8 @@ class AnalyticsScreen extends Component {
     );
   }
 }
-
 const mapStateToProps = state => {
   return {
-    // ...redux state to props here
   };
 };
 

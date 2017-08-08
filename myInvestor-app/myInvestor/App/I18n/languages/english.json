@@ -2,12 +2,13 @@
  * @Author: mwk 
  * @Date: 2017-08-02 14:25:32 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-05 14:27:42
+ * @Last Modified time: 2017-08-08 15:35:08
  */
 {
   "appName": "myInvestor",
   "homeScreen": "Home",
   "analyticsScreen": "Analytics",
+  "stockPickerScreen": "Stock Picker",
   "launchScreen": "Test",
   "markets": "Markets",
   

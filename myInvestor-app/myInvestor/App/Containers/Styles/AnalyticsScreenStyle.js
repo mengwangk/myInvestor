@@ -8,7 +8,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.background
   },
   row: {
-    width: Metrics.screenWidth /2 - Metrics.doubleBaseMargin,
+    width: Metrics.screenWidth / 2 - Metrics.doubleBaseMargin,
     height: 100,
     justifyContent: 'center',
     alignItems: 'center',
