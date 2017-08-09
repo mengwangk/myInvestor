@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics, Colors, Fonts } from '../../Themes'
+import { StyleSheet } from "react-native";
+import { ApplicationStyles, Metrics, Colors, Fonts } from "../../Themes";
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -8,10 +8,10 @@ export default StyleSheet.create({
     backgroundColor: Colors.background
   },
   row: {
-    width: Metrics.screenWidth / 2 - Metrics.doubleBaseMargin,
+    width: Metrics.screenWidth  - Metrics.doubleBaseMargin,
     height: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     margin: Metrics.baseMargin,
     backgroundColor: Colors.cloud,
     borderRadius: Metrics.smallMargin
@@ -19,26 +19,26 @@ export default StyleSheet.create({
   sectionHeader: {
     paddingTop: Metrics.doubleBaseMargin,
     width: Metrics.screenWidth,
-    alignSelf: 'center',
+    alignSelf: "center",
     margin: Metrics.baseMargin,
-    backgroundColor: Colors.background  
+    backgroundColor: Colors.background
   },
   boldLabel: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: Fonts.size.h5,
-    alignSelf: 'center',
+    alignSelf: "center",
     color: Colors.snow,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: Metrics.smallMargin
   },
   label: {
-    alignSelf: 'center',
+    alignSelf: "center",
     color: Colors.snow,
-    textAlign: 'center'
+    textAlign: "center"
   },
   listContent: {
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    flexWrap: 'wrap'
+    justifyContent: "space-around",
+    flexDirection: "row",
+    flexWrap: "wrap"
   }
-})
+});

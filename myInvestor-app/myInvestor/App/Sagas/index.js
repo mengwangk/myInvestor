@@ -5,12 +5,12 @@ import DebugConfig from '../Config/DebugConfig'
 
 /* ------------- Types ------------- */
 
-import { StartupTypes } from '../Redux/StartupRedux'
+// import { StartupTypes } from '../Redux/StartupRedux'
 // import { GithubTypes } from '../Redux/GithubRedux'
 
 /* ------------- Sagas ------------- */
 
-import { startup } from './StartupSagas'
+// import { startup } from './StartupSagas'
 // import { getUserAvatar } from './GithubSagas'
 
 /* ------------- API ------------- */
