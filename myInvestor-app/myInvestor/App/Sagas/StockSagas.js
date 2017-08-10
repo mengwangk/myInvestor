@@ -1,24 +1,13 @@
 /*
  * @Author: mwk 
  * @Date: 2017-08-09 17:39:53 
- * @Last Modified by:   mwk 
- * @Last Modified time: 2017-08-09 17:39:53 
+ * @Last Modified by: mwk
+ * @Last Modified time: 2017-08-10 00:05:19
  */
 import { call, put } from "redux-saga/effects";
 import { path } from "ramda";
-import GithubActions from "../Redux/GithubRedux";
+import StockActions from "../Redux/StockRedux";
 
-export function* getUserAvatar(api, action) {
-  const { username } = action;
-  // make the call to the api
-  const response = yield call(api.getUser, username);
-
-  if (response.ok) {
-    const firstUser = path(["data", "items"], response)[0];
-    const avatar = firstUser.avatar_url;
-    // do data conversion here if needed
-    yield put(GithubActions.userSuccess(avatar));
-  } else {
-    yield put(GithubActions.userFailure());
-  }
+export function* getMarkets(api, action) {
+  yield put(StockActions.getMarketsSuccess('everything is okay'));
 }
