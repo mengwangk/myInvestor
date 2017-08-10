@@ -14,19 +14,22 @@ import StockPickerScreen from "./StockPickerScreen";
 import styles from "./Styles/AnalyticsScreenStyle";
 
 class AnalyticsScreen extends Component {
+  /*
+   * Constructor.
+  */
   constructor(props) {
     super(props);
-    const markets = FixtureApi.getMarkets().data;
+  }
+
+  updateMarkets() {
     const rowHasChanged = (r1, r2) => r1 !== r2;
-    // DataSource configured
     this.ds = new ListView.DataSource({
       rowHasChanged
     });
-
-    // Datasource is always in state
-    this.state = {
-      dataSource: this.ds.cloneWithRows(markets)
-    };
+    this.setState({
+      markets: this.props.markets,
+      dataSource: this.ds.cloneWithRows(this.props.markets)
+    });
   }
 
   selectMarket() {
@@ -34,9 +37,23 @@ class AnalyticsScreen extends Component {
     navigate("StockPickerScreen");
   }
 
+  componentWillMount() {
+    this.updateMarkets();
+  }
+
+  componentDidUpdate() {
+    // https://stackoverflow.com/questions/38000667/react-native-force-listview-re-render-when-data-has-not-changed
+    if (this.state.markets != this.props.markets) {
+      this.updateMarkets();
+    }
+  }
+
   renderRow(rowData) {
     return (
-      <TouchableOpacity style={styles.row} onPress={this.selectMarket.bind(this)}>
+      <TouchableOpacity
+        style={styles.row}
+        onPress={this.selectMarket.bind(this)}
+      >
         <Text style={styles.boldLabel}>
           {rowData.symbol}
         </Text>
@@ -80,6 +97,7 @@ class AnalyticsScreen extends Component {
 }
 const mapStateToProps = state => {
   return {
+    markets: state.stock.data
   };
 };
 

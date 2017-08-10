@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-09 17:40:46 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-10 11:55:32
+ * @Last Modified time: 2017-08-10 14:16:39
  */
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
@@ -23,18 +23,17 @@ export const INITIAL_STATE = Immutable({
   fetching: null,
   error: null,
   market: null,
-  data: null
+  data: []
 });
 
 /* ------------- Reducers ------------- */
 
 export const requestMarkets = (state) =>
-  state.merge({ fetching: true, data: null });
+  state.merge({ fetching: true, data: [] });
 
 export const requestMarketsSuccess = (state, action) => {
-  cosole.log("action --" + JSON.stringify(action));
   const { data } = action;
-  return state.merge({ fetching: false, error: null, data: data });
+  return state.merge({ fetching: false, data: data });
 };
 
 /* ------------- Hookup Reducers To Types ------------- */
