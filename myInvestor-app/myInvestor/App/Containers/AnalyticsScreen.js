@@ -11,6 +11,7 @@ import {
 import { connect } from "react-redux";
 import FixtureApi from "../Services/FixtureApi";
 import StockPickerScreen from "./StockPickerScreen";
+import StockActions from "../Redux/StockRedux";
 import styles from "./Styles/AnalyticsScreenStyle";
 
 class AnalyticsScreen extends Component {
@@ -19,6 +20,8 @@ class AnalyticsScreen extends Component {
   */
   constructor(props) {
     super(props);
+
+    this.selectMarket = this.selectMarket.bind(this);
   }
 
   updateMarkets() {
@@ -32,7 +35,8 @@ class AnalyticsScreen extends Component {
     });
   }
 
-  selectMarket() {
+  selectMarket(market) {
+    this.props.getStocks(market);
     const { navigate } = this.props.navigation;
     navigate("StockPickerScreen");
   }
@@ -52,7 +56,7 @@ class AnalyticsScreen extends Component {
     return (
       <TouchableOpacity
         style={styles.row}
-        onPress={this.selectMarket.bind(this)}
+        onPress={() => this.selectMarket(rowData.exchangeName)}
       >
         <Text style={styles.boldLabel}>
           {rowData.exchangeName}
@@ -97,12 +101,14 @@ class AnalyticsScreen extends Component {
 }
 const mapStateToProps = state => {
   return {
-    markets: state.stock.data
+    markets: state.stock.markets
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+     getStocks: (selectedMarket) => dispatch(StockActions.getStocksRequest(selectedMarket))
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnalyticsScreen);

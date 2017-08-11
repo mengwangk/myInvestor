@@ -8,7 +8,7 @@ import { StartupTypes } from "../Redux/StartupRedux";
 import { StockTypes } from "../Redux/StockRedux";
 
 /* ------------- Sagas ------------- */
-import { getMarkets } from "./StockSagas";
+import { getMarkets, getStocks } from "./StockSagas";
 import { startup } from "./StartupSagas";
 
 /* ------------- API ------------- */
@@ -24,6 +24,7 @@ const fixtureAPI = FixtureAPI;
 export default function* root() {
   yield all([
     takeLatest(StartupTypes.STARTUP, startup),
-    takeLatest(StockTypes.GET_MARKETS_REQUEST, getMarkets, fixtureAPI)
+    takeLatest(StockTypes.GET_MARKETS_REQUEST, getMarkets, fixtureAPI),
+    takeLatest(StockTypes.GET_STOCKS_REQUEST, getStocks, fixtureAPI)
   ]);
 }
