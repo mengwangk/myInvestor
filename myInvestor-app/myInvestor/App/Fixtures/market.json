@@ -1,22 +1,32 @@
 [
   {
-    "symbol": "KLSE",
-    "name": "FTSE Bursa Malaysia",
-    "count": 900
+    "exchangeName": "KLSE",
+    "description": "FTSE Bursa Malaysia",
+    "stockCount": 900,
+    "yahooFinanceExchangeName": "KLS"
   },
   {
-    "symbol": "NASDAQ",
-    "name": "Nasdaq Stock Market",
-    "count": 900
+    "exchangeName": "NASDAQ",
+    "description": "Nasdaq Stock Market",
+    "stockCount": 900,
+    "yahooFinanceExchangeName": "KLS"
   },
   {
-    "symbol": "NYSE",
-    "name": "The New York Stock Exchange",
-    "count": 900
+    "exchangeName": "NYSE",
+    "description": "The New York Stock Exchange",
+    "stockCount": 900,
+    "yahooFinanceExchangeName": "KLS"
   },
   {
-    "symbol": "SGX",
-    "name": "Singapore Exchange",
-    "count": 1000
+    "exchangeName": "SGX",
+    "description": "Singapore Exchange",
+    "stockCount": 1000,
+    "yahooFinanceExchangeName": "KLS"
+  },
+  {
+    "exchangeName": "HKEX",
+    "description": "Hong Kong Exchange",
+    "stockCount": 1000,
+    "yahooFinanceExchangeName": "KLS"
   }
 ]

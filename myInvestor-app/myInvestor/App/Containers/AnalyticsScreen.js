@@ -55,10 +55,10 @@ class AnalyticsScreen extends Component {
         onPress={this.selectMarket.bind(this)}
       >
         <Text style={styles.boldLabel}>
-          {rowData.symbol}
+          {rowData.exchangeName}
         </Text>
         <Text style={styles.label}>
-          {rowData.name}
+          {rowData.description}
         </Text>
       </TouchableOpacity>
     );
