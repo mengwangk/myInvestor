@@ -29,10 +29,9 @@ class AnalyticsScreen extends Component {
     this.ds = new ListView.DataSource({
       rowHasChanged
     });
-    this.setState({
-      markets: this.props.markets,
+    this.state = {
       dataSource: this.ds.cloneWithRows(this.props.markets)
-    });
+    }
   }
 
   selectMarket(market) {
@@ -40,26 +39,16 @@ class AnalyticsScreen extends Component {
     const { navigate } = this.props.navigation;
     navigate("StockPickerScreen");
   }
-
+  
   componentWillMount() {
     this.updateMarkets();
   }
-
-  /*
+  
   componentWillReceiveProps(newProps) {
-    console.log("------ new props");
     if (newProps.markets) {
       this.setState(prevState => ({
         dataSource: prevState.dataSource.cloneWithRows(newProps.markets)
       }));
-    }
-  }
-  */
-
-  componentDidUpdate() {
-    // https://stackoverflow.com/questions/38000667/react-native-force-listview-re-render-when-data-has-not-changed
-    if (this.state.markets != this.props.markets) {
-      this.updateMarkets();
     }
   }
 
@@ -119,7 +108,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getStocks: selectedMarket =>
-      dispatch(StockActions.getStocksRequest(selectedMarket))
+      dispatch(AnalyticsActions.getStocksRequest(selectedMarket))
   };
 };
 

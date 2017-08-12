@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-11 22:17:35 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-11 22:20:19
+ * @Last Modified time: 2017-08-12 10:22:47
  */
 import { NavigationActions } from "react-navigation";
 import Config from "../Config/DebugConfig";
@@ -33,7 +33,7 @@ const screenTracking = ({ getState }) => next => action => {
   const nextScreen = getCurrentRouteName(getState().nav);
   if (nextScreen !== currentScreen) {
     try {
-      if (Config.useReactotron) { // Not used in production
+      if (__DEV__ && console.tron) {
         console.tron.log(`NAVIGATING ${currentScreen} to ${nextScreen}`);
       }
       // Example: Analytics.trackEvent('user_navigation', {currentScreen, nextScreen})

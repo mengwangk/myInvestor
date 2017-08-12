@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-08 23:51:36 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-09 11:25:22
+ * @Last Modified time: 2017-08-12 13:33:42
  */
 import { Dimensions, Platform } from "react-native";
 
@@ -16,6 +16,7 @@ const metrics = {
   baseMargin: 10,
   doubleBaseMargin: 20,
   smallMargin: 5,
+  tinyMargin: 2,
   doubleSection: 50,
   horizontalLineHeight: 1,
   searchBarHeight: 30,

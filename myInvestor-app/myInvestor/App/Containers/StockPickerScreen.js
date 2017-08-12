@@ -2,13 +2,14 @@
  * @Author: mwk 
  * @Date: 2017-08-11 23:47:50 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-12 10:13:45
+ * @Last Modified time: 2017-08-12 13:30:25
  */
 import React, { Component } from "react";
 import { View, Text, ListView } from "react-native";
 import { connect } from "react-redux";
 import I18n from "react-native-i18n";
 import styles from "./Styles/StockPickerScreenStyle";
+import StockCell from "../Components/StockCell";
 
 class StockPickerScreen extends Component {
   state: {
@@ -17,51 +18,26 @@ class StockPickerScreen extends Component {
 
   constructor(props) {
     super(props);
-    const rowHasChanged = (r1, r2) => r1 !== r2;
+    const rowHasChanged = (r1, r2) => r1.stockSymbol !== r2.stockSymbol;
     const ds = new ListView.DataSource({ rowHasChanged });
     this.state = {
       dataSource: ds.cloneWithRows(this.props.stocks)
     };
   }
 
-  /* ***********************************************************
-  * STEP 3
-  * `renderRow` function -How each cell/row should be rendered
-  * It's our best practice to place a single component here:
-  *
-  * e.g.
-    return <MyCustomCell title={rowData.title} description={rowData.description} />
-  *************************************************************/
   renderRow(rowData) {
     return (
-      <View style={styles.row}>
-        <Text style={styles.boldLabel}>
-          {rowData.stockSymbol} - {rowData.stockName}
-        </Text>
-        <Text style={styles.label}>
-          
-        </Text>
-      </View>
+      <StockCell symbol={rowData.stockSymbol} name={rowData.stockName} pe={rowData.currentPE}/>
     );
   }
 
-  /* ***********************************************************
-  * STEP 4
-  * If your datasource is driven by Redux, you'll need to
-  * reset it when new data arrives.
-  * DO NOT! place `cloneWithRows` inside of render, since render
-  * is called very often, and should remain fast!  Just replace
-  * state's datasource on newProps.
-  *
-  * e.g.
-    componentWillReceiveProps (newProps) {
-      if (newProps.someData) {
-        this.setState(prevState => ({
-          dataSource: prevState.dataSource.cloneWithRows(newProps.someData)
-        }))
-      }
+  componentWillReceiveProps(newProps) {
+    if (newProps.stocks) {
+      this.setState(prevState => ({
+        dataSource: prevState.dataSource.cloneWithRows(newProps.stocks)
+      }));
     }
-  *************************************************************/
+  }
 
   // Used for friendly AlertMessage
   // returns true if the dataSource is empty
@@ -71,7 +47,7 @@ class StockPickerScreen extends Component {
 
   // Render a footer.
   renderFooter = () => {
-    return <Text> - Footer - </Text>;
+    return <Text> - {this.props.market} - </Text>;
   };
 
   render() {
@@ -92,7 +68,8 @@ class StockPickerScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    stocks: state.analytics.stocks
+    stocks: state.analytics.stocks,
+    market: state.analytics.selectedMarket
   };
 };
 
