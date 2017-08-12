@@ -1,51 +1,27 @@
-import React, { Component } from 'react'
-import { View, Text, ListView } from 'react-native'
-import { connect } from 'react-redux'
+/*
+ * @Author: mwk 
+ * @Date: 2017-08-11 23:47:50 
+ * @Last Modified by: mwk
+ * @Last Modified time: 2017-08-12 10:13:45
+ */
+import React, { Component } from "react";
+import { View, Text, ListView } from "react-native";
+import { connect } from "react-redux";
 import I18n from "react-native-i18n";
-
-// For empty lists
-// import AlertMessage from '../Components/AlertMessage'
-
-// Styles
-import styles from './Styles/StockPickerScreenStyle'
+import styles from "./Styles/StockPickerScreenStyle";
 
 class StockPickerScreen extends Component {
   state: {
     dataSource: Object
-  }
+  };
 
-  constructor (props) {
-    super(props)
-    /* ***********************************************************
-    * STEP 1
-    * This is an array of objects with the properties you desire
-    * Usually this should come from Redux mapStateToProps
-    *************************************************************/
-    const dataObjects = [
-      {title: 'First Title', description: 'First Description'},
-      {title: 'Second Title', description: 'Second Description'},
-      {title: 'Third Title', description: 'Third Description'},
-      {title: 'Fourth Title', description: 'Fourth Description'},
-      {title: 'Fifth Title', description: 'Fifth Description'},
-      {title: 'Sixth Title', description: 'Sixth Description'},
-      {title: 'Seventh Title', description: 'Seventh Description'}
-    ]
-
-    /* ***********************************************************
-    * STEP 2
-    * Teach datasource how to detect if rows are different
-    * Make this function fast!  Perhaps something like:
-    *   (r1, r2) => r1.id !== r2.id}
-    *************************************************************/
-    const rowHasChanged = (r1, r2) => r1 !== r2
-
-    // DataSource configured
-    const ds = new ListView.DataSource({rowHasChanged})
-
-    // Datasource is always in state
+  constructor(props) {
+    super(props);
+    const rowHasChanged = (r1, r2) => r1 !== r2;
+    const ds = new ListView.DataSource({ rowHasChanged });
     this.state = {
-      dataSource: ds.cloneWithRows(dataObjects)
-    }
+      dataSource: ds.cloneWithRows(this.props.stocks)
+    };
   }
 
   /* ***********************************************************
@@ -56,13 +32,17 @@ class StockPickerScreen extends Component {
   * e.g.
     return <MyCustomCell title={rowData.title} description={rowData.description} />
   *************************************************************/
-  renderRow (rowData) {
+  renderRow(rowData) {
     return (
       <View style={styles.row}>
-        <Text style={styles.boldLabel}>{rowData.title}</Text>
-        <Text style={styles.label}>{rowData.description}</Text>
+        <Text style={styles.boldLabel}>
+          {rowData.stockSymbol} - {rowData.stockName}
+        </Text>
+        <Text style={styles.label}>
+          
+        </Text>
       </View>
-    )
+    );
   }
 
   /* ***********************************************************
@@ -85,18 +65,16 @@ class StockPickerScreen extends Component {
 
   // Used for friendly AlertMessage
   // returns true if the dataSource is empty
-  noRowData () {
-    return this.state.dataSource.getRowCount() === 0
+  noRowData() {
+    return this.state.dataSource.getRowCount() === 0;
   }
 
   // Render a footer.
   renderFooter = () => {
-    return (
-      <Text> - Footer - </Text>
-    )
-  }
+    return <Text> - Footer - </Text>;
+  };
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <ListView
@@ -108,19 +86,18 @@ class StockPickerScreen extends Component {
           pageSize={15}
         />
       </View>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    // ...redux state to props here
-  }
-}
+    stocks: state.analytics.stocks
+  };
+};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  }
-}
+const mapDispatchToProps = dispatch => {
+  return {};
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(StockPickerScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(StockPickerScreen);

@@ -40,5 +40,34 @@ export default {
           data: require("../Fixtures/KLSE/KLSE.json")
         };
     }
+  },
+  getDividends: market => {
+    switch (market) {
+      case KLSE:
+        return {
+          ok: true,
+          data: require("../Fixtures/KLSE/KLSE_dividend.json")
+        };
+      case HKEX:
+        return {
+          ok: true,
+          data: require("../Fixtures/KLSE/KLSE.json")
+        };
+      case NASDAQ:
+        return {
+          ok: true,
+          data: require("../Fixtures/KLSE/KLSE.json")
+        };
+      case NYSE:
+        return {
+          ok: true,
+          data: require("../Fixtures/KLSE/KLSE.json")
+        };
+      case SGX:
+        return {
+          ok: true,
+          data: require("../Fixtures/KLSE/KLSE.json")
+        };
+    }
   }
 };

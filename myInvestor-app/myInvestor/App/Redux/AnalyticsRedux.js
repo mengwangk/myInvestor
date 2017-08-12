@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-09 17:40:46 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-11 22:13:44
+ * @Last Modified time: 2017-08-12 10:09:35
  */
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
@@ -16,7 +16,7 @@ const { Types, Creators } = createActions({
   getStocksSuccess: ["stocks"]
 });
 
-export const StockTypes = Types;
+export const AnalyticsTypes = Types;
 export default Creators;
 
 /* ------------- Initial State ------------- */

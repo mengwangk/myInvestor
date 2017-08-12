@@ -11,7 +11,7 @@ import {
 import { connect } from "react-redux";
 import FixtureApi from "../Services/FixtureApi";
 import StockPickerScreen from "./StockPickerScreen";
-import StockActions from "../Redux/StockRedux";
+import AnalyticsActions from "../Redux/AnalyticsRedux";
 import styles from "./Styles/AnalyticsScreenStyle";
 
 class AnalyticsScreen extends Component {
@@ -25,7 +25,7 @@ class AnalyticsScreen extends Component {
   }
 
   updateMarkets() {
-    const rowHasChanged = (r1, r2) => r1 !== r2;
+    const rowHasChanged = (r1, r2) => r1.exchangeName !== r2.exchangeName;
     this.ds = new ListView.DataSource({
       rowHasChanged
     });
@@ -44,6 +44,17 @@ class AnalyticsScreen extends Component {
   componentWillMount() {
     this.updateMarkets();
   }
+
+  /*
+  componentWillReceiveProps(newProps) {
+    console.log("------ new props");
+    if (newProps.markets) {
+      this.setState(prevState => ({
+        dataSource: prevState.dataSource.cloneWithRows(newProps.markets)
+      }));
+    }
+  }
+  */
 
   componentDidUpdate() {
     // https://stackoverflow.com/questions/38000667/react-native-force-listview-re-render-when-data-has-not-changed
@@ -101,13 +112,14 @@ class AnalyticsScreen extends Component {
 }
 const mapStateToProps = state => {
   return {
-    markets: state.stock.markets
+    markets: state.analytics.markets
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-     getStocks: (selectedMarket) => dispatch(StockActions.getStocksRequest(selectedMarket))
+    getStocks: selectedMarket =>
+      dispatch(StockActions.getStocksRequest(selectedMarket))
   };
 };
 

@@ -5,10 +5,10 @@ import DebugConfig from "../Config/DebugConfig";
 
 /* ------------- Types ------------- */
 import { StartupTypes } from "../Redux/StartupRedux";
-import { StockTypes } from "../Redux/StockRedux";
+import { AnalyticsTypes } from "../Redux/AnalyticsRedux";
 
 /* ------------- Sagas ------------- */
-import { getMarkets, getStocks } from "./StockSagas";
+import { getMarkets, getStocks } from "./AnalyticsSagas";
 import { startup } from "./StartupSagas";
 
 /* ------------- API ------------- */
@@ -24,7 +24,7 @@ const fixtureAPI = FixtureAPI;
 export default function* root() {
   yield all([
     takeLatest(StartupTypes.STARTUP, startup),
-    takeLatest(StockTypes.GET_MARKETS_REQUEST, getMarkets, fixtureAPI),
-    takeLatest(StockTypes.GET_STOCKS_REQUEST, getStocks, fixtureAPI)
+    takeLatest(AnalyticsTypes.GET_MARKETS_REQUEST, getMarkets, fixtureAPI),
+    takeLatest(AnalyticsTypes.GET_STOCKS_REQUEST, getStocks, fixtureAPI)
   ]);
 }
