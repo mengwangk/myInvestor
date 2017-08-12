@@ -2,16 +2,17 @@
  * @Author: mwk 
  * @Date: 2017-08-05 11:50:59 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-08 17:20:40
+ * @Last Modified time: 2017-08-12 23:01:29
  */
 import { createStore, applyMiddleware, compose } from "redux";
+import R from "ramda";
+import { createLogger } from "redux-logger";
 import { autoRehydrate } from "redux-persist";
 import Config from "../Config/DebugConfig";
 import createSagaMiddleware from "redux-saga";
 import RehydrationServices from "../Services/RehydrationServices";
 import ReduxPersist from "../Config/ReduxPersist";
 import ScreenTracking from "./ScreenTrackingMiddleware";
-import { createLogger } from "redux-logger";
 
 // creates the store
 export default (rootReducer, rootSaga) => {
@@ -31,9 +32,24 @@ export default (rootReducer, rootSaga) => {
   const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
   middleware.push(sagaMiddleware);
 
-  /*---- myInvestor - Redux Logger Middleware for debugging purpose ------------ */
-  if (Config.reduxLogging) {
-    const logger = createLogger();
+  /* ------------- Logger Middleware ------------- */
+
+  // remove common noise
+  const loggingBlacklist = [
+    "EFFECT_TRIGGERED",
+    "EFFECT_RESOLVED",
+    "EFFECT_REJECTED",
+    "persist/REHYDRATE"
+  ];
+  if (__DEV__) {
+    // the logger master switch
+    const USE_LOGGING = Config.reduxLogging;
+    // silence these saga-based messages
+    // create the logger
+    const logger = createLogger({
+      predicate: (getState, { type }) =>
+        USE_LOGGING && R.not(R.contains(type, loggingBlacklist))
+    });
     middleware.push(logger);
   }
 

@@ -8,7 +8,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.background
   },
   row: {
-    width: Metrics.screenWidth  - Metrics.doubleBaseMargin,
+    width: Metrics.screenWidth / 2  - Metrics.doubleBaseMargin,
     height: 100,
     justifyContent: "center",
     alignItems: "center",
@@ -37,7 +37,7 @@ export default StyleSheet.create({
     textAlign: "center"
   },
   listContent: {
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
     flexDirection: "row",
     flexWrap: "wrap"
   }

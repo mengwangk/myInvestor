@@ -57,6 +57,7 @@
     "ignite-dev-screens": "^2.0.1",
     "ignite-i18n": "^1.0.0",
     "ignite-ir-boilerplate": "^2.0.2",
+    "ignite-redux-logger": "^0.2.1",
     "ignite-vector-icons": "^1.0.0",
     "jest": "20.0.4",
     "mockery": "^2.0.0",
