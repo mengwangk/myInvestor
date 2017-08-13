@@ -20,12 +20,11 @@ const api = API.create();
 const fixtureAPI = FixtureAPI;
 
 /* ------------- Connect Types To Sagas ------------- */
-
-export default function* root() {
+const root = function* root() {
   yield all([
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(AnalyticsTypes.GET_MARKETS_REQUEST, getMarkets, fixtureAPI),
     takeLatest(AnalyticsTypes.GET_STOCKS_REQUEST, getStocks, fixtureAPI)
   ]);
-}
-
+};
+export default root;

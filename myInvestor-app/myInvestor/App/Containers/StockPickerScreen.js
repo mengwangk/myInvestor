@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-11 23:47:50 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-13 19:15:24
+ * @Last Modified time: 2017-08-13 21:48:24
  */
 import React, { Component } from "react";
 import { View, Text, ListView } from "react-native";
@@ -14,17 +14,17 @@ import LoadingIndicator from "../Components/LoadingIndicator";
 import AnalyticsActions from "../Redux/AnalyticsRedux";
 
 class StockPickerScreen extends Component {
-  state: {
-    dataSource: Object
-  };
-
   constructor(props) {
     super(props);
+    this.state = {};
+  }
+
+  updateStocks() {
     const rowHasChanged = (r1, r2) => r1.stockSymbol !== r2.stockSymbol;
     const ds = new ListView.DataSource({ rowHasChanged });
-    this.state = {
+    this.setState(prevState => ({
       dataSource: ds.cloneWithRows(this.props.stocks)
-    };
+    }));
   }
 
   showStockDetails(stock) {
@@ -43,6 +43,18 @@ class StockPickerScreen extends Component {
         onSelectStock={() => this.showStockDetails(rowData)}
       />
     );
+  }
+
+  getStocks = async () => {
+    this.props.getStocks(this.props.market);
+  };
+
+  componentDidMount(){
+    this.getStocks();
+  }
+
+  componentWillMount() {
+    this.updateStocks();
   }
 
   componentWillReceiveProps(newProps) {
@@ -71,6 +83,7 @@ class StockPickerScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <LoadingIndicator show={this.props.loading} />
         <ListView
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
@@ -87,12 +100,15 @@ class StockPickerScreen extends Component {
 const mapStateToProps = state => {
   return {
     stocks: state.analytics.stocks,
-    market: state.analytics.selectedMarket
+    market: state.analytics.selectedMarket,
+    loading: state.analytics.fetching
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    getStocks: selectedMarket =>
+      dispatch(AnalyticsActions.getStocksRequest(selectedMarket)),
     getStockDetails: selectedStock =>
       dispatch(AnalyticsActions.getStockDetailsRequest(selectedStock))
   };

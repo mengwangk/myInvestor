@@ -29,8 +29,8 @@ class AnalyticsScreen extends Component {
 
   selectMarket(market) {
     this.props.setMarket(market);
-    //const { navigate } = this.props.navigation;
-    //navigate("StockPickerScreen");
+    const { navigate } = this.props.navigation;
+    navigate("StockPickerScreen");
   }
 
   componentWillMount() {
