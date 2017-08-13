@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 import I18n from "react-native-i18n";
-import {
-  View,
-  ListView,
-  Text,
-  TouchableOpacity,
-  Clipboard,
-  Alert
-} from "react-native";
+import { View, ListView, Text, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import FixtureApi from "../Services/FixtureApi";
 import StockPickerScreen from "./StockPickerScreen";
@@ -20,7 +13,7 @@ class AnalyticsScreen extends Component {
   */
   constructor(props) {
     super(props);
-
+    this.state = {};
     this.selectMarket = this.selectMarket.bind(this);
   }
 
@@ -29,21 +22,21 @@ class AnalyticsScreen extends Component {
     this.ds = new ListView.DataSource({
       rowHasChanged
     });
-    this.state = {
+    this.setState(prevState => ({
       dataSource: this.ds.cloneWithRows(this.props.markets)
-    }
+    }));
   }
 
   selectMarket(market) {
-    const { navigate } = this.props.navigation;
-    navigate("StockPickerScreen");
-    this.props.getStocks(market);
+    this.props.setMarket(market);
+    //const { navigate } = this.props.navigation;
+    //navigate("StockPickerScreen");
   }
-  
+
   componentWillMount() {
     this.updateMarkets();
   }
-  
+
   componentWillReceiveProps(newProps) {
     if (newProps.markets) {
       this.setState(prevState => ({
@@ -107,8 +100,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getStocks: selectedMarket =>
-      dispatch(AnalyticsActions.getStocksRequest(selectedMarket))
+    setMarket: selectedMarket =>
+      dispatch(AnalyticsActions.setMarketRequest(selectedMarket))
   };
 };
 

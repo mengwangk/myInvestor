@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-08 23:51:36 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-12 13:33:42
+ * @Last Modified time: 2017-08-13 15:21:57
  */
 import { Dimensions, Platform } from "react-native";
 
@@ -36,7 +36,9 @@ const metrics = {
     medium: 40,
     large: 60,
     logo: 200
-  }
+  },
+  largeIndicator: 'large',
+  indicatorHeight: 100
 };
 
 export default metrics;

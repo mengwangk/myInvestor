@@ -1,3 +1,9 @@
+/*
+ * @Author: mwk 
+ * @Date: 2017-08-13 15:05:39 
+ * @Last Modified by:   mwk 
+ * @Last Modified time: 2017-08-13 15:05:39 
+ */
 import { StyleSheet } from "react-native";
 import { ApplicationStyles, Metrics, Colors, Fonts } from "../../Themes";
 
@@ -8,7 +14,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.background
   },
   row: {
-    width: Metrics.screenWidth / 2  - Metrics.doubleBaseMargin,
+    width: Metrics.screenWidth / 2 - Metrics.doubleBaseMargin,
     height: 100,
     justifyContent: "center",
     alignItems: "center",
@@ -40,5 +46,5 @@ export default StyleSheet.create({
     justifyContent: "flex-start",
     flexDirection: "row",
     flexWrap: "wrap"
-  }
+  } 
 });

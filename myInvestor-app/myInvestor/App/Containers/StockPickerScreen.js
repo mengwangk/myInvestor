@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-11 23:47:50 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-12 13:30:25
+ * @Last Modified time: 2017-08-13 19:15:24
  */
 import React, { Component } from "react";
 import { View, Text, ListView } from "react-native";
@@ -10,6 +10,8 @@ import { connect } from "react-redux";
 import I18n from "react-native-i18n";
 import styles from "./Styles/StockPickerScreenStyle";
 import StockCell from "../Components/StockCell";
+import LoadingIndicator from "../Components/LoadingIndicator";
+import AnalyticsActions from "../Redux/AnalyticsRedux";
 
 class StockPickerScreen extends Component {
   state: {
@@ -25,9 +27,21 @@ class StockPickerScreen extends Component {
     };
   }
 
+  showStockDetails(stock) {
+    this.props.getStockDetails(stock);
+    const { navigate } = this.props.navigation;
+    navigate("StockDetailsScreen");
+  }
+
   renderRow(rowData) {
+    // https://github.com/facebook/react-native/issues/7233
     return (
-      <StockCell symbol={rowData.stockSymbol} name={rowData.stockName} pe={rowData.currentPE}/>
+      <StockCell
+        symbol={rowData.stockSymbol}
+        name={rowData.stockName}
+        pe={rowData.currentPE}
+        onSelectStock={() => this.showStockDetails(rowData)}
+      />
     );
   }
 
@@ -47,7 +61,11 @@ class StockPickerScreen extends Component {
 
   // Render a footer.
   renderFooter = () => {
-    return <Text> - {this.props.market} - </Text>;
+    return (
+      <Text>
+        {" "}- {this.props.market} -{" "}
+      </Text>
+    );
   };
 
   render() {
@@ -56,7 +74,7 @@ class StockPickerScreen extends Component {
         <ListView
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
+          renderRow={this.renderRow.bind(this)}
           renderFooter={this.renderFooter}
           enableEmptySections
           pageSize={15}
@@ -74,7 +92,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    getStockDetails: selectedStock =>
+      dispatch(AnalyticsActions.getStockDetailsRequest(selectedStock))
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StockPickerScreen);

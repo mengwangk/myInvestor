@@ -28,3 +28,4 @@ export default function* root() {
     takeLatest(AnalyticsTypes.GET_STOCKS_REQUEST, getStocks, fixtureAPI)
   ]);
 }
+
