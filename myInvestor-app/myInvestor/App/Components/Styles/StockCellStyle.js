@@ -1,23 +1,35 @@
+/*
+ * @Author: mwk 
+ * @Date: 2017-08-14 14:31:57 
+ * @Last Modified by: mwk
+ * @Last Modified time: 2017-08-14 16:06:48
+ */
 import { StyleSheet } from "react-native";
-import { ApplicationStyles, Metrics, Colors } from '../../Themes'
+import { ApplicationStyles, Metrics, Colors, Fonts } from "../../Themes";
 
 export default StyleSheet.create({
-  row: {
-    flex: 1,
-    backgroundColor: Colors.cloud,
+  container: {
     marginVertical: Metrics.tinyMargin,
-    justifyContent: "center"
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: Colors.cloud
   },
-  boldLabel: {
-    fontWeight: "bold",
-    alignSelf: "flex-start",
-    color: Colors.snow,
-    textAlign: "left",
+  checkbox: {
+    width: Metrics.controls.checkBoxSize,
+    height: Metrics.controls.checkBoxSize,
+    //borderRadius: Metrics.controls.checkBoxSize / 2,
+    marginRight: Metrics.marginRight
+  },
+  title: {
+    ...Fonts.style.normal,
     marginLeft: Metrics.smallMargin,
-    marginBottom: Metrics.tinyMargin
+    color: Colors.snow,
+    flex: 1
   },
-  label: {
-    textAlign: "left",
-    color: Colors.snow
-  }
+  checkBoxUnchecked: {
+    borderColor: Colors.snow,
+    borderWidth: Metrics.controls.checkBoxBorderWidth
+  },
+  checkBoxChecked: Colors.facebook
 });

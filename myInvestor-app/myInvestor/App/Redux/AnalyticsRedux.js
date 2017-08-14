@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-09 17:40:46 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-13 20:49:42
+ * @Last Modified time: 2017-08-14 15:25:36
  */
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
@@ -15,7 +15,8 @@ const { Types, Creators } = createActions({
   setMarketRequest: ["selectedMarket"],
   getStocksRequest: ["selectedMarket"],
   getStocksSuccess: ["stocks"],
-  getStockDetailsRequest: ["selectedStock"]
+  getStockDetailsRequest: ["selectedStock"],
+  getStockDetailsSuccess: ["stockDetails"]
 });
 
 export const AnalyticsTypes = Types;
@@ -29,7 +30,8 @@ export const INITIAL_STATE = Immutable({
   selectedMarket: null,
   selectedStock: null,
   markets: [],
-  stocks: []
+  stocks: [],
+  stockDetails: []
 });
 
 /* ------------- Reducers ------------- */
@@ -59,6 +61,9 @@ export const requestStockDetails = (state, { selectedStock }) => {
   return state.merge({ fetching: true, selectedStock });
 };
 
+export const requestStockDetailsSuccess = (state, { selectedStock }) => {
+  return state.merge({ fetching: false, selectedStock });
+};
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -68,5 +73,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SET_MARKET_REQUEST]: setMarket,
   [Types.GET_STOCKS_REQUEST]: requestStocks,
   [Types.GET_STOCKS_SUCCESS]: requestStocksSuccess,
-  [Types.GET_STOCK_DETAILS_REQUEST]: requestStockDetails
+  [Types.GET_STOCK_DETAILS_REQUEST]: requestStockDetails,
+  [Types.GET_STOCK_DETAILS_SUCCESS]: requestStockDetailsSuccess,
 });

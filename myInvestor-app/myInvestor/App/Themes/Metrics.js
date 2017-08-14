@@ -2,9 +2,10 @@
  * @Author: mwk 
  * @Date: 2017-08-08 23:51:36 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-13 15:21:57
+ * @Last Modified time: 2017-08-14 16:06:04
  */
 import { Dimensions, Platform } from "react-native";
+import { Colors } from "./Colors";
 
 const { width, height } = Dimensions.get("window");
 
@@ -12,6 +13,7 @@ const { width, height } = Dimensions.get("window");
 const metrics = {
   marginHorizontal: 10,
   marginVertical: 10,
+  marginRight: 10,
   section: 25,
   baseMargin: 10,
   doubleBaseMargin: 20,
@@ -37,8 +39,10 @@ const metrics = {
     large: 60,
     logo: 200
   },
-  largeIndicator: 'large',
-  indicatorHeight: 100
+  controls: {
+    checkBoxSize: 16,
+    checkBoxBorderWidth: 1
+  }
 };
 
 export default metrics;
