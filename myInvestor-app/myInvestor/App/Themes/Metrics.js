@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-08 23:51:36 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-14 16:06:04
+ * @Last Modified time: 2017-08-15 00:12:21
  */
 import { Dimensions, Platform } from "react-native";
 import { Colors } from "./Colors";
@@ -41,7 +41,8 @@ const metrics = {
   },
   controls: {
     checkBoxSize: 16,
-    checkBoxBorderWidth: 1
+    checkBoxBorderWidth: 1,
+    largeIndicator: 'large'
   }
 };
 

@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-11 23:47:50 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-13 21:48:24
+ * @Last Modified time: 2017-08-15 00:20:13
  */
 import React, { Component } from "react";
 import { View, Text, ListView } from "react-native";
@@ -12,11 +12,16 @@ import styles from "./Styles/StockPickerScreenStyle";
 import StockCell from "../Components/StockCell";
 import LoadingIndicator from "../Components/LoadingIndicator";
 import AnalyticsActions from "../Redux/AnalyticsRedux";
+import { debounce } from "lodash";
 
 class StockPickerScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.showStockDetails = debounce(this.showStockDetails.bind(this), 3000, {
+      leading: true,
+      trailing: false
+    });
   }
 
   updateStocks() {
@@ -37,9 +42,7 @@ class StockPickerScreen extends Component {
     // https://github.com/facebook/react-native/issues/7233
     return (
       <StockCell
-        symbol={rowData.stockSymbol}
-        name={rowData.stockName}
-        pe={rowData.currentPE}
+        stock={rowData}
         onSelectStock={() => this.showStockDetails(rowData)}
       />
     );
@@ -49,7 +52,7 @@ class StockPickerScreen extends Component {
     this.props.getStocks(this.props.market);
   };
 
-  componentDidMount(){
+  componentDidMount() {
     this.getStocks();
   }
 

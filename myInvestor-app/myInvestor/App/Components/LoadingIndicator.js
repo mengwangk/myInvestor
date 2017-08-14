@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-13 15:02:07 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-13 20:54:25
+ * @Last Modified time: 2017-08-15 00:12:54
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -22,7 +22,7 @@ export default class LoadingIndicator extends Component {
           <ActivityIndicator
             animating={true}
             color={Colors.cloud}
-            size={Metrics.largeIndicator}
+            size={Metrics.controls.largeIndicator}
           />
         </View>
       );
