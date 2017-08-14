@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-14 16:38:25 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-15 00:10:44
+ * @Last Modified time: 2017-08-15 00:58:33
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -15,12 +15,10 @@ export default class CheckBox extends Component {
     onToggle: PropTypes.func
   };
 
-  static defaultProps = {
-    isChecked: false
-  };
-
   render() {
+    console.log(JSON.stringify(this.props));
     const { isChecked } = this.props;
+     console.log('rendering checkbox --' + isChecked);
     const style = isChecked ? styles.checkBoxChecked : styles.checkBoxUnchecked;
     const accessibilityTraits = ["button"];
     if (isChecked) {
