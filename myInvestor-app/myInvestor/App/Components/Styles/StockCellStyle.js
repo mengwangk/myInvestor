@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-14 14:31:57 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-14 22:51:40
+ * @Last Modified time: 2017-08-15 14:21:28
  */
 import { StyleSheet } from "react-native";
 import { ApplicationStyles, Metrics, Colors, Fonts } from "../../Themes";
@@ -19,7 +19,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: Colors.cloud,
-    width: Metrics.screenWidth - Metrics.controls.checkBoxSize - 10
+    width: Metrics.screenWidth - Metrics.controls.checkBoxSize - 20
   },
   title: {
     ...Fonts.style.normal,

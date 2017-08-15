@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-12 13:23:18 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-15 01:00:15
+ * @Last Modified time: 2017-08-15 17:38:15
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -14,39 +14,37 @@ import CheckBox from "../Components/CheckBox";
 export default class StockCell extends Component {
   static propTypes = {
     stock: PropTypes.object,
-    onSelectStock: PropTypes.func
+    isChecked: PropTypes.bool,
+    onSelectStock: PropTypes.func,
+    onShowDetails: PropTypes.func
   };
 
-  /*
-  static defaultProps = {
-    isChecked: false
+  state: {
+    isChecked: boolean
   };
-  */
-  
+
   constructor(props) {
     super(props);
-    this.state = { isSelected: this.props.stock.selected };
   }
 
-  toggleCheckBox(stock) {
-    if (stock.selected && stock.selected == true) {
-      console.log("setting to false");
-      stock.selected = false;
-    } else {
-      console.log("setting to true");
-      stock.selected = true;
-    }
-    this.setState({ isSelected: stock.selected });
+  componentWillMount() {
+    this.setState({ isChecked: this.props.isChecked });
+  }
+
+  toggleStock(stock) {
+    var value = !this.state.isChecked;
+    this.setState({ isChecked: value });
+    this.props.onSelectStock(value, stock);
   }
 
   render() {
-    const { stock } = this.props;
+    const { stock, onSelectStock, onShowDetails } = this.props;
     return (
       <View style={styles.container}>
         <View>
           <TouchableOpacity
             style={styles.stock}
-            onPress={() => this.props.onSelectStock()}
+            onPress={() => onShowDetails()}
           >
             <Text style={styles.title}>
               {stock.stockSymbol} - {stock.stockName}
@@ -54,8 +52,8 @@ export default class StockCell extends Component {
           </TouchableOpacity>
         </View>
         <CheckBox
-          isChecked={this.state.isSelected}
-          onToggle={this.toggleCheckBox.bind(this, stock)}
+          isChecked={this.state.isChecked}
+          onToggle={this.toggleStock.bind(this, stock)}
         />
       </View>
     );

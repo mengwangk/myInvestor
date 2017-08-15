@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-14 16:38:25 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-15 00:58:33
+ * @Last Modified time: 2017-08-15 17:38:32
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -16,9 +16,7 @@ export default class CheckBox extends Component {
   };
 
   render() {
-    console.log(JSON.stringify(this.props));
-    const { isChecked } = this.props;
-     console.log('rendering checkbox --' + isChecked);
+    const { isChecked, onToggle } = this.props;
     const style = isChecked ? styles.checkBoxChecked : styles.checkBoxUnchecked;
     const accessibilityTraits = ["button"];
     if (isChecked) {
@@ -29,7 +27,7 @@ export default class CheckBox extends Component {
         <TouchableOpacity
           style={styles.checkbox}
           accessibilityTraits={accessibilityTraits}
-          onPress={this.props.onToggle}
+          onPress={onToggle}
         >
           <View style={[styles.checkbox, style]} />
         </TouchableOpacity>

@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-11 23:47:50 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-15 00:20:13
+ * @Last Modified time: 2017-08-15 19:25:27
  */
 import React, { Component } from "react";
 import { View, Text, ListView } from "react-native";
@@ -15,13 +15,19 @@ import AnalyticsActions from "../Redux/AnalyticsRedux";
 import { debounce } from "lodash";
 
 class StockPickerScreen extends Component {
+  state: {
+    selectedStocks: { [symbol: string]: boolean }
+  };
+
   constructor(props) {
     super(props);
-    this.state = {};
     this.showStockDetails = debounce(this.showStockDetails.bind(this), 3000, {
       leading: true,
       trailing: false
     });
+    this.state = {
+      selectedStocks: {}
+    };
   }
 
   updateStocks() {
@@ -33,17 +39,29 @@ class StockPickerScreen extends Component {
   }
 
   showStockDetails(stock) {
-    this.props.getStockDetails(stock);
+    this.props.setStock(stock);
     const { navigate } = this.props.navigation;
     navigate("StockDetailsScreen");
   }
 
-  renderRow(rowData) {
+  selectStock(isSelected, stock) {
+    var selectedStocks = { ...this.state.selectedStocks };
+    if (isSelected) {
+      selectedStocks[stock.stockSymbol] = true;
+    } else {
+      delete selectedStocks[stock.stockSymbol];
+    }
+    this.setState({ selectedStocks: { ...selectedStocks } });
+  }
+
+  renderRow(stock) {
     // https://github.com/facebook/react-native/issues/7233
     return (
       <StockCell
-        stock={rowData}
-        onSelectStock={() => this.showStockDetails(rowData)}
+        stock={stock}
+        isChecked={this.state.selectedStocks[stock.stockSymbol]}
+        onShowDetails={() => this.showStockDetails(stock)}
+        onSelectStock={isSelected => this.selectStock(isSelected, stock)}
       />
     );
   }
@@ -74,15 +92,6 @@ class StockPickerScreen extends Component {
     return this.state.dataSource.getRowCount() === 0;
   }
 
-  // Render a footer.
-  renderFooter = () => {
-    return (
-      <Text>
-        {" "}- {this.props.market} -{" "}
-      </Text>
-    );
-  };
-
   render() {
     return (
       <View style={styles.container}>
@@ -91,7 +100,6 @@ class StockPickerScreen extends Component {
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
-          renderFooter={this.renderFooter}
           enableEmptySections
           pageSize={15}
         />
@@ -112,8 +120,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getStocks: selectedMarket =>
       dispatch(AnalyticsActions.getStocksRequest(selectedMarket)),
-    getStockDetails: selectedStock =>
-      dispatch(AnalyticsActions.getStockDetailsRequest(selectedStock))
+    setStock: selectedStock =>
+      dispatch(AnalyticsActions.setStockRequest(selectedStock))
   };
 };
 

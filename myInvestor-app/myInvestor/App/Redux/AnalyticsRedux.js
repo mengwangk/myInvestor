@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-09 17:40:46 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-14 15:25:36
+ * @Last Modified time: 2017-08-15 19:23:43
  */
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
@@ -15,6 +15,7 @@ const { Types, Creators } = createActions({
   setMarketRequest: ["selectedMarket"],
   getStocksRequest: ["selectedMarket"],
   getStocksSuccess: ["stocks"],
+  setStockRequest: ["selectedStock"],
   getStockDetailsRequest: ["selectedStock"],
   getStockDetailsSuccess: ["stockDetails"]
 });
@@ -57,6 +58,11 @@ export const requestStocksSuccess = (state, action) => {
   return state.merge({ fetching: false, stocks: stocks });
 };
 
+export const setStock = (state, { selectedStock }) => {
+  return state.merge({ fetching: true, selectedStock, stockDetails: [] });
+};
+
+
 export const requestStockDetails = (state, { selectedStock }) => {
   return state.merge({ fetching: true, selectedStock });
 };
@@ -73,6 +79,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SET_MARKET_REQUEST]: setMarket,
   [Types.GET_STOCKS_REQUEST]: requestStocks,
   [Types.GET_STOCKS_SUCCESS]: requestStocksSuccess,
+  [Types.SET_STOCK_REQUEST]: setStock,
   [Types.GET_STOCK_DETAILS_REQUEST]: requestStockDetails,
   [Types.GET_STOCK_DETAILS_SUCCESS]: requestStockDetailsSuccess,
 });
