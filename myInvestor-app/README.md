@@ -10,15 +10,17 @@ create-native-app using Expo. Run "npm run eject" to go native.
 keytool -genkey -v -keystore myinvestor.keystore -alias myinvestor -keyalg RSA -keysize 2048 -validity 10000
 
 - cd android && ./gradlew assembleRelease
-- gradlew clean assembleRelease -d
+- gradlew clean assembleRelease
 - delete build folder if there is an error generating apk
 - react-native run-android --variant=release
+- clean build cache - https://developer.android.com/studio/build/build-cache.html
 
 # Reference
 http://makeitopen.com/ 
 https://www.codementor.io/mz026/getting-started-with-react-redux-an-intro-8r6kurcxf
 https://github.com/react-community/react-navigation/issues/131
 https://github.com/kyaroru/ReactNavDrawer
+https://stackoverflow.com/questions/35924721/how-to-update-version-number-of-react-native-app
 
 
 # Libraries

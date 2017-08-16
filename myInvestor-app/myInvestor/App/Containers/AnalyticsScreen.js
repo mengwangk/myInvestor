@@ -15,7 +15,7 @@ class AnalyticsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.selectMarket = debounce(this.selectMarket.bind(this), 3000, {
+    this.selectMarket = debounce(this.selectMarket.bind(this), 1000, {
       leading: true,
       trailing: false
     });

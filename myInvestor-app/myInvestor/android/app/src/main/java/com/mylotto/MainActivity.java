@@ -1,4 +1,4 @@
-package com.myinvestor;
+package com.mylotto;
 
 import android.content.Intent; 
 import android.content.res.Configuration; 

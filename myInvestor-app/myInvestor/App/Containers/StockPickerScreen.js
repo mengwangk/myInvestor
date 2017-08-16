@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-11 23:47:50 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-15 19:25:27
+ * @Last Modified time: 2017-08-16 11:27:19
  */
 import React, { Component } from "react";
 import { View, Text, ListView } from "react-native";
@@ -21,7 +21,7 @@ class StockPickerScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.showStockDetails = debounce(this.showStockDetails.bind(this), 3000, {
+    this.showStockDetails = debounce(this.showStockDetails.bind(this), 1000, {
       leading: true,
       trailing: false
     });
