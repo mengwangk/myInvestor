@@ -2,12 +2,12 @@
  * @Author: mwk 
  * @Date: 2017-08-01 10:30:30 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-08 16:19:54
+ * @Last Modified time: 2017-08-16 17:04:16
  */
 import I18n from "react-native-i18n";
 import React, { Component } from "react";
 import { Button, DrawerNavigator, DrawerItems } from "react-navigation";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import { ScrollView, Image } from "react-native";
 import {
   getNavigationOptionsWithAction,
@@ -20,6 +20,7 @@ import { Fonts, Colors, Metrics } from "../Themes/";
 import styles from "./Styles/NavigationDrawerStyles";
 import HomeScreen from "../Containers/HomeScreen";
 import AnalyticsScreen from "../Containers/AnalyticsScreen";
+import StockDetailsScreen from "../Containers/StockDetailsScreen";
 import LaunchScreen from "../Containers/LaunchScreen";
 
 const getDrawerItem = navigation =>
@@ -41,8 +42,8 @@ const getDrawerIcon = (iconName, tintColor) =>
 
 const homeDrawerIcon = ({ tintColor }) => getDrawerIcon("home", tintColor);
 const analyticsDrawerIcon = ({ tintColor }) =>
-  getDrawerIcon("bar-chart", tintColor);
-const launchDrawerIcon = ({ tintColor }) => getDrawerIcon("rocket", tintColor);
+  getDrawerIcon("trending-up", tintColor);
+const launchDrawerIcon = ({ tintColor }) => getDrawerIcon("android", tintColor);
 
 const homeNavOptions = getDrawerNavigationOptions(
   I18n.t("homeScreen"),
@@ -83,7 +84,8 @@ const NavigationDrawer = DrawerNavigator(
   {
     HomeScreen: { screen: HomeScreen, navigationOptions: homeNavOptions },
     AnalyticsScreen: {
-      screen: AnalyticsScreen,
+      //screen: AnalyticsScreen,
+      screen: StockDetailsScreen,
       navigationOptions: analyticsNavOptions
     },
     LaunchScreen: { screen: LaunchScreen, navigationOptions: launchNavOptions }
