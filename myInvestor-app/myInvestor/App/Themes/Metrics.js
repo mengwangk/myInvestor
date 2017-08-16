@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-08 23:51:36 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-15 00:12:21
+ * @Last Modified time: 2017-08-16 23:25:02
  */
 import { Dimensions, Platform } from "react-native";
 import { Colors } from "./Colors";
@@ -14,6 +14,8 @@ const metrics = {
   marginHorizontal: 10,
   marginVertical: 10,
   marginRight: 10,
+  marginLeft:10,
+  marginBottom:10,
   section: 25,
   baseMargin: 10,
   doubleBaseMargin: 20,
