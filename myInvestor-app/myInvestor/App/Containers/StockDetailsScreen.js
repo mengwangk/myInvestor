@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-13 14:17:38 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-16 23:54:46
+ * @Last Modified time: 2017-08-18 09:37:37
  */
 import React, { Component } from "react";
 import { ListView, ScrollView, Text, View, RefreshControl } from "react-native";
@@ -25,7 +25,7 @@ class StockDetailsScreen extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
       loaded: false,
-      refreshing: false,
+      refreshing: true,
       key: Math.random()
     };
   }
@@ -41,6 +41,7 @@ class StockDetailsScreen extends Component {
   }
 
   render() {
+    console.log('state ---' + JSON.stringify(this.state));
     // https://github.com/facebook/react-native/issues/4099
     return (
       <ScrollView contentContainerStyle={styles.container}>
@@ -55,7 +56,7 @@ class StockDetailsScreen extends Component {
             }
             dataSource={this.state.dataSource}
             renderRow={stock =>
-              <StockCell
+              <StockWatch
                 stock={stock}
                 watchlistResult={this.state.watchlistResult}
               />}
