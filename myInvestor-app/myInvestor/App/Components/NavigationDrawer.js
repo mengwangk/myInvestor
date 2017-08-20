@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-01 10:30:30 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-16 17:04:16
+ * @Last Modified time: 2017-08-20 23:35:45
  */
 import I18n from "react-native-i18n";
 import React, { Component } from "react";
@@ -84,8 +84,8 @@ const NavigationDrawer = DrawerNavigator(
   {
     HomeScreen: { screen: HomeScreen, navigationOptions: homeNavOptions },
     AnalyticsScreen: {
-      //screen: AnalyticsScreen,
-      screen: StockDetailsScreen,
+      screen: AnalyticsScreen,
+      //screen: StockDetailsScreen,
       navigationOptions: analyticsNavOptions
     },
     LaunchScreen: { screen: LaunchScreen, navigationOptions: launchNavOptions }
