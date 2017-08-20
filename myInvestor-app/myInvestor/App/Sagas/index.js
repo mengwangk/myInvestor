@@ -20,6 +20,9 @@ const api = API.create();
 const fixtureAPI = FixtureAPI;
 
 /* ------------- Connect Types To Sagas ------------- */
+
+// https://github.com/facebook/react-native/issues/14838
+
 const root = function* root() {
   yield all([
     takeLatest(StartupTypes.STARTUP, startup),

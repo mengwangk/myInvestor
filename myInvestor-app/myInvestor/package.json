@@ -29,7 +29,7 @@
     "prop-types": "^15.5.10",
     "querystringify": "0.0.4",
     "ramda": "^0.24.1",
-    "react": "15.6.1",
+    "react": "^16.0.0-alpha.12",
     "react-moment": "^0.6.4",
     "react-native": "^0.47.1",
     "react-native-animatable": "^1.2.3",
