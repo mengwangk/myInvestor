@@ -27,4 +27,19 @@ https://stackoverflow.com/questions/35924721/how-to-update-version-number-of-rea
 https://github.com/visionmedia/superagent
 https://github.com/redux-observable/redux-observable
 https://github.com/reactjs/redux/examples
+http://momentjs.com/docs/
+
+# UI
+https://avocode.com/nachos-ui/
+http://shoutem.github.io/
+https://github.com/shoutem/ui
+https://startreact.com/
+https://github.com/mcnamee/react-native-starter-app
+https://github.com/react-native-community/react-native-side-menu
+https://github.com/react-native-training/react-native-elements
+https://codecanyon.net/item/beoui-complete-mobile-ui-template-for-react-native/19193831
+https://strapmobile.com/
+https://nativebase.io/
+
+
 
