@@ -14,6 +14,8 @@ keytool -genkey -v -keystore myinvestor.keystore -alias myinvestor -keyalg RSA -
 - delete build folder if there is an error generating apk
 - react-native run-android --variant=release
 - clean build cache - https://developer.android.com/studio/build/build-cache.html
+- .git hooks to remove husky validation
+
 
 # Reference
 http://makeitopen.com/ 
