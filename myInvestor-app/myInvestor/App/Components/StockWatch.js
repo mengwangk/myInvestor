@@ -2,11 +2,11 @@
  * @Author: mwk 
  * @Date: 2017-08-16 23:54:05 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-18 09:36:56
+ * @Last Modified time: 2017-08-22 14:34:38
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Text } from "react-native";
+import { View, Text, TouchableHighlight } from "react-native";
 import styles from "./Styles/StockWatchStyle";
 
 export default class StockWatch extends Component {
@@ -22,17 +22,29 @@ export default class StockWatch extends Component {
     };
   }
 
-  componentWillMount() {}
-
   render() {
-    console.log('props --' + JSON.stringify(this.props));
     const { stock } = this.state;
     return (
-      <View style={styles.container}>
-        <Text>
-          {stock.stockName}
-        </Text>
-      </View>
+      <TouchableHighlight>
+        <View style={[styles.container]}>
+          <View style={styles.symbol}>
+            <Text style={styles.symbolText}>
+              {stock.stockSymbol}
+            </Text>
+          </View>
+          <View style={styles.price}>
+            <Text style={styles.priceText}>1.40</Text>
+          </View>
+
+          <TouchableHighlight style={styles.changeGreen}>
+            <View>
+              <Text style={styles.changeText}>
+                  +0.71%
+              </Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+      </TouchableHighlight>
     );
   }
 }

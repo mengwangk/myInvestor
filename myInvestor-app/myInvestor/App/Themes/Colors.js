@@ -1,8 +1,8 @@
 /*
  * @Author: mwk 
  * @Date: 2017-08-02 14:25:42 
- * @Last Modified by:   mwk 
- * @Last Modified time: 2017-08-02 14:25:42 
+ * @Last Modified by: mwk
+ * @Last Modified time: 2017-08-22 14:13:29
  */
 const colors = {
   background: '#1F0808',
@@ -27,7 +27,11 @@ const colors = {
   eggplant: '#251a34',
   border: '#483F53',
   banner: '#5F3E63',
-  text: '#E0D7E5'
+  text: '#E0D7E5',
+  selected: '#202020',
+  redOrange: '#FC3D39',
+  emerald: '#53D769'
+
 }
 
 export default colors

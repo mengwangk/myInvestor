@@ -46,6 +46,7 @@
     "redux-persist": "^4.1.0",
     "redux-saga": "^0.15.6",
     "reduxsauce": "0.4.1",
+    "rn-viewpager": "^1.2.4",
     "seamless-immutable": "^7.0.1"
   },
   "devDependencies": {

@@ -2,15 +2,30 @@
  * @Author: mwk 
  * @Date: 2017-08-13 14:17:38 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-18 09:37:37
+ * @Last Modified time: 2017-08-22 17:15:54
  */
 import React, { Component } from "react";
-import { ListView, ScrollView, Text, View, RefreshControl } from "react-native";
+import {
+  ListView,
+  ScrollView,
+  Text,
+  View,
+  RefreshControl,
+  Linking,
+  TouchableHighlight,
+  Platform
+} from "react-native";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import AnalyticsActions from "../Redux/AnalyticsRedux";
 import StockWatch from "../Components/StockWatch";
 import styles from "./Styles/StockDetailsScreenStyle";
+import { ApplicationStyles, Metrics, Colors } from "../Themes";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
+
+
+const ViewPagerPageSize = 3;
 
 class StockDetailsScreen extends Component {
   static propTypes = {
@@ -25,7 +40,7 @@ class StockDetailsScreen extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
       loaded: false,
-      refreshing: true,
+      refreshing: false,
       key: Math.random()
     };
   }
@@ -34,14 +49,23 @@ class StockDetailsScreen extends Component {
     const { selectedStock } = this.state;
     selectedStock[0].stockName = "YTL POWER INTERNATIONAL BHD";
     selectedStock[0].stockSymbol = "YTLPOWR";
-    console.log("stock ===" + JSON.stringify(selectedStock));
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(this.state.selectedStock)
     });
   }
 
+  renderRow(stock) {
+    console.log(JSON.stringify(stock));
+    return (
+      <StockWatch stock={stock} watchlistResult={this.state.watchlistResult} />
+    );
+  }
+
+  renderDotIndicator() {
+    return <PagerDotIndicator pageCount={ViewPagerPageSize} />;
+  }
+
   render() {
-    console.log('state ---' + JSON.stringify(this.state));
     // https://github.com/facebook/react-native/issues/4099
     return (
       <ScrollView contentContainerStyle={styles.container}>
@@ -55,15 +79,58 @@ class StockDetailsScreen extends Component {
               />
             }
             dataSource={this.state.dataSource}
-            renderRow={stock =>
-              <StockWatch
-                stock={stock}
-                watchlistResult={this.state.watchlistResult}
-              />}
+            renderRow={this.renderRow.bind(this)}
           />
+        </View>
+
+        <View style={styles.detailedBlock}>
+          <IndicatorViewPager
+            style={{ flex: 1 }}
+            indicator={this.renderDotIndicator()}
+          >
+            <View>
+              <DetailsPage
+                stock={this.state.selectedStock}
+                watchlistResult={this.state.watchlistResult}
+              />
+            </View>
+            <View>
+              <ChartPage stock={this.state.selectedStock} />
+            </View>
+            <View>
+              <NewsPage key={this.state.key} stock={this.state.selectedStock} />
+            </View>
+          </IndicatorViewPager>
         </View>
       </ScrollView>
     );
+
+    /*
+     
+        <View style={styles.footerBlock}>
+          <TouchableHighlight
+            style={styles.yahoo}
+            onPress={() =>
+              Linking.openURL(
+                `http://finance.yahoo.com/q?s=${this.state.selectedStock
+                  .symbol}`
+              ).catch(err => console.error("An error occurred", err))}
+            underlayColor={Colors.selected}
+          >
+            <Text style={styles.yahooText}>Yahoo!</Text>
+          </TouchableHighlight>
+          <View style={styles.footerMiddle}>
+            <Text style={styles.marketTimeText}>Market closed</Text>
+          </View>
+          <TouchableHighlight
+            style={styles.settings}
+            onPress={Actions.settings}
+            underlayColor={Colors.selected}
+          >
+            <Icon name="menu" color={Colors.snow} size={Metrics.icons.small} />
+          </TouchableHighlight>
+        </View>
+    */
   }
 
   onRefresh() {

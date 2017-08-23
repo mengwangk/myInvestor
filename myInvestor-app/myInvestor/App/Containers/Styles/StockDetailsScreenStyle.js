@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-13 14:42:56 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-16 23:45:42
+ * @Last Modified time: 2017-08-22 14:46:48
  */
 import { StyleSheet } from "react-native";
 import { ApplicationStyles, Colors, Metrics, Fonts } from "../../Themes/";
@@ -38,5 +38,14 @@ export default StyleSheet.create({
     marginBottom: 10,
     marginRight: 10,
     color: Colors.snow
+  },
+  yahoo: {
+    flex: 1
+  },
+  yahooText: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "left"
   }
 });
