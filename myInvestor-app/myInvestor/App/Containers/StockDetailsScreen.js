@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-13 14:17:38 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-25 16:48:17
+ * @Last Modified time: 2017-08-25 17:27:22
  */
 import React, { Component } from "react";
 import {
@@ -18,7 +18,10 @@ import {
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import AnalyticsActions from "../Redux/AnalyticsRedux";
-import StockWatch from "../Components/StockWatch";
+import StockTicker from "../Components/StockTicker";
+import StockSummaryPage from "../Components/StockSummaryPage";
+import StockChartPage from "../Components/StockChartPage";
+import StockNewsPage from "../Components/StockNewsPage";
 import styles from "./Styles/StockDetailsScreenStyle";
 import { ApplicationStyles, Metrics, Colors } from "../Themes";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -57,7 +60,7 @@ class StockDetailsScreen extends Component {
   renderRow(stock) {
     console.log(JSON.stringify(stock));
     return (
-      <StockWatch stock={stock} watchlistResult={this.state.watchlistResult} />
+      <StockTicker stock={stock} watchlistResult={this.state.watchlistResult} />
     );
   }
 
@@ -89,7 +92,7 @@ class StockDetailsScreen extends Component {
             indicator={this.renderDotIndicator()}
           >
             <View>
-              <StockDetailsPage
+              <StockSummaryPage
                 stock={this.state.selectedStock}
                 watchlistResult={this.state.watchlistResult}
               />

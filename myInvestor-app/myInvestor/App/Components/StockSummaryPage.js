@@ -1,7 +1,13 @@
-import React, { Component } from 'react'
+/*
+ * @Author: mwk 
+ * @Date: 2017-08-25 17:12:47 
+ * @Last Modified by: mwk
+ * @Last Modified time: 2017-08-25 17:26:00
+ */
+import React, { Component } from "react";
 // import PropTypes from 'prop-types';
-import { View, Text } from 'react-native'
-import styles from './Styles/StockDetailsPageStyle'
+import { View, Text } from "react-native";
+import styles from "./Styles/StockSummaryPageStyle";
 
 export default class StockDetailsPage extends Component {
   // // Prop type warnings
@@ -15,11 +21,11 @@ export default class StockDetailsPage extends Component {
   //   someSetting: false
   // }
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <Text>StockDetailsPage Component</Text>
       </View>
-    )
+    );
   }
 }

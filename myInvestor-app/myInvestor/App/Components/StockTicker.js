@@ -2,14 +2,14 @@
  * @Author: mwk 
  * @Date: 2017-08-16 23:54:05 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-22 14:34:38
+ * @Last Modified time: 2017-08-25 17:13:54
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { View, Text, TouchableHighlight } from "react-native";
-import styles from "./Styles/StockWatchStyle";
+import styles from "./Styles/StockTickerStyle";
 
-export default class StockWatch extends Component {
+export default class StockTicker extends Component {
   static propTypes = {
     stock: PropTypes.object,
     watchlistResult: PropTypes.array
