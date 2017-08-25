@@ -2,14 +2,14 @@
  * @Author: mwk 
  * @Date: 2017-08-11 23:47:50 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-16 11:27:19
+ * @Last Modified time: 2017-08-25 16:41:55
  */
 import React, { Component } from "react";
 import { View, Text, ListView } from "react-native";
 import { connect } from "react-redux";
 import I18n from "react-native-i18n";
 import styles from "./Styles/StockPickerScreenStyle";
-import StockCell from "../Components/StockCell";
+import StockPicker from "../Components/StockPicker";
 import LoadingIndicator from "../Components/LoadingIndicator";
 import AnalyticsActions from "../Redux/AnalyticsRedux";
 import { debounce } from "lodash";
@@ -57,7 +57,7 @@ class StockPickerScreen extends Component {
   renderRow(stock) {
     // https://github.com/facebook/react-native/issues/7233
     return (
-      <StockCell
+      <StockPicker
         stock={stock}
         isChecked={this.state.selectedStocks[stock.stockSymbol]}
         onShowDetails={() => this.showStockDetails(stock)}

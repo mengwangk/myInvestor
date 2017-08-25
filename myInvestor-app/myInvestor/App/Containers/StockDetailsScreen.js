@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-13 14:17:38 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-22 17:15:54
+ * @Last Modified time: 2017-08-25 16:48:17
  */
 import React, { Component } from "react";
 import {
@@ -89,16 +89,16 @@ class StockDetailsScreen extends Component {
             indicator={this.renderDotIndicator()}
           >
             <View>
-              <DetailsPage
+              <StockDetailsPage
                 stock={this.state.selectedStock}
                 watchlistResult={this.state.watchlistResult}
               />
             </View>
             <View>
-              <ChartPage stock={this.state.selectedStock} />
+              <StockChartPage stock={this.state.selectedStock} />
             </View>
             <View>
-              <NewsPage key={this.state.key} stock={this.state.selectedStock} />
+              <StockNewsPage key={this.state.key} stock={this.state.selectedStock} />
             </View>
           </IndicatorViewPager>
         </View>

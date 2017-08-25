@@ -2,16 +2,16 @@
  * @Author: mwk 
  * @Date: 2017-08-12 13:23:18 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-15 17:38:15
+ * @Last Modified time: 2017-08-25 16:46:49
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { View, Text, TouchableOpacity } from "react-native";
-import styles from "./Styles/StockCellStyle";
+import styles from "./Styles/StockPickerStyle";
 import { ApplicationStyles, Metrics, Colors } from "../Themes";
 import CheckBox from "../Components/CheckBox";
 
-export default class StockCell extends Component {
+export default class StockPicker extends Component {
   static propTypes = {
     stock: PropTypes.object,
     isChecked: PropTypes.bool,
