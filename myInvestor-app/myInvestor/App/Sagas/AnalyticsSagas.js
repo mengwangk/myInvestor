@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-09 17:39:53 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-25 21:31:17
+ * @Last Modified time: 2017-08-26 14:27:23
  */
 import { delay } from "redux-saga";
 import { call, put } from "redux-saga/effects";
@@ -21,7 +21,7 @@ export const getStocks = function* getStocks(api, action) {
   yield put(AnalyticsActions.getStocksSuccess(response.data));
 };
 
-export const getDividends = function* getDividends(api, action) {
+export const getStockDividends = function* getDividends(api, action) {
   const { selectedMarket, selectedStock } = action;
   const response = yield call(api.getDividends, selectedMarket, selectedStock);
   yield put(AnalyticsActions.getDividendsSuccess(response.data));

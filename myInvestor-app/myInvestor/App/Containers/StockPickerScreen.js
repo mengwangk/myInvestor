@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-11 23:47:50 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-25 21:55:55
+ * @Last Modified time: 2017-08-26 14:35:47
  */
 import React, { Component } from "react";
 import { View, Text, ListView, RefreshControl } from "react-native";
@@ -82,7 +82,8 @@ class StockPickerScreen extends Component {
   componentWillReceiveProps(newProps) {
     if (newProps.stocks) {
       this.setState(prevState => ({
-        dataSource: prevState.dataSource.cloneWithRows(newProps.stocks)
+        dataSource: prevState.dataSource.cloneWithRows(newProps.stocks),
+        refreshing: newProps.loading
       }));
     }
   }
