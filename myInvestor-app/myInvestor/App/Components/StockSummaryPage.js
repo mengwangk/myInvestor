@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-25 17:12:47 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-25 17:26:00
+ * @Last Modified time: 2017-08-25 17:41:05
  */
 import React, { Component } from "react";
 // import PropTypes from 'prop-types';
@@ -23,8 +23,8 @@ export default class StockDetailsPage extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>StockDetailsPage Component</Text>
+      <View style={[styles.container]}>
+        <Text style={styles.contentText}>StockDetailsPage Component</Text>
       </View>
     );
   }

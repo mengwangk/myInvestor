@@ -2,10 +2,10 @@
  * @Author: mwk 
  * @Date: 2017-08-11 23:47:50 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-25 16:41:55
+ * @Last Modified time: 2017-08-25 21:55:55
  */
 import React, { Component } from "react";
-import { View, Text, ListView } from "react-native";
+import { View, Text, ListView, RefreshControl } from "react-native";
 import { connect } from "react-redux";
 import I18n from "react-native-i18n";
 import styles from "./Styles/StockPickerScreenStyle";
@@ -26,7 +26,8 @@ class StockPickerScreen extends Component {
       trailing: false
     });
     this.state = {
-      selectedStocks: {}
+      selectedStocks: {},
+      refreshing: this.props.loading
     };
   }
 
@@ -92,16 +93,26 @@ class StockPickerScreen extends Component {
     return this.state.dataSource.getRowCount() === 0;
   }
 
+  
+  onRefresh() {
+    //this.setState({ refreshing: true });
+  }
+  
   render() {
     return (
       <View style={styles.container}>
-        <LoadingIndicator show={this.props.loading} />
         <ListView
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
           enableEmptySections
           pageSize={15}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={() => this.onRefresh()}
+            />
+          }
         />
       </View>
     );

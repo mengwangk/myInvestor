@@ -18,7 +18,7 @@ export default class StockChartPage extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <Text>StockChartPage Component</Text>
+        <Text style={styles.contentText}>StockChartPage Component</Text>
       </View>
     )
   }

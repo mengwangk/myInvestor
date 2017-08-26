@@ -41,7 +41,7 @@ export default {
         };
     }
   },
-  getDividends: market => {
+  getDividends: (market, stock) => {
     switch (market) {
       case KLSE:
         return {

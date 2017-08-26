@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-24 00:00:16 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-24 00:00:46
+ * @Last Modified time: 2017-08-25 20:58:55
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -24,7 +24,7 @@ export default class StockNewsPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>StockNewsPage Component</Text>
+        <Text style={styles.contentText}>StockNewsPage Component</Text>
       </View>
     );
   }

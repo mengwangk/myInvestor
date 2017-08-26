@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-13 14:17:38 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-25 17:27:22
+ * @Last Modified time: 2017-08-25 21:47:16
  */
 import React, { Component } from "react";
 import {
@@ -25,20 +25,20 @@ import StockNewsPage from "../Components/StockNewsPage";
 import styles from "./Styles/StockDetailsScreenStyle";
 import { ApplicationStyles, Metrics, Colors } from "../Themes";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
-
+import { IndicatorViewPager, PagerDotIndicator } from "rn-viewpager";
 
 const ViewPagerPageSize = 3;
 
 class StockDetailsScreen extends Component {
   static propTypes = {
-    stock: PropTypes.object
+    stock: PropTypes.object,
+    dividends: PropTypes.array
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedStock: [Object.assign({}, this.props.stock)],
+      stock: [Object.assign({}, this.props.stock)],
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
@@ -49,16 +49,18 @@ class StockDetailsScreen extends Component {
   }
 
   componentWillMount() {
-    const { selectedStock } = this.state;
-    selectedStock[0].stockName = "YTL POWER INTERNATIONAL BHD";
-    selectedStock[0].stockSymbol = "YTLPOWR";
+    /*
+    const { stock } = this.state;
+    stock[0].stockName = "YTL POWER INTERNATIONAL BHD";
+    stock[0].stockSymbol = "YTLPOWR";
+    */
+    console.log("stock --" + JSON.stringify(this.state.stock));
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(this.state.selectedStock)
+      dataSource: this.state.dataSource.cloneWithRows(this.state.stock)
     });
   }
 
   renderRow(stock) {
-    console.log(JSON.stringify(stock));
     return (
       <StockTicker stock={stock} watchlistResult={this.state.watchlistResult} />
     );
@@ -93,47 +95,20 @@ class StockDetailsScreen extends Component {
           >
             <View>
               <StockSummaryPage
-                stock={this.state.selectedStock}
+                stock={this.state.stock}
                 watchlistResult={this.state.watchlistResult}
               />
             </View>
             <View>
-              <StockChartPage stock={this.state.selectedStock} />
+              <StockChartPage stock={this.state.stock} />
             </View>
             <View>
-              <StockNewsPage key={this.state.key} stock={this.state.selectedStock} />
+              <StockNewsPage key={this.state.key} stock={this.state.stock} />
             </View>
           </IndicatorViewPager>
         </View>
       </ScrollView>
     );
-
-    /*
-     
-        <View style={styles.footerBlock}>
-          <TouchableHighlight
-            style={styles.yahoo}
-            onPress={() =>
-              Linking.openURL(
-                `http://finance.yahoo.com/q?s=${this.state.selectedStock
-                  .symbol}`
-              ).catch(err => console.error("An error occurred", err))}
-            underlayColor={Colors.selected}
-          >
-            <Text style={styles.yahooText}>Yahoo!</Text>
-          </TouchableHighlight>
-          <View style={styles.footerMiddle}>
-            <Text style={styles.marketTimeText}>Market closed</Text>
-          </View>
-          <TouchableHighlight
-            style={styles.settings}
-            onPress={Actions.settings}
-            underlayColor={Colors.selected}
-          >
-            <Icon name="menu" color={Colors.snow} size={Metrics.icons.small} />
-          </TouchableHighlight>
-        </View>
-    */
   }
 
   onRefresh() {
@@ -145,7 +120,8 @@ class StockDetailsScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    stock: state.analytics.selectedStock
+    stock: state.analytics.selectedStock,
+    dividends: state.analytics.dividends
   };
 };
 

@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-09 17:40:46 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-15 19:23:43
+ * @Last Modified time: 2017-08-25 22:07:25
  */
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
@@ -17,7 +17,9 @@ const { Types, Creators } = createActions({
   getStocksSuccess: ["stocks"],
   setStockRequest: ["selectedStock"],
   getStockDetailsRequest: ["selectedStock"],
-  getStockDetailsSuccess: ["stockDetails"]
+  getStockDetailsSuccess: ["stockDetails"],
+  getDividendsRequest: ["selectedMarket", "selectedStock"],
+  getDividendsSuccess: ["dividends"]
 });
 
 export const AnalyticsTypes = Types;
@@ -32,7 +34,8 @@ export const INITIAL_STATE = Immutable({
   selectedStock: null,
   markets: [],
   stocks: [],
-  stockDetails: []
+  stockDetails: [],
+  dividends: []
 });
 
 /* ------------- Reducers ------------- */
@@ -59,9 +62,17 @@ export const requestStocksSuccess = (state, action) => {
 };
 
 export const setStock = (state, { selectedStock }) => {
-  return state.merge({ fetching: true, selectedStock, stockDetails: [] });
+  return state.merge({ fetching: false, selectedStock, stockDetails: [] });
 };
 
+export const requestDividends = (state, { selectedMarket, selectedStock }) => {
+  return state.merge({ fetching: true, selectedMarket, selectedStock, dividends: [] });
+};
+
+export const requestDividendsSuccess = (state, action) => {
+  const { dividends } = action;
+  return state.merge({ fetching: false, dividends: dividends });
+};
 
 export const requestStockDetails = (state, { selectedStock }) => {
   return state.merge({ fetching: true, selectedStock });
@@ -70,6 +81,7 @@ export const requestStockDetails = (state, { selectedStock }) => {
 export const requestStockDetailsSuccess = (state, { selectedStock }) => {
   return state.merge({ fetching: false, selectedStock });
 };
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -82,4 +94,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SET_STOCK_REQUEST]: setStock,
   [Types.GET_STOCK_DETAILS_REQUEST]: requestStockDetails,
   [Types.GET_STOCK_DETAILS_SUCCESS]: requestStockDetailsSuccess,
+  [Types.GET_DIVIDENDS_REQUEST]: requestDividends,
+  [Types.GET_DIVIDENDS_SUCCESS]: requestDividendsSuccess,
 });
