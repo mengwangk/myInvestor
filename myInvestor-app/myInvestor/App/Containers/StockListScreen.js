@@ -2,19 +2,19 @@
  * @Author: mwk 
  * @Date: 2017-08-11 23:47:50 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-26 14:35:47
+ * @Last Modified time: 2017-08-26 14:54:52
  */
 import React, { Component } from "react";
 import { View, Text, ListView, RefreshControl } from "react-native";
 import { connect } from "react-redux";
 import I18n from "react-native-i18n";
-import styles from "./Styles/StockPickerScreenStyle";
-import StockPicker from "../Components/StockPicker";
+import styles from "./Styles/StockListScreenStyle";
+import StockChooser from "../Components/StockChooser";
 import LoadingIndicator from "../Components/LoadingIndicator";
 import AnalyticsActions from "../Redux/AnalyticsRedux";
 import { debounce } from "lodash";
 
-class StockPickerScreen extends Component {
+class StockListScreen extends Component {
   state: {
     selectedStocks: { [symbol: string]: boolean }
   };
@@ -58,7 +58,7 @@ class StockPickerScreen extends Component {
   renderRow(stock) {
     // https://github.com/facebook/react-native/issues/7233
     return (
-      <StockPicker
+      <StockChooser
         stock={stock}
         isChecked={this.state.selectedStocks[stock.stockSymbol]}
         onShowDetails={() => this.showStockDetails(stock)}
@@ -96,7 +96,7 @@ class StockPickerScreen extends Component {
 
   
   onRefresh() {
-    //this.setState({ refreshing: true });
+    this.setState({refreshing: true});
   }
   
   render() {
@@ -111,7 +111,7 @@ class StockPickerScreen extends Component {
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
-              onRefresh={() => this.onRefresh()}
+              onRefresh={() => this.onRefresh().bind(this)}
             />
           }
         />
@@ -137,4 +137,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StockPickerScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(StockListScreen);

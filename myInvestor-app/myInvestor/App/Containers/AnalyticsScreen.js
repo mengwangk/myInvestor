@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import I18n from "react-native-i18n";
 import { View, ListView, Text, TouchableOpacity, Alert } from "react-native";
-import { debounce } from "lodash";
+import { debounce, once } from "lodash";
 import { connect } from "react-redux";
 import FixtureApi from "../Services/FixtureApi";
-import StockPickerScreen from "./StockPickerScreen";
+import StockListScreen from "./StockListScreen";
 import AnalyticsActions from "../Redux/AnalyticsRedux";
 import styles from "./Styles/AnalyticsScreenStyle";
 
@@ -13,12 +13,18 @@ class AnalyticsScreen extends Component {
    * Constructor.
   */
   constructor(props) {
+    console.log("calling constructor");
     super(props);
     this.state = {};
+
+    // https://stackoverflow.com/questions/43392100/disable-touchableopacity-button-after-oneclick-in-react-native
+    this.selectMarket = once(this.selectMarket.bind(this));
+    /*
     this.selectMarket = debounce(this.selectMarket.bind(this), 1000, {
       leading: true,
       trailing: false
     });
+    */
   }
 
   updateMarkets() {
@@ -34,10 +40,11 @@ class AnalyticsScreen extends Component {
   selectMarket(market) {
     this.props.setMarket(market);
     const { navigate } = this.props.navigation;
-    navigate("StockPickerScreen");
+    navigate("StockListScreen");
   }
 
   componentWillMount() {
+    console.log("will mount");
     this.updateMarkets();
   }
 

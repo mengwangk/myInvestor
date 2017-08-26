@@ -2,13 +2,13 @@
  * @Author: mwk 
  * @Date: 2017-08-01 14:14:24 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-12 23:13:28
+ * @Last Modified time: 2017-08-26 14:46:06
  */
 import React, { Component } from "react";
 import { StackNavigator, DrawerItems } from "react-navigation";
 import { ScrollView, Image } from "react-native";
 import NavigationDrawer from "../Components/NavigationDrawer";
-import StockPickerScreen from "../Containers/StockPickerScreen";
+import StockListScreen from "../Containers/StockListScreen";
 import AnalyticsScreen from "../Containers/AnalyticsScreen";
 import StockDetailsScreen from "../Containers/StockDetailsScreen";
 import { getNavigationOptionsWithAction } from "../Lib/Navigation";
@@ -17,9 +17,9 @@ import { Fonts, Colors, Metrics } from "../Themes/";
 
 import styles from "./Styles/NavigationStyles";
 
-const stockPickerNavigationOptions = ({ navigation }) =>
+const stockListNavigationOptions = ({ navigation }) =>
   getNavigationOptionsWithAction(
-    I18n.t("stockPickerScreen"),
+    I18n.t("stockListScreen"),
     Colors.background,
     Colors.text
   );
@@ -35,9 +35,9 @@ const createStackNavigator = StackNavigator(
   {
     NavigationDrawer: { screen: NavigationDrawer },
     AnalyticsScreen: { screen: AnalyticsScreen },
-    StockPickerScreen: {
-      screen: StockPickerScreen,
-      navigationOptions: stockPickerNavigationOptions
+    StockListScreen: {
+      screen: StockListScreen,
+      navigationOptions: stockListNavigationOptions
     },
     StockDetailsScreen: {
       screen: StockDetailsScreen,
