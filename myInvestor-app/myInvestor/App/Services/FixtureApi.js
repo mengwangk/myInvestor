@@ -1,3 +1,5 @@
+import { filter } from "lodash";
+
 const KLSE = "KLSE";
 const HKEX = "HKEX";
 const NASDAQ = "NASDAQ";
@@ -44,9 +46,13 @@ export default {
   getDividends: (market, stock) => {
     switch (market) {
       case KLSE:
+        var dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
+        var stockDividends = filter(dividends, function(d) {
+          return (d.gExchangeName === market && d.gStockSymbol === stock)
+        });
         return {
           ok: true,
-          data: require("../Fixtures/KLSE/KLSE_dividend.json")
+          data: stockDividends
         };
       case HKEX:
         return {

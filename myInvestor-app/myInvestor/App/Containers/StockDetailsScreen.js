@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-13 14:17:38 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-25 21:47:16
+ * @Last Modified time: 2017-08-27 10:57:41
  */
 import React, { Component } from "react";
 import {
@@ -30,52 +30,62 @@ import { IndicatorViewPager, PagerDotIndicator } from "rn-viewpager";
 const ViewPagerPageSize = 3;
 
 class StockDetailsScreen extends Component {
-  static propTypes = {
-    stock: PropTypes.object,
-    dividends: PropTypes.array
-  };
-
   constructor(props) {
     super(props);
     this.state = {
-      stock: [Object.assign({}, this.props.stock)],
+      //market: this.props.market,
+      market: "KLSE", // Testing
+      stock: Object.assign({}, this.props.stock),
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
-      loaded: false,
       refreshing: false,
       key: Math.random()
     };
   }
 
   componentWillMount() {
-    /*
+    // Testing
     const { stock } = this.state;
-    stock[0].stockName = "YTL POWER INTERNATIONAL BHD";
-    stock[0].stockSymbol = "YTLPOWR";
-    */
-    console.log("stock --" + JSON.stringify(this.state.stock));
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(this.state.stock)
-    });
+    stock.stockName = "YTL POWER INTERNATIONAL BHD";
+    stock.stockSymbol = "YTLPOWR";
+
+    this.props.getStockDividends(
+      this.state.market,
+      this.state.stock.stockSymbol
+    );
   }
 
+  componentWillReceiveProps(newProps) {
+    if (this.state.refreshing !== newProps.refreshing) {
+      console.log("Refreshing...");
+      this.setState({ refreshing: newProps.refreshing });
+    }
+    if (newProps.dividends) {
+      console.log("Dividends ----" + JSON.stringify(newProps.dividends));
+      /*
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(this.state.stock)
+      });
+      */
+    }
+  }
+
+  /*
   renderRow(stock) {
     return (
       <StockTicker stock={stock} watchlistResult={this.state.watchlistResult} />
     );
   }
+  */
 
   renderDotIndicator() {
     return <PagerDotIndicator pageCount={ViewPagerPageSize} />;
   }
 
   render() {
-    // https://github.com/facebook/react-native/issues/4099
-    return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.stocksBlock}>
-          <ListView
+    /*
+     <ListView
             key={this.state.key}
             refreshControl={
               <RefreshControl
@@ -86,6 +96,14 @@ class StockDetailsScreen extends Component {
             dataSource={this.state.dataSource}
             renderRow={this.renderRow.bind(this)}
           />
+    */
+    // https://github.com/facebook/react-native/issues/4099
+    const { stock } = this.state;
+    console.log('stock ---' + JSON.stringify(stock));
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.stocksBlock}>
+          <StockTicker stock={stock} />
         </View>
 
         <View style={styles.detailedBlock}>
@@ -120,13 +138,20 @@ class StockDetailsScreen extends Component {
 
 const mapStateToProps = state => {
   return {
+    market: state.analytics.selectedMarket,
     stock: state.analytics.selectedStock,
-    dividends: state.analytics.dividends
+    dividends: state.analytics.dividends,
+    refreshing: state.analytics.fetching
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    getStockDividends: (selectedMarket, selectedStock) =>
+      dispatch(
+        AnalyticsActions.getStockDividendsRequest(selectedMarket, selectedStock)
+      )
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StockDetailsScreen);

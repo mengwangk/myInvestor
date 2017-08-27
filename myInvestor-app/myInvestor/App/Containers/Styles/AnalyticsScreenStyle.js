@@ -1,8 +1,8 @@
 /*
  * @Author: mwk 
  * @Date: 2017-08-13 15:05:39 
- * @Last Modified by:   mwk 
- * @Last Modified time: 2017-08-13 15:05:39 
+ * @Last Modified by: mwk
+ * @Last Modified time: 2017-08-26 23:07:44
  */
 import { StyleSheet } from "react-native";
 import { ApplicationStyles, Metrics, Colors, Fonts } from "../../Themes";
@@ -19,7 +19,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: Metrics.baseMargin,
-    backgroundColor: Colors.cloud,
+    backgroundColor: Colors.charcoal,
     borderRadius: Metrics.smallMargin
   },
   sectionHeader: {

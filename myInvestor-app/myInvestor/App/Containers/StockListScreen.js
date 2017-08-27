@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-11 23:47:50 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-26 14:54:52
+ * @Last Modified time: 2017-08-27 00:47:56
  */
 import React, { Component } from "react";
 import { View, Text, ListView, RefreshControl } from "react-native";
@@ -10,7 +10,6 @@ import { connect } from "react-redux";
 import I18n from "react-native-i18n";
 import styles from "./Styles/StockListScreenStyle";
 import StockChooser from "../Components/StockChooser";
-import LoadingIndicator from "../Components/LoadingIndicator";
 import AnalyticsActions from "../Redux/AnalyticsRedux";
 import { debounce } from "lodash";
 
@@ -21,13 +20,13 @@ class StockListScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.showStockDetails = debounce(this.showStockDetails.bind(this), 1000, {
+    this.showStockDetails = debounce(this.showStockDetails.bind(this), 3000, {
       leading: true,
       trailing: false
     });
     this.state = {
       selectedStocks: {},
-      refreshing: this.props.loading
+      refreshing: this.props.refreshing
     };
   }
 
@@ -83,7 +82,7 @@ class StockListScreen extends Component {
     if (newProps.stocks) {
       this.setState(prevState => ({
         dataSource: prevState.dataSource.cloneWithRows(newProps.stocks),
-        refreshing: newProps.loading
+        refreshing: newProps.refreshing
       }));
     }
   }
@@ -124,7 +123,7 @@ const mapStateToProps = state => {
   return {
     stocks: state.analytics.stocks,
     market: state.analytics.selectedMarket,
-    loading: state.analytics.fetching
+    refreshing: state.analytics.fetching
   };
 };
 

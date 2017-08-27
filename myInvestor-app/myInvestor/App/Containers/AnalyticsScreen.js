@@ -1,30 +1,35 @@
 import React, { Component } from "react";
 import I18n from "react-native-i18n";
-import { View, ListView, Text, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  ListView,
+  Text,
+  TouchableOpacity,
+  Alert,
+  TouchableNativeFeedback
+} from "react-native";
 import { debounce, once } from "lodash";
 import { connect } from "react-redux";
 import FixtureApi from "../Services/FixtureApi";
 import StockListScreen from "./StockListScreen";
 import AnalyticsActions from "../Redux/AnalyticsRedux";
 import styles from "./Styles/AnalyticsScreenStyle";
+import { Colors } from "../Themes";
 
 class AnalyticsScreen extends Component {
   /*
    * Constructor.
   */
   constructor(props) {
-    console.log("calling constructor");
     super(props);
     this.state = {};
 
     // https://stackoverflow.com/questions/43392100/disable-touchableopacity-button-after-oneclick-in-react-native
-    this.selectMarket = once(this.selectMarket.bind(this));
-    /*
+    // this.selectMarket = once(this.selectMarket.bind(this));
     this.selectMarket = debounce(this.selectMarket.bind(this), 1000, {
       leading: true,
       trailing: false
     });
-    */
   }
 
   updateMarkets() {
@@ -44,7 +49,6 @@ class AnalyticsScreen extends Component {
   }
 
   componentWillMount() {
-    console.log("will mount");
     this.updateMarkets();
   }
 
@@ -58,17 +62,21 @@ class AnalyticsScreen extends Component {
 
   renderRow(rowData) {
     return (
-      <TouchableOpacity
-        style={styles.row}
+      <TouchableNativeFeedback
+        delayPressIn={0}
+        delayPressOut={0}
         onPress={() => this.selectMarket(rowData.exchangeName)}
+        background={TouchableNativeFeedback.SelectableBackground()}
       >
-        <Text style={styles.boldLabel}>
-          {rowData.exchangeName}
-        </Text>
-        <Text style={styles.label}>
-          {rowData.description}
-        </Text>
-      </TouchableOpacity>
+        <View style={styles.row}>
+          <Text style={styles.boldLabel}>
+            {rowData.exchangeName}
+          </Text>
+          <Text style={styles.label}>
+            {rowData.description}
+          </Text>
+        </View>
+      </TouchableNativeFeedback>
     );
   }
 
