@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-16 23:54:05 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-25 17:13:54
+ * @Last Modified time: 2017-08-27 14:42:56
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -25,8 +25,8 @@ export default class StockTicker extends Component {
   render() {
     const { stock } = this.state;
     return (
-      <TouchableHighlight>
-        <View style={[styles.container]}>
+      <TouchableHighlight style={[styles.container]}>
+        <View style={[styles.stock]}>
           <View style={styles.symbol}>
             <Text style={styles.symbolText}>
               {stock.stockSymbol}

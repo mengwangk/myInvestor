@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-13 14:42:56 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-22 14:46:48
+ * @Last Modified time: 2017-08-27 14:49:33
  */
 import { StyleSheet } from "react-native";
 import { ApplicationStyles, Colors, Metrics, Fonts } from "../../Themes/";
@@ -14,16 +14,22 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: Colors.background
   },
-  stocksBlock: {
+  stockContent: {
     flexDirection: "column",
-    flex: 9
+    flex: 1,
+    backgroundColor: Colors.background
   },
-  detailedBlock: {
+  dividendsContent: {
+    flexDirection: "column",
+    flex: 4,
+    backgroundColor: Colors.cloud
+  },
+  detailsContent: {
     flex: 5,
-    backgroundColor: "#202020",
+    backgroundColor: Colors.facebook,
     justifyContent: "space-between"
   },
-  footerBlock: {
+  footerContent: {
     flex: 1,
     flexDirection: "row",
     backgroundColor: "#202020",

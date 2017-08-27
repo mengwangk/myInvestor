@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-13 14:17:38 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-27 10:57:41
+ * @Last Modified time: 2017-08-27 15:37:35
  */
 import React, { Component } from "react";
 import {
@@ -22,6 +22,7 @@ import StockTicker from "../Components/StockTicker";
 import StockSummaryPage from "../Components/StockSummaryPage";
 import StockChartPage from "../Components/StockChartPage";
 import StockNewsPage from "../Components/StockNewsPage";
+import StockDividends from "../Components/StockDividends";
 import styles from "./Styles/StockDetailsScreenStyle";
 import { ApplicationStyles, Metrics, Colors } from "../Themes";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -36,11 +37,9 @@ class StockDetailsScreen extends Component {
       //market: this.props.market,
       market: "KLSE", // Testing
       stock: Object.assign({}, this.props.stock),
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2
-      }),
-      refreshing: false,
-      key: Math.random()
+      dividends: [],
+      refreshing: false // Testing
+      // refreshing: this.props.refreshing
     };
   }
 
@@ -58,81 +57,56 @@ class StockDetailsScreen extends Component {
 
   componentWillReceiveProps(newProps) {
     if (this.state.refreshing !== newProps.refreshing) {
-      console.log("Refreshing...");
       this.setState({ refreshing: newProps.refreshing });
     }
     if (newProps.dividends) {
-      console.log("Dividends ----" + JSON.stringify(newProps.dividends));
-      /*
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(this.state.stock)
-      });
-      */
+      this.setState({ dividends: newProps.dividends });
     }
   }
-
-  /*
-  renderRow(stock) {
-    return (
-      <StockTicker stock={stock} watchlistResult={this.state.watchlistResult} />
-    );
-  }
-  */
 
   renderDotIndicator() {
     return <PagerDotIndicator pageCount={ViewPagerPageSize} />;
   }
 
   render() {
-    /*
-     <ListView
-            key={this.state.key}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={() => this.onRefresh()}
-              />
-            }
-            dataSource={this.state.dataSource}
-            renderRow={this.renderRow.bind(this)}
-          />
-    */
     // https://github.com/facebook/react-native/issues/4099
     const { stock } = this.state;
-    console.log('stock ---' + JSON.stringify(stock));
     return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.stocksBlock}>
+      <View style={styles.container}>
+        <View style={styles.stockContent}>
           <StockTicker stock={stock} />
         </View>
 
-        <View style={styles.detailedBlock}>
-          <IndicatorViewPager
-            style={{ flex: 1 }}
-            indicator={this.renderDotIndicator()}
-          >
-            <View>
-              <StockSummaryPage
-                stock={this.state.stock}
-                watchlistResult={this.state.watchlistResult}
-              />
-            </View>
-            <View>
-              <StockChartPage stock={this.state.stock} />
-            </View>
-            <View>
-              <StockNewsPage key={this.state.key} stock={this.state.stock} />
-            </View>
-          </IndicatorViewPager>
+        <View style={styles.dividendsContent}>
+          <StockDividends
+            dividends={this.state.dividends}
+            refreshing={this.state.refreshing}
+          />
         </View>
-      </ScrollView>
-    );
-  }
 
-  onRefresh() {
-    this.setState({ refreshing: true });
-    // StockActions.updateStocks();
-    this.setState({ refreshing: false });
+        <View style={styles.detailsContent}>
+          <ScrollView contentContainerStyle={styles.detailsContent}>
+            <IndicatorViewPager
+              style={{ flex: 1 }}
+              indicator={this.renderDotIndicator()}
+            >
+              <View>
+                <StockSummaryPage
+                  stock={this.state.stock}
+                  watchlistResult={this.state.watchlistResult}
+                />
+              </View>
+              <View>
+                <StockChartPage stock={this.state.stock} />
+              </View>
+              <View>
+                <StockNewsPage key={this.state.key} stock={this.state.stock} />
+              </View>
+            </IndicatorViewPager>
+          </ScrollView>
+        </View>
+      </View>
+    );
   }
 }
 

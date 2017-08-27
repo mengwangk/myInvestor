@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-22 01:03:17 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-22 14:25:40
+ * @Last Modified time: 2017-08-27 14:49:12
  */
 import { StyleSheet } from "react-native";
 import { ApplicationStyles, Metrics, Colors, Fonts } from "../../Themes";
@@ -11,17 +11,17 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    marginLeft: Metrics.marginLeft,
-    marginRight: Metrics.marginRight,
-    flexDirection: 'row',
-    height: 50,
-    justifyContent: 'space-between',
-    alignItems: 'center',
     borderBottomColor: Colors.steel,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  selected: {
-    backgroundColor: Colors.selected,
+  stock: {
+    flex: 1,
+    backgroundColor: Colors.background,
+    marginLeft: Metrics.marginLeft,
+    marginRight: Metrics.marginRight,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'  
   },
   symbol: {
     flex: 3,
@@ -52,12 +52,14 @@ export default StyleSheet.create({
     flex: 2,
     padding: 5,
     borderRadius: 3,
+    marginBottom: Metrics.marginBottom
   },
   changeGreen: {
     backgroundColor: Colors.emerald,
     flex: 2,
     padding: 5,
     borderRadius: 3,
+    marginBottom: Metrics.marginBottom
   },
   changeText: {
     ...Fonts.style.normal,
