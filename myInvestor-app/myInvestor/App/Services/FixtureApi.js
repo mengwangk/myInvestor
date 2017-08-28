@@ -1,4 +1,4 @@
-import { filter } from "lodash";
+import { filter, sortBy } from "lodash";
 
 const KLSE = "KLSE";
 const HKEX = "HKEX";
@@ -50,6 +50,7 @@ export default {
         var stockDividends = filter(dividends, function(d) {
           return (d.gExchangeName === market && d.gStockSymbol === stock)
         });
+        stockDividends = sortBy(stockDividends, "dividendYear");
         return {
           ok: true,
           data: stockDividends

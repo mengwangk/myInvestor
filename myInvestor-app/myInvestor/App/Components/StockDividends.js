@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-27 14:58:15 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-27 15:45:29
+ * @Last Modified time: 2017-08-27 16:01:13
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -38,7 +38,19 @@ export default class StockDividends extends Component {
   }
 
   renderRow(dividend) {
-    return <Text>dffa</Text>;
+    console.log(JSON.stringify(dividend));
+    return (
+      <View style={styles.dividend}>
+        <View style={styles.symbol}>
+          <Text style={styles.symbolText}>
+            {stock.stockSymbol}
+          </Text>
+        </View>
+        <View style={styles.price}>
+          <Text style={styles.priceText}>1.40</Text>
+        </View>
+      </View>
+    );
   }
 
   onRefresh() {
@@ -46,7 +58,6 @@ export default class StockDividends extends Component {
   }
 
   render() {
-    console.log("inside dividends ---" + JSON.stringify(this.state.dividends));
     return (
       <ScrollView contentContainerStyle={styles.dividendsContent}>
         <ListView
@@ -59,6 +70,8 @@ export default class StockDividends extends Component {
           }
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
+          enableEmptySections
+          pageSize={15}
         />
       </ScrollView>
     );
