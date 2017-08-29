@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-27 14:58:15 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-27 16:01:13
+ * @Last Modified time: 2017-08-29 09:48:59
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -38,24 +38,54 @@ export default class StockDividends extends Component {
   }
 
   renderRow(dividend) {
-    console.log(JSON.stringify(dividend));
     return (
-      <View style={styles.dividend}>
-        <View style={styles.symbol}>
-          <Text style={styles.symbolText}>
-            {stock.stockSymbol}
+      <View style={styles.container}>
+        <View style={styles.year}>
+          <Text style={styles.text}>
+            {dividend.dividendYear}
           </Text>
         </View>
-        <View style={styles.price}>
-          <Text style={styles.priceText}>1.40</Text>
-        </View>
+        <View style={styles.dividend}>
+        <Text style={styles.text}>{dividend.dividend}</Text>
+      </View>
+      <View style={styles.yield}>
+        <Text style={styles.text}>{dividend.dividendYield}</Text>
+      </View>
       </View>
     );
+
+    return null;
   }
 
   onRefresh() {
     this.setState({ refreshing: true });
   }
+
+  renderHeader() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.year}>
+          <Text style={styles.text}>Year</Text>
+        </View>
+        <View style={styles.dividend}>
+          <Text style={styles.text}>Dividend</Text>
+        </View>
+        <View style={styles.yield}>
+          <Text style={styles.text}>Yield</Text>
+        </View>
+      </View>
+    );
+  }
+
+  renderFooter = () => {
+    return (
+      <View style={styles.footer}>
+        <Text style={styles.text}>
+          Yield calculated on current price of 1.42
+        </Text>
+      </View>
+    );
+  };
 
   render() {
     return (
@@ -70,7 +100,9 @@ export default class StockDividends extends Component {
           }
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
-          enableEmptySections
+          renderFooter={this.renderFooter}
+          renderHeader={this.renderHeader}
+          enableEmptySections          
           pageSize={15}
         />
       </ScrollView>

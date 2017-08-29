@@ -50,7 +50,7 @@ export default {
         var stockDividends = filter(dividends, function(d) {
           return (d.gExchangeName === market && d.gStockSymbol === stock)
         });
-        stockDividends = sortBy(stockDividends, "dividendYear");
+        stockDividends = sortBy(stockDividends, "dividendYear").reverse();
         return {
           ok: true,
           data: stockDividends
