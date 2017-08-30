@@ -106,7 +106,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "com.mylotto"
@@ -172,7 +172,7 @@ dependencies {
     compile project(':react-native-i18n')
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:23.0.1"
+    compile "com.android.support:appcompat-v7:25.0.0"
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
 
