@@ -36,6 +36,7 @@
     "react-native-config": "^0.2.1",
     "react-native-device-info": "^0.11.0",
     "react-native-drawer": "^2.3.0",
+    "react-native-finance-lib": "git+https://github.com/mengwangk/react-native-finance-lib.git",
     "react-native-i18n": "1.0.0",
     "react-native-orientation": "^3.0.0",
     "react-native-vector-icons": "^4.3.0",
