@@ -2,12 +2,13 @@
  * @Author: mwk 
  * @Date: 2017-08-09 17:39:53 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-04 10:22:04
+ * @Last Modified time: 2017-09-04 12:29:12
  */
 import { delay } from "redux-saga";
 import { call, put } from "redux-saga/effects";
 import { path } from "ramda";
 import AnalyticsActions from "../Redux/AnalyticsRedux";
+import MyInvestorFinance from "react-native-finance-lib";
 
 export const getMarkets = function* getMarkets(api, action) {
   var response = yield call(api.getMarkets);
@@ -23,15 +24,21 @@ export const getStocks = function* getStocks(api, action) {
 
 export const getStockDividends = function* getStockDividends(api, action) {
   const { selectedMarket, selectedStock } = action;
-  const response = yield call(api.getDividends, selectedMarket, selectedStock);
+  const response = yield call(api.getDividends, selectedMarket, selectedStock.stockSymbol);
   yield put(AnalyticsActions.getStockDividendsSuccess(response.data));
 };
 
 export const getStockPriceInfo = function* getStockPriceInfo(action) {
   // https://stackoverflow.com/questions/42307648/promises-in-redux-saga
   try {
-    const { symbol } = action;
+    const { selectedMarket, selectedStock } = action;
+    console.log("market --" + JSON.stringify(selectedMarket));
+    console.log("stock --" + JSON.stringify(selectedStock));
+    // Get the corresponding symbol for Yahoo Finance
+    const response = yield call(MyInvestorFinance.getStockPrice, "6742.KL");
+    console.log(JSON.stringify(response));
+    yield put(AnalyticsActions.getStockPriceInfoSuccess(response));
   } catch (error) {
-    // yield put();
+    yield put(AnalyticsActions.getStockPriceInfoError(error));
   }
 };

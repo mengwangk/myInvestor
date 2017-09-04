@@ -8,7 +8,7 @@ import { StartupTypes } from "../Redux/StartupRedux";
 import { AnalyticsTypes } from "../Redux/AnalyticsRedux";
 
 /* ------------- Sagas ------------- */
-import { getMarkets, getStocks, getStockDividends } from "./AnalyticsSagas";
+import { getMarkets, getStocks, getStockDividends, getStockPriceInfo } from "./AnalyticsSagas";
 import { startup } from "./StartupSagas";
 
 /* ------------- API ------------- */
@@ -28,7 +28,8 @@ const root = function* root() {
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(AnalyticsTypes.GET_MARKETS_REQUEST, getMarkets, fixtureAPI),
     takeLatest(AnalyticsTypes.GET_STOCKS_REQUEST, getStocks, fixtureAPI),
-    takeLatest(AnalyticsTypes.GET_STOCK_DIVIDENDS_REQUEST, getStockDividends, fixtureAPI)
+    takeLatest(AnalyticsTypes.GET_STOCK_DIVIDENDS_REQUEST, getStockDividends, fixtureAPI),
+    takeLatest(AnalyticsTypes.GET_STOCK_PRICE_INFO_REQUEST, getStockPriceInfo)
   ]);
 };
 export default root;

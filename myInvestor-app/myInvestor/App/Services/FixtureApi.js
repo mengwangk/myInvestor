@@ -43,12 +43,12 @@ export default {
         };
     }
   },
-  getDividends: (market, stock) => {
+  getDividends: (market, symbol) => {
     switch (market) {
       case KLSE:
         var dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
         var stockDividends = filter(dividends, function(d) {
-          return (d.gExchangeName === market && d.gStockSymbol === stock)
+          return (d.gExchangeName === market && d.gStockSymbol === symbol)
         });
         stockDividends = sortBy(stockDividends, "dividendYear").reverse();
         return {

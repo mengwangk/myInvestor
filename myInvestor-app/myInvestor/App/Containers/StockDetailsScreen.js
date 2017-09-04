@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-13 14:17:38 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-27 15:37:35
+ * @Last Modified time: 2017-09-04 12:23:05
  */
 import React, { Component } from "react";
 import {
@@ -36,7 +36,8 @@ class StockDetailsScreen extends Component {
     this.state = {
       //market: this.props.market,
       market: "KLSE", // Testing
-      stock: Object.assign({}, this.props.stock),
+      //stock: Object.assign({}, this.props.stock),
+      stock: Object.assign({}, {}), // Testing
       dividends: [],
       refreshing: false // Testing
       // refreshing: this.props.refreshing
@@ -51,8 +52,14 @@ class StockDetailsScreen extends Component {
 
     this.props.getStockDividends(
       this.state.market,
-      this.state.stock.stockSymbol
+      this.state.stock
     );
+
+    this.props.getStockPriceInfo(
+      this.state.market,
+      this.state.stock
+    );
+
   }
 
   componentWillReceiveProps(newProps) {
@@ -124,6 +131,10 @@ const mapDispatchToProps = dispatch => {
     getStockDividends: (selectedMarket, selectedStock) =>
       dispatch(
         AnalyticsActions.getStockDividendsRequest(selectedMarket, selectedStock)
+      ),
+    getStockPriceInfo: (selectedMarket, selectedStock) =>
+      dispatch(
+        AnalyticsActions.getStockPriceInfoRequest(selectedMarket, selectedStock)
       )
   };
 };

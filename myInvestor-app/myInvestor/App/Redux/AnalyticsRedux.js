@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-09 17:40:46 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-04 10:31:54
+ * @Last Modified time: 2017-09-04 11:50:32
  */
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
@@ -16,11 +16,9 @@ const { Types, Creators } = createActions({
   getStocksRequest: ["selectedMarket"],
   getStocksSuccess: ["stocks"],
   setStockRequest: ["selectedStock"],
-  //getStockDetailsRequest: ["selectedStock"],
-  //getStockDetailsSuccess: ["stockDetails"],
   getStockDividendsRequest: ["selectedMarket", "selectedStock"],
   getStockDividendsSuccess: ["dividends"],
-  getStockPriceInfoRequest: ["selectedStock"],
+  getStockPriceInfoRequest: ["selectedMarket", "selectedStock"],
   getStockPriceInfoSuccess: ["priceInfo"],
   getStockPriceInfoError: ["error"]
 });
@@ -37,7 +35,6 @@ export const INITIAL_STATE = Immutable({
   stocks: [],
   selectedMarket: null,
   selectedStock: null,
-  //stockDetails: [],
   dividends: [],
   priceInfo: null
 });
@@ -78,15 +75,19 @@ export const requestStockDividendsSuccess = (state, action) => {
   return state.merge({ fetching: false, dividends: dividends });
 };
 
-/*
-export const requestStockDetails = (state, { selectedStock }) => {
-  return state.merge({ fetching: true, selectedStock });
+export const requestStockPriceInfo = (state, { selectedMarket, selectedStock }) => {
+  return state.merge({ fetching: true, selectedMarket, selectedStock, priceInfo: null });
 };
 
-export const requestStockDetailsSuccess = (state, { selectedStock }) => {
-  return state.merge({ fetching: false, selectedStock });
+export const requestStockPriceInfoSuccess = (state, action) => {
+  const { priceInfo } = action;
+  return state.merge({ fetching: false, priceInfo: priceInfo });
 };
-*/
+
+export const requestStockPriceInfoError = (state, action) => {
+  const { error } = action;
+  return state.merge({ fetching: false, error });
+};
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -98,8 +99,9 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_STOCKS_REQUEST]: requestStocks,
   [Types.GET_STOCKS_SUCCESS]: requestStocksSuccess,
   [Types.SET_STOCK_REQUEST]: setStock,
-  //[Types.GET_STOCK_DETAILS_REQUEST]: requestStockDetails,
-  //[Types.GET_STOCK_DETAILS_SUCCESS]: requestStockDetailsSuccess,
   [Types.GET_STOCK_DIVIDENDS_REQUEST]: requestStockDividends,
   [Types.GET_STOCK_DIVIDENDS_SUCCESS]: requestStockDividendsSuccess,
+  [Types.GET_STOCK_PRICE_INFO_REQUEST]: requestStockPriceInfo,
+  [Types.GET_STOCK_PRICE_INFO_SUCCESS]: requestStockPriceInfoSuccess,
+  [Types.GET_STOCK_PRICE_INFO_ERROR]: requestStockPriceInfoError
 });
