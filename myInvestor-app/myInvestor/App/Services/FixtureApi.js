@@ -66,5 +66,38 @@ export default {
       data: stockDividends
     };
   },
-  getMappedSymbol: (market, symbol) => {}
+  getMappedStocks: (market, symbol) => {
+    var stocks = [];
+    switch (market) {
+      case KLSE:
+        stocks = require("../Fixtures/KLSE/KLSE_mapper.json");
+        break;
+      case HKEX:
+        stocks = require("../Fixtures/KLSE/KLSE_mapper.json");
+        break;
+      case NASDAQ:
+        stocks = require("../Fixtures/KLSE/KLSE_mapper.json");
+        break;
+      case NYSE:
+        stocks = require("../Fixtures/KLSE/KLSE_mapper.json");
+        break;
+      case SGX:
+        stocks = require("../Fixtures/KLSE/KLSE_mapper.json");
+        break;
+    }
+    var mappedStocks = filter(stocks, function(d) {
+      return d.gExchangeName === market && d.gStockSymbol === symbol;
+    });
+    if (mappedStocks && mappedStocks.length > 0) {
+      return {
+        ok: true,
+        data: mappedStocks
+      };
+    } else {
+      return {
+        ok: false,
+        data: null
+      };
+    }
+  }
 };
