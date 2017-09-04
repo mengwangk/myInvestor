@@ -29,7 +29,7 @@ const root = function* root() {
     takeLatest(AnalyticsTypes.GET_MARKETS_REQUEST, getMarkets, fixtureAPI),
     takeLatest(AnalyticsTypes.GET_STOCKS_REQUEST, getStocks, fixtureAPI),
     takeLatest(AnalyticsTypes.GET_STOCK_DIVIDENDS_REQUEST, getStockDividends, fixtureAPI),
-    takeLatest(AnalyticsTypes.GET_STOCK_PRICE_INFO_REQUEST, getStockPriceInfo)
+    takeLatest(AnalyticsTypes.GET_STOCK_PRICE_INFO_REQUEST, getStockPriceInfo, fixtureAPI)
   ]);
 };
 export default root;

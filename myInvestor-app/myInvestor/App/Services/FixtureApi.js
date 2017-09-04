@@ -15,66 +15,56 @@ export default {
     };
   },
   getStocks: market => {
+    var data = [];
     switch (market) {
       case KLSE:
-        return {
-          ok: true,
-          data: require("../Fixtures/KLSE/KLSE.json")
-        };
+        data = require("../Fixtures/KLSE/KLSE.json");
+        break;
       case HKEX:
-        return {
-          ok: true,
-          data: require("../Fixtures/KLSE/KLSE.json")
-        };
+        data = require("../Fixtures/KLSE/KLSE.json");
+        break;
       case NASDAQ:
-        return {
-          ok: true,
-          data: require("../Fixtures/KLSE/KLSE.json")
-        };
+        data = require("../Fixtures/KLSE/KLSE.json");
+        break;
       case NYSE:
-        return {
-          ok: true,
-          data: require("../Fixtures/KLSE/KLSE.json")
-        };
+        data = require("../Fixtures/KLSE/KLSE.json");
+        break;
       case SGX:
-        return {
-          ok: true,
-          data: require("../Fixtures/KLSE/KLSE.json")
-        };
+        data = require("../Fixtures/KLSE/KLSE.json");
+        break;
     }
+    return {
+      ok: true,
+      data: data
+    };
   },
   getDividends: (market, symbol) => {
+    var dividends = [];
     switch (market) {
       case KLSE:
-        var dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
-        var stockDividends = filter(dividends, function(d) {
-          return (d.gExchangeName === market && d.gStockSymbol === symbol)
-        });
-        stockDividends = sortBy(stockDividends, "dividendYear").reverse();
-        return {
-          ok: true,
-          data: stockDividends
-        };
+        dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
+        break;
       case HKEX:
-        return {
-          ok: true,
-          data: require("../Fixtures/KLSE/KLSE.json")
-        };
+        dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
+        break;
       case NASDAQ:
-        return {
-          ok: true,
-          data: require("../Fixtures/KLSE/KLSE.json")
-        };
+        dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
+        break;
       case NYSE:
-        return {
-          ok: true,
-          data: require("../Fixtures/KLSE/KLSE.json")
-        };
+        dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
+        break;
       case SGX:
-        return {
-          ok: true,
-          data: require("../Fixtures/KLSE/KLSE.json")
-        };
+        dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
+        break;
     }
-  }
+    var stockDividends = filter(dividends, function(d) {
+      return d.gExchangeName === market && d.gStockSymbol === symbol;
+    });
+    stockDividends = sortBy(stockDividends, "dividendYear").reverse();
+    return {
+      ok: true,
+      data: stockDividends
+    };
+  },
+  getMappedSymbol: (market, symbol) => {}
 };

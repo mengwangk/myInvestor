@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-09 17:39:53 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-04 12:29:12
+ * @Last Modified time: 2017-09-04 12:30:37
  */
 import { delay } from "redux-saga";
 import { call, put } from "redux-saga/effects";
@@ -28,7 +28,7 @@ export const getStockDividends = function* getStockDividends(api, action) {
   yield put(AnalyticsActions.getStockDividendsSuccess(response.data));
 };
 
-export const getStockPriceInfo = function* getStockPriceInfo(action) {
+export const getStockPriceInfo = function* getStockPriceInfo(api, action) {
   // https://stackoverflow.com/questions/42307648/promises-in-redux-saga
   try {
     const { selectedMarket, selectedStock } = action;
