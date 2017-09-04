@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-09 17:39:53 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-04 12:30:37
+ * @Last Modified time: 2017-09-04 15:48:06
  */
 import { delay } from "redux-saga";
 import { call, put } from "redux-saga/effects";
@@ -24,7 +24,11 @@ export const getStocks = function* getStocks(api, action) {
 
 export const getStockDividends = function* getStockDividends(api, action) {
   const { selectedMarket, selectedStock } = action;
-  const response = yield call(api.getDividends, selectedMarket, selectedStock.stockSymbol);
+  const response = yield call(
+    api.getDividends,
+    selectedMarket,
+    selectedStock.stockSymbol
+  );
   yield put(AnalyticsActions.getStockDividendsSuccess(response.data));
 };
 
@@ -32,12 +36,18 @@ export const getStockPriceInfo = function* getStockPriceInfo(api, action) {
   // https://stackoverflow.com/questions/42307648/promises-in-redux-saga
   try {
     const { selectedMarket, selectedStock } = action;
-    console.log("market --" + JSON.stringify(selectedMarket));
-    console.log("stock --" + JSON.stringify(selectedStock));
-    // Get the corresponding symbol for Yahoo Finance
-    const response = yield call(MyInvestorFinance.getStockPrice, "6742.KL");
-    console.log(JSON.stringify(response));
-    yield put(AnalyticsActions.getStockPriceInfoSuccess(response));
+    const response = FixtureAPI.getMappedStocks(
+      market,
+      selectedStock.stockSymbol
+    );
+    if (response.ok) {
+      const mappedStock = response.data[0];
+      const response = yield call(MyInvestorFinance.getStockPrice, mappedStock.yStockSymbol);
+      console.log(JSON.stringify(response));
+      yield put(AnalyticsActions.getStockPriceInfoSuccess(response));
+    } else {
+      yield put(AnalyticsActions.getStockPriceInfoError("Unable to get stock price information"));
+    }
   } catch (error) {
     yield put(AnalyticsActions.getStockPriceInfoError(error));
   }

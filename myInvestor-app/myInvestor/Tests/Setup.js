@@ -21,3 +21,7 @@ jest
     }
   }
 })
+.mock('react-native-finance-lib', () => {
+  return { isTablet: jest.fn(() => { return false }) }
+})
+
