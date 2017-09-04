@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-16 23:54:05 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-27 14:42:56
+ * @Last Modified time: 2017-09-04 22:13:49
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -33,13 +33,13 @@ export default class StockTicker extends Component {
             </Text>
           </View>
           <View style={styles.price}>
-            <Text style={styles.priceText}>1.40</Text>
+            <Text style={styles.priceText}>{stock.currentPrice}</Text>
           </View>
 
           <TouchableHighlight style={styles.changeGreen}>
             <View>
               <Text style={styles.changeText}>
-                  +0.71%
+                  {stock.changeInPercent}%
               </Text>
             </View>
           </TouchableHighlight>

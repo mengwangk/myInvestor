@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-09 17:39:53 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-04 15:48:06
+ * @Last Modified time: 2017-09-04 22:03:25
  */
 import { delay } from "redux-saga";
 import { call, put } from "redux-saga/effects";
@@ -36,15 +36,14 @@ export const getStockPriceInfo = function* getStockPriceInfo(api, action) {
   // https://stackoverflow.com/questions/42307648/promises-in-redux-saga
   try {
     const { selectedMarket, selectedStock } = action;
-    const response = FixtureAPI.getMappedStocks(
-      market,
+    const response = api.getMappedStocks(
+      selectedMarket,
       selectedStock.stockSymbol
     );
     if (response.ok) {
       const mappedStock = response.data[0];
-      const response = yield call(MyInvestorFinance.getStockPrice, mappedStock.yStockSymbol);
-      console.log(JSON.stringify(response));
-      yield put(AnalyticsActions.getStockPriceInfoSuccess(response));
+      const priceInfo = yield call(MyInvestorFinance.getStockPrice, mappedStock.yStockSymbol);
+      yield put(AnalyticsActions.getStockPriceInfoSuccess(priceInfo));
     } else {
       yield put(AnalyticsActions.getStockPriceInfoError("Unable to get stock price information"));
     }

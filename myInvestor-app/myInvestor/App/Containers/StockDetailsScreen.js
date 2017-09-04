@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-13 14:17:38 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-04 12:23:05
+ * @Last Modified time: 2017-09-04 22:12:50
  */
 import React, { Component } from "react";
 import {
@@ -39,7 +39,9 @@ class StockDetailsScreen extends Component {
       //stock: Object.assign({}, this.props.stock),
       stock: Object.assign({}, {}), // Testing
       dividends: [],
-      refreshing: false // Testing
+      //refreshing: this.props.refreshing,
+      refreshing: false, // Testing
+      priceInfo: this.props.priceInfo
       // refreshing: this.props.refreshing
     };
   }
@@ -50,16 +52,9 @@ class StockDetailsScreen extends Component {
     stock.stockName = "YTL POWER INTERNATIONAL BHD";
     stock.stockSymbol = "YTLPOWR";
 
-    this.props.getStockDividends(
-      this.state.market,
-      this.state.stock
-    );
+    this.props.getStockDividends(this.state.market, this.state.stock);
 
-    this.props.getStockPriceInfo(
-      this.state.market,
-      this.state.stock
-    );
-
+    this.props.getStockPriceInfo(this.state.market, this.state.stock);
   }
 
   componentWillReceiveProps(newProps) {
@@ -68,6 +63,14 @@ class StockDetailsScreen extends Component {
     }
     if (newProps.dividends) {
       this.setState({ dividends: newProps.dividends });
+    }
+    if (newProps.priceInfo) {
+      this.setState(prevState => ({
+        stock: Object.assign(prevState.stock, {
+          currentPrice: newProps.priceInfo.price,
+          changeInPercent: newProps.priceInfo.changeInPercent
+        })
+      }));
     }
   }
 
@@ -122,6 +125,7 @@ const mapStateToProps = state => {
     market: state.analytics.selectedMarket,
     stock: state.analytics.selectedStock,
     dividends: state.analytics.dividends,
+    priceInfo: state.analytics.priceInfo,
     refreshing: state.analytics.fetching
   };
 };
