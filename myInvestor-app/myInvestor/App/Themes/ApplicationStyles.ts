@@ -1,18 +1,35 @@
-import Fonts from './Fonts'
-import Metrics from './Metrics'
-import Colors from './Colors'
+import Fonts from "./Fonts";
+import Metrics from "./Metrics";
+import Colors from "./Colors";
 
 // This file is for a reusable grouping of Theme items.
 // Similar to an XML fragment layout in Android
+export interface ApplicationStylesType {
+  screen;
+  darkLabelContainer;
+  darkLabel;
+  groupContainer;
+  sectionTitle;
+  linearGradient;
+}
 
-const ApplicationStyles = {
+export interface ScreenStylesType {
+  mainContainer;
+  backgroundImage;
+  container;
+  section;
+  sectionHeader;
+  sectionText;
+}
+
+const ApplicationStyles: ApplicationStylesType = {
   screen: {
     mainContainer: {
       flex: 1,
       backgroundColor: Colors.transparent
     },
     backgroundImage: {
-      position: 'absolute',
+      position: "absolute",
       top: 0,
       left: 0,
       bottom: 0,
@@ -27,12 +44,16 @@ const ApplicationStyles = {
       margin: Metrics.section,
       padding: Metrics.baseMargin
     },
+    sectionHeader: {
+      padding: Metrics.baseMargin,
+      backgroundColor: Colors.frost
+    },
     sectionText: {
       ...Fonts.style.normal,
       paddingVertical: Metrics.doubleBaseMargin,
       color: Colors.snow,
       marginVertical: Metrics.smallMargin,
-      textAlign: 'center'
+      textAlign: "center"
     },
     subtitle: {
       color: Colors.snow,
@@ -59,9 +80,9 @@ const ApplicationStyles = {
   },
   groupContainer: {
     margin: Metrics.smallMargin,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center"
   },
   sectionTitle: {
     ...Fonts.style.h4,
@@ -72,9 +93,12 @@ const ApplicationStyles = {
     marginHorizontal: Metrics.baseMargin,
     borderWidth: 1,
     borderColor: Colors.ember,
-    alignItems: 'center',
-    textAlign: 'center'
+    alignItems: "center",
+    textAlign: "center"
+  },
+  linearGradient: {
+    flex: 1
   }
-}
+};
 
-export default ApplicationStyles
+export default ApplicationStyles;

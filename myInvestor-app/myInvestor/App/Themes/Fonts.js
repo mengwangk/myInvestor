@@ -1,7 +1,8 @@
 const type = {
-  base: 'Avenir-Book',
-  bold: 'Avenir-Black',
-  emphasis: 'HelveticaNeue-Italic'
+  base: 'Montserrat-Light',
+  bold: 'Montserrat-SemiBold',
+  semiBold: 'Montserrat-SemiBold',
+  medium: 'Montserrat-Medium'
 }
 
 const size = {
