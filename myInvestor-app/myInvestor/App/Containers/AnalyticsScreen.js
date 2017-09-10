@@ -1,3 +1,9 @@
+/*
+ * @Author: mwk 
+ * @Date: 2017-09-10 15:43:59 
+ * @Last Modified by: mwk
+ * @Last Modified time: 2017-09-10 19:18:05
+ */
 import React, { Component } from "react";
 import I18n from "react-native-i18n";
 import {
@@ -6,8 +12,12 @@ import {
   Text,
   TouchableOpacity,
   Alert,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  FlatList,
+  Image,
+  AppState
 } from "react-native";
+import { merge, groupWith, contains, assoc, map, sum, findIndex } from "ramda";
 import { debounce, once } from "lodash";
 import { connect } from "react-redux";
 import FixtureApi from "../Services/FixtureApi";
@@ -15,6 +25,7 @@ import StockListScreen from "./StockListScreen";
 import AnalyticsActions from "../Redux/AnalyticsRedux";
 import styles from "./Styles/AnalyticsScreenStyle";
 import { Colors } from "../Themes";
+import BackgroundGradient from "../Components/BackgroundGradient";
 
 class AnalyticsScreen extends Component {
   /*
@@ -69,12 +80,8 @@ class AnalyticsScreen extends Component {
         background={TouchableNativeFeedback.SelectableBackground()}
       >
         <View style={styles.row}>
-          <Text style={styles.boldLabel}>
-            {rowData.exchangeName}
-          </Text>
-          <Text style={styles.label}>
-            {rowData.description}
-          </Text>
+          <Text style={styles.boldLabel}>{rowData.exchangeName}</Text>
+          <Text style={styles.label}>{rowData.description}</Text>
         </View>
       </TouchableNativeFeedback>
     );
@@ -89,9 +96,7 @@ class AnalyticsScreen extends Component {
   renderHeader(data) {
     return (
       <View style={styles.sectionHeader}>
-        <Text style={styles.boldLabel}>
-          {I18n.t("markets")}
-        </Text>
+        <Text style={styles.boldLabel}>{I18n.t("markets")}</Text>
       </View>
     );
   }
