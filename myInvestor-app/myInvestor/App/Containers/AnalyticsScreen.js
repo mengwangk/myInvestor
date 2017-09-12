@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-09-10 15:43:59 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-12 17:21:50
+ * @Last Modified time: 2017-09-13 00:12:40
  */
 import React, { Component } from "react";
 import I18n from "react-native-i18n";
@@ -78,8 +78,7 @@ class AnalyticsScreen extends Component {
     return { length, offset, index };
   };
 
-  renderItem(item) {
-    console.log('item --' + JSON.stringify(item));
+  renderItem = ({item}) => {
     return (
       <StockMarket
         exchangeName={item.exchangeName}
@@ -87,12 +86,11 @@ class AnalyticsScreen extends Component {
         stockCount={item.stockCount}
         onPress={() => this.onMarketPress(item)}
       />
-    )
+    );
   }
 
   render() {
     const { markets } = this.state;
-    console.log('markets --' + JSON.stringify(markets));
     return (
       <BackgroundGradient style={styles.linearGradient}>
         <FlatList

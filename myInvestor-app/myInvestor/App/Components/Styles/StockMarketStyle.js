@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-09-12 16:23:22 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-12 17:15:12
+ * @Last Modified time: 2017-09-13 00:10:54
  */
 import { StyleSheet } from "react-native";
 import { Colors, Metrics, Fonts } from "../../Themes/";
@@ -37,7 +37,7 @@ export default StyleSheet.create({
   },
   name: {
     fontFamily: Fonts.type.base,
-    fontSize: 13,
+    fontSize: 14,
     color: Colors.lightText,
     letterSpacing: 0,
     lineHeight: 18

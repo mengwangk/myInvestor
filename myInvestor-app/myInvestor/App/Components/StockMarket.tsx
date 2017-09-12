@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-09-12 16:27:16 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-12 17:20:21
+ * @Last Modified time: 2017-09-13 00:12:36
  */
 import React, { Component } from "react";
 import {
@@ -16,21 +16,21 @@ import {
 import styles from "./Styles/StockMarketStyle";
 import FadeIn from "react-native-fade-in-image";
 
+// https://github.com/Microsoft/TypeScript-React-Native-Starter
 interface StockMarketProps {
-  exchangeName: string;
-  description: string;
-  stockCount: number;
-  onPress(): void;
+  exchangeName?: string;
+  description?: string;
+  stockCount?: number;
+  onPress?: () => void;
 }
 
 interface StockMarketState {
   animatedSize: Animated.Value;
 }
 
-export default class StockMarket extends Component<StockMarketProps, StockMarketState> {
+export default class StockMarket extends React.Component<StockMarketProps,StockMarketState> {
   constructor(props) {
     super(props);
-
     this.state = {
       animatedSize: new Animated.Value(1)
     };
@@ -52,7 +52,6 @@ export default class StockMarket extends Component<StockMarketProps, StockMarket
   };
 
   render() {
-    console.log("props ---" + JSON.stringify(this.props));
     const { exchangeName, description, stockCount } = this.props;
 
     const animatedStyle = {
@@ -71,11 +70,17 @@ export default class StockMarket extends Component<StockMarketProps, StockMarket
           <Animated.View style={containerStyles}>
             <View style={styles.info}>
               <View style={styles.infoText}>
-                <Text style={styles.name}>{description}</Text>
-                <Text style={styles.title}>{exchangeName}</Text>
+                <Text style={styles.name}>{exchangeName}</Text>
+                <Text style={styles.title}>{description}</Text>
               </View>
               <FadeIn>
-                <Image style={styles.avatar} source={{ uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/7/005/04e/008/3cae797.jpg'}} />
+                <Image
+                  style={styles.avatar}
+                  source={{
+                    uri:
+                      "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/7/005/04e/008/3cae797.jpg"
+                  }}
+                />
               </FadeIn>
             </View>
           </Animated.View>
