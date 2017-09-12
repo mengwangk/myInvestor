@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-09-10 15:43:59 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-12 10:11:32
+ * @Last Modified time: 2017-09-12 17:21:50
  */
 import React, { Component } from "react";
 import I18n from "react-native-i18n";
@@ -23,6 +23,7 @@ import AnalyticsActions from "../Redux/AnalyticsRedux";
 import styles from "./Styles/AnalyticsScreenStyle";
 import { Colors } from "../Themes";
 import BackgroundGradient from "../Components/BackgroundGradient";
+import StockMarket from "../Components/StockMarket";
 
 class AnalyticsScreen extends Component {
   /*
@@ -33,15 +34,6 @@ class AnalyticsScreen extends Component {
     const { markets } = props;
     const appState = AppState.currentState;
     this.state = { markets, appState };
-
-    // https://stackoverflow.com/questions/43392100/disable-touchableopacity-button-after-oneclick-in-react-native
-    // this.selectMarket = once(this.selectMarket.bind(this));
-    /*
-    this.selectMarket = debounce(this.selectMarket.bind(this), 1000, {
-      leading: true,
-      trailing: false
-    });
-    */
   }
 
   onMarketPress(market) {
@@ -75,26 +67,7 @@ class AnalyticsScreen extends Component {
     }
   }
 
-  /*    
-  renderRow(rowData) {
-    return (
-      <TouchableNativeFeedback
-        delayPressIn={0}
-        delayPressOut={0}
-        onPress={() => this.onMarketPress(rowData.exchangeName)}
-        background={TouchableNativeFeedback.SelectableBackground()}
-      >
-        <View style={styles.row}>
-          <Text style={styles.boldLabel}>{rowData.exchangeName}</Text>
-          <Text style={styles.label}>{rowData.description}</Text>
-        </View>
-      </TouchableNativeFeedback>
-    );
-  }
-  */
-
   getItemLayout = (data, index) => {
-    console.log(JSON.stringify(data));
     const item = data[index];
     const itemLength = (item, index) => {
       // use best guess for variable height rows
@@ -106,25 +79,20 @@ class AnalyticsScreen extends Component {
   };
 
   renderItem(item) {
-    console.log("render item");
+    console.log('item --' + JSON.stringify(item));
+    return (
+      <StockMarket
+        exchangeName={item.exchangeName}
+        description={item.description}
+        stockCount={item.stockCount}
+        onPress={() => this.onMarketPress(item)}
+      />
+    )
   }
 
   render() {
-    /*
-    return (
-      <View style={styles.container}>
-        <ListView
-          renderSectionHeader={this.renderHeader}
-          contentContainerStyle={styles.listContent}
-          dataSource={this.state.dataSource}
-          onLayout={this.onLayout}
-          renderRow={this.renderRow.bind(this)}
-          enableEmptySections
-        />
-      </View>
-    );
-    */
     const { markets } = this.state;
+    console.log('markets --' + JSON.stringify(markets));
     return (
       <BackgroundGradient style={styles.linearGradient}>
         <FlatList

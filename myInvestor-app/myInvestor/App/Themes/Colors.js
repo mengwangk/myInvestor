@@ -2,12 +2,12 @@
  * @Author: mwk 
  * @Date: 2017-08-02 14:25:42 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-11 15:22:25
+ * @Last Modified time: 2017-09-12 15:59:44
  */
 import { Platform } from "react-native";
 
 const colors = {
-  background: "#1F0808",
+  background: "#29323c",
   clear: "rgba(0,0,0,0)",
   facebook: "#3b5998",
   transparent: "rgba(0,0,0,0)",
@@ -46,7 +46,9 @@ const colors = {
 
   selected: "#202020",
   redOrange: "#FC3D39",
-  emerald: "#53D769"
+  emerald: "#53D769",
+  black: "#485563",
+  darkBlack: "#29323c"
 };
 
 export default colors;

@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-01 10:30:30 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-12 00:41:06
+ * @Last Modified time: 2017-09-12 15:52:00
  */
 import I18n from "react-native-i18n";
 import React, { Component } from "react";
