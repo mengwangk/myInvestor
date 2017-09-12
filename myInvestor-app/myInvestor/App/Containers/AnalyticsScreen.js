@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-09-10 15:43:59 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-10 19:18:05
+ * @Last Modified time: 2017-09-12 10:11:32
  */
 import React, { Component } from "react";
 import I18n from "react-native-i18n";
@@ -10,15 +10,12 @@ import {
   View,
   ListView,
   Text,
-  TouchableOpacity,
   Alert,
-  TouchableNativeFeedback,
   FlatList,
   Image,
   AppState
 } from "react-native";
 import { merge, groupWith, contains, assoc, map, sum, findIndex } from "ramda";
-import { debounce, once } from "lodash";
 import { connect } from "react-redux";
 import FixtureApi from "../Services/FixtureApi";
 import StockListScreen from "./StockListScreen";
@@ -33,50 +30,58 @@ class AnalyticsScreen extends Component {
   */
   constructor(props) {
     super(props);
-    this.state = {};
+    const { markets } = props;
+    const appState = AppState.currentState;
+    this.state = { markets, appState };
 
     // https://stackoverflow.com/questions/43392100/disable-touchableopacity-button-after-oneclick-in-react-native
     // this.selectMarket = once(this.selectMarket.bind(this));
+    /*
     this.selectMarket = debounce(this.selectMarket.bind(this), 1000, {
       leading: true,
       trailing: false
     });
+    */
   }
 
-  updateMarkets() {
-    const rowHasChanged = (r1, r2) => r1.exchangeName !== r2.exchangeName;
-    this.ds = new ListView.DataSource({
-      rowHasChanged
-    });
-    this.setState(prevState => ({
-      dataSource: this.ds.cloneWithRows(this.props.markets)
-    }));
-  }
-
-  selectMarket(market) {
+  onMarketPress(market) {
     this.props.setMarket(market);
     const { navigate } = this.props.navigation;
     navigate("StockListScreen");
   }
 
   componentWillMount() {
-    this.updateMarkets();
+    // Do nothing now
   }
+
+  componentDidMount() {
+    AppState.addEventListener("change", this._handleAppStateChange);
+  }
+
+  componentWillMount() {
+    AppState.removeEventListener("change", this._handleAppStateChange);
+  }
+
+  _handleAppStateChange = nextAppState => {
+    const { appState } = this.state;
+    this.setState({ appState: nextAppState });
+  };
 
   componentWillReceiveProps(newProps) {
     if (newProps.markets) {
       this.setState(prevState => ({
-        dataSource: prevState.dataSource.cloneWithRows(newProps.markets)
+        markets: newProps.markets
       }));
     }
   }
 
+  /*    
   renderRow(rowData) {
     return (
       <TouchableNativeFeedback
         delayPressIn={0}
         delayPressOut={0}
-        onPress={() => this.selectMarket(rowData.exchangeName)}
+        onPress={() => this.onMarketPress(rowData.exchangeName)}
         background={TouchableNativeFeedback.SelectableBackground()}
       >
         <View style={styles.row}>
@@ -86,22 +91,26 @@ class AnalyticsScreen extends Component {
       </TouchableNativeFeedback>
     );
   }
+  */
 
-  // Used for friendly AlertMessage
-  // returns true if the dataSource is empty
-  noRowData() {
-    return this.state.dataSource.getRowCount() === 0;
-  }
+  getItemLayout = (data, index) => {
+    console.log(JSON.stringify(data));
+    const item = data[index];
+    const itemLength = (item, index) => {
+      // use best guess for variable height rows
+      return 138 + (1.002936 * item.exchangeName.length + 6.77378);
+    };
+    const length = itemLength(item);
+    const offset = sum(data.slice(0, index).map(itemLength));
+    return { length, offset, index };
+  };
 
-  renderHeader(data) {
-    return (
-      <View style={styles.sectionHeader}>
-        <Text style={styles.boldLabel}>{I18n.t("markets")}</Text>
-      </View>
-    );
+  renderItem(item) {
+    console.log("render item");
   }
 
   render() {
+    /*
     return (
       <View style={styles.container}>
         <ListView
@@ -113,6 +122,22 @@ class AnalyticsScreen extends Component {
           enableEmptySections
         />
       </View>
+    );
+    */
+    const { markets } = this.state;
+    return (
+      <BackgroundGradient style={styles.linearGradient}>
+        <FlatList
+          ref="marketList"
+          data={markets}
+          extraData={this.props}
+          renderItem={this.renderItem}
+          keyExtractor={(item, idx) => item.exchangeName}
+          contentContainerStyle={styles.listContent}
+          getItemLayout={this.getItemLayout}
+          showsVerticalScrollIndicator={false}
+        />
+      </BackgroundGradient>
     );
   }
 }

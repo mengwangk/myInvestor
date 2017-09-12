@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-01 14:14:24 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-08-26 14:46:06
+ * @Last Modified time: 2017-09-11 16:40:34
  */
 import React, { Component } from "react";
 import { StackNavigator, DrawerItems } from "react-navigation";
@@ -24,6 +24,13 @@ const stockListNavigationOptions = ({ navigation }) =>
     Colors.text
   );
 
+const analyticsNavigationOptions = ({ navigation }) =>
+  getNavigationOptionsWithAction(
+    I18n.t("analyticsScreen"),
+    Colors.background,
+    Colors.text
+  );
+
 const stockDetailsNavigationOptions = ({ navigation }) =>
   getNavigationOptionsWithAction(
     I18n.t("stockDetailsScreen"),
@@ -34,7 +41,10 @@ const stockDetailsNavigationOptions = ({ navigation }) =>
 const createStackNavigator = StackNavigator(
   {
     NavigationDrawer: { screen: NavigationDrawer },
-    AnalyticsScreen: { screen: AnalyticsScreen },
+    AnalyticsScreen: {
+      screen: AnalyticsScreen,
+      navigationOptions: analyticsNavigationOptions
+    },
     StockListScreen: {
       screen: StockListScreen,
       navigationOptions: stockListNavigationOptions

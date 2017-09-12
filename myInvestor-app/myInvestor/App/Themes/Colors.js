@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-02 14:25:42 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-10 10:10:58
+ * @Last Modified time: 2017-09-11 15:22:25
  */
 import { Platform } from "react-native";
 
@@ -36,6 +36,7 @@ const colors = {
   darkPurple: "#140034",
   purpleShadow1: "#694F6C",
   purpleShadow2: "#B997BC",
+  purpleShadow3: "#6E3C7B",
   headerPurple: "#571757",
   avatarBorder: "#DCE3E8",
   lightText: "#656565",
