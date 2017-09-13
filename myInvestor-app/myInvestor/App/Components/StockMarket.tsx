@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-09-12 16:27:16 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-13 00:12:36
+ * @Last Modified time: 2017-09-13 17:50:37
  */
 import React, { Component } from "react";
 import {
@@ -14,13 +14,15 @@ import {
   Animated
 } from "react-native";
 import styles from "./Styles/StockMarketStyle";
-import FadeIn from "react-native-fade-in-image";
+import Flag from "react-native-flags";
+import { Metrics } from "../Themes/";
 
 // https://github.com/Microsoft/TypeScript-React-Native-Starter
 interface StockMarketProps {
   exchangeName?: string;
   description?: string;
   stockCount?: number;
+  countryCode?: string;
   onPress?: () => void;
 }
 
@@ -52,7 +54,7 @@ export default class StockMarket extends React.Component<StockMarketProps,StockM
   };
 
   render() {
-    const { exchangeName, description, stockCount } = this.props;
+    const { exchangeName, description, stockCount, countryCode } = this.props;
 
     const animatedStyle = {
       transform: [{ scale: this.state.animatedSize }]
@@ -73,15 +75,7 @@ export default class StockMarket extends React.Component<StockMarketProps,StockM
                 <Text style={styles.name}>{exchangeName}</Text>
                 <Text style={styles.title}>{description}</Text>
               </View>
-              <FadeIn>
-                <Image
-                  style={styles.avatar}
-                  source={{
-                    uri:
-                      "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/7/005/04e/008/3cae797.jpg"
-                  }}
-                />
-              </FadeIn>
+              <Flag style={styles.avatar} code={countryCode} size={Metrics.avatar} />
             </View>
           </Animated.View>
         </TouchableWithoutFeedback>

@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-09-10 15:43:59 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-13 00:12:40
+ * @Last Modified time: 2017-09-13 17:50:54
  */
 import React, { Component } from "react";
 import I18n from "react-native-i18n";
@@ -84,6 +84,7 @@ class AnalyticsScreen extends Component {
         exchangeName={item.exchangeName}
         description={item.description}
         stockCount={item.stockCount}
+        countryCode={item.countryCode}
         onPress={() => this.onMarketPress(item)}
       />
     );

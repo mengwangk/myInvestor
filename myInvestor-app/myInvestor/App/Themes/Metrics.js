@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-08 23:51:36 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-10 10:17:49
+ * @Last Modified time: 2017-09-13 15:47:04
  */
 import { Dimensions, Platform } from "react-native";
 import { Colors } from "./Colors";
@@ -45,7 +45,7 @@ const metrics = {
     medium: 40,
     large: 60,
     logo: 200,
-    avatar: 54
+    avatar: 48
   },
   controls: {
     checkBoxSize: 16,

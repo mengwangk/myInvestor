@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-09-12 16:23:22 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-13 00:10:54
+ * @Last Modified time: 2017-09-13 15:40:38
  */
 import { StyleSheet } from "react-native";
 import { Colors, Metrics, Fonts } from "../../Themes/";
@@ -46,7 +46,7 @@ export default StyleSheet.create({
     width: Metrics.images.avatar,
     height: Metrics.images.avatar,
     borderColor: Colors.avatarBorder,
-    borderWidth: 1,
-    borderRadius: Metrics.images.avatar / 2
+    borderWidth: 0
+    //borderRadius: Metrics.images.avatar / 2
   }
 });
