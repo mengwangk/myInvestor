@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-09-13 17:55:23 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-13 19:19:36
+ * @Last Modified time: 2017-09-13 23:42:03
  */
 import { StyleSheet } from "react-native";
 import { Colors, Fonts, Metrics } from "../../Themes/";
@@ -36,13 +36,5 @@ export default StyleSheet.create({
     fontSize: 11,
     color: Colors.darkPurple,
     letterSpacing: 0
-  },
-  remindMe: {
-    flex: 1,
-    alignItems: "stretch"
-  },
-  socialButtons: {
-    alignItems: "center",
-    flexDirection: "row"
   }
 });

@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-09-12 16:27:16 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-13 17:50:37
+ * @Last Modified time: 2017-09-13 23:44:34
  */
 import React, { Component } from "react";
 import {
@@ -16,6 +16,7 @@ import {
 import styles from "./Styles/StockMarketStyle";
 import Flag from "react-native-flags";
 import { Metrics } from "../Themes/";
+import StockMarketInfo from './StockMarketInfo';
 
 // https://github.com/Microsoft/TypeScript-React-Native-Starter
 interface StockMarketProps {
@@ -77,6 +78,9 @@ export default class StockMarket extends React.Component<StockMarketProps,StockM
               </View>
               <Flag style={styles.avatar} code={countryCode} size={Metrics.avatar} />
             </View>
+            <StockMarketInfo
+              stockCount={stockCount}
+            />
           </Animated.View>
         </TouchableWithoutFeedback>
       </View>

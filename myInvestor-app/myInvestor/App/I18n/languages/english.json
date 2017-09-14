@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-08-02 14:25:32 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-11 14:57:41
+ * @Last Modified time: 2017-09-14 00:34:35
  */
 {
   "appName": "myInvestor",
@@ -11,6 +11,7 @@
   "stockListScreen": "Stocks",
   "launchScreen": "Test",
   "stockDetailsScreen": "Stock Details",
+  "stockCount": "stocks",
   
   "signIn": "Sign In",
   "logOut": "Log Out",

@@ -2,7 +2,7 @@
  * @Author: mwk 
  * @Date: 2017-09-12 16:23:22 
  * @Last Modified by: mwk
- * @Last Modified time: 2017-09-13 15:40:38
+ * @Last Modified time: 2017-09-13 23:55:48
  */
 import { StyleSheet } from "react-native";
 import { Colors, Metrics, Fonts } from "../../Themes/";
@@ -21,8 +21,8 @@ export default StyleSheet.create({
     padding: Metrics.doubleBaseMargin,
     borderTopLeftRadius: Metrics.cardRadius,
     borderTopRightRadius: Metrics.cardRadius,
-    borderBottomLeftRadius: Metrics.cardRadius,
-    borderBottomRightRadius: Metrics.cardRadius,
+    //borderBottomLeftRadius: Metrics.cardRadius,
+    //borderBottomRightRadius: Metrics.cardRadius,
     backgroundColor: Colors.snow
   },
   infoText: {
