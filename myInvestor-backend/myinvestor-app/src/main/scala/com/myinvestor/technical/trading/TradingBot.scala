@@ -1,8 +1,8 @@
 package com.myinvestor.technical.trading
 
 import com.myinvestor.technical.strategy.TAStrategy
+import eu.verdelhan.ta4j.indicators.helpers.ClosePriceIndicator
 import eu.verdelhan.ta4j.{Decimal, TimeSeries}
-import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator
 /**
   * Automated trading bot.
   */
@@ -24,7 +24,7 @@ class TradingBot (var category: String) extends TAStrategy {
     // Limitating the number of ticks to maxTickCount
     series.setMaximumTickCount(maxTickCount)
 
-    LAST_TICK_CLOSE_PRICE = series.getTick(series.getEnd).getClosePrice
+    LAST_TICK_CLOSE_PRICE = series.getTick(series.getEndIndex).getClosePrice
 
     println(" (limited to " + maxTickCount + "), close price = " + LAST_TICK_CLOSE_PRICE)
 

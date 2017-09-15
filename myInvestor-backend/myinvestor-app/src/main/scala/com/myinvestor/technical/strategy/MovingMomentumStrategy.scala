@@ -1,9 +1,8 @@
 package com.myinvestor.technical.strategy
 
-import eu.verdelhan.ta4j.{Decimal, Rule, Strategy}
-import eu.verdelhan.ta4j.indicators.oscillators.StochasticOscillatorKIndicator
-import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator
-import eu.verdelhan.ta4j.indicators.trackers.{EMAIndicator, MACDIndicator}
+import eu.verdelhan.ta4j._
+import eu.verdelhan.ta4j.indicators.helpers.ClosePriceIndicator
+import eu.verdelhan.ta4j.indicators.{EMAIndicator, MACDIndicator, StochasticOscillatorKIndicator}
 import eu.verdelhan.ta4j.trading.rules.{CrossedDownIndicatorRule, CrossedUpIndicatorRule, OverIndicatorRule, UnderIndicatorRule}
 
 /**
@@ -41,8 +40,9 @@ class MovingMomentumStrategy (var category: String) extends TAStrategy {
           val exitRule: Rule = new UnderIndicatorRule(shortEma, longEma).and(new CrossedUpIndicatorRule(stochasticOscillK, Decimal.valueOf(80))).and(new UnderIndicatorRule(macd, emaMacd))
 
           // Running the strategy
-          val strategy = new Strategy(entryRule, exitRule)
-          val tradingRecord = series.run(strategy)
+          val strategy = new BaseStrategy(entryRule, exitRule)
+          val seriesManager = new TimeSeriesManager(series)
+          val tradingRecord = seriesManager.run(strategy)
           printTradingRecord(series, tradingRecord)
         }
     catch {

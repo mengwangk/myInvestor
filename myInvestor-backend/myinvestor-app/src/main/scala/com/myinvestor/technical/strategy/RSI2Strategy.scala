@@ -1,9 +1,9 @@
 package com.myinvestor.technical.strategy
 
-import eu.verdelhan.ta4j.{Decimal, Rule, Strategy}
-import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator
-import eu.verdelhan.ta4j.indicators.trackers.{RSIIndicator, SMAIndicator}
+import eu.verdelhan.ta4j.indicators.helpers.ClosePriceIndicator
+import eu.verdelhan.ta4j.indicators.{RSIIndicator, SMAIndicator}
 import eu.verdelhan.ta4j.trading.rules.{CrossedDownIndicatorRule, CrossedUpIndicatorRule, OverIndicatorRule, UnderIndicatorRule}
+import eu.verdelhan.ta4j._
 
 /**
   * Momentum indicator - 2-Period RSI (Relative Strength Index) strategy.
@@ -32,8 +32,9 @@ class RSI2Strategy(var category: String) extends TAStrategy {
           val exitRule: Rule = new UnderIndicatorRule(shortSma, longSma).and(new CrossedUpIndicatorRule(rsi, Decimal.valueOf(95))).and(new UnderIndicatorRule(shortSma, closePrice))
 
           // Running the strategy
-          val strategy = new Strategy(entryRule, exitRule)
-          val tradingRecord = series.run(strategy)
+          val strategy = new BaseStrategy(entryRule, exitRule)
+          val seriesManager = new TimeSeriesManager(series)
+          val tradingRecord = seriesManager.run(strategy)
           printTradingRecord(series, tradingRecord)
         }
     catch {

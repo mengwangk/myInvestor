@@ -1,9 +1,8 @@
 package com.myinvestor.technical.strategy
 
-import eu.verdelhan.ta4j.{Decimal, Strategy}
-import eu.verdelhan.ta4j.analysis.criteria.TotalProfitCriterion
-import eu.verdelhan.ta4j.indicators.oscillators.CCIIndicator
+import eu.verdelhan.ta4j.indicators.CCIIndicator
 import eu.verdelhan.ta4j.trading.rules.{OverIndicatorRule, UnderIndicatorRule}
+import eu.verdelhan.ta4j.{BaseStrategy, Decimal, Strategy, TimeSeriesManager}
 
 /**
   *
@@ -33,11 +32,12 @@ class CCICorrectionStrategy(var category: String) extends TAStrategy {
         val exitRule = new UnderIndicatorRule(longCci, minus100) // Bear trend
           .and(new OverIndicatorRule(shortCci, plus100));        // Signal
 
-        val strategy = new Strategy(entryRule, exitRule)
+        val strategy = new BaseStrategy(entryRule, exitRule)
         strategy.setUnstablePeriod(ShortPeriod)
 
         // Running the strategy
-        val tradingRecord = series.run(strategy)
+        val seriesManager = new TimeSeriesManager(series)
+        val tradingRecord = seriesManager.run(strategy)
         printTradingRecord(series, tradingRecord)
       }
     } catch {

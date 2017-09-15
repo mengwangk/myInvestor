@@ -1,8 +1,8 @@
 package com.myinvestor.technical.strategy
 
-import eu.verdelhan.ta4j.Strategy
-import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator
-import eu.verdelhan.ta4j.indicators.trackers.{EMAIndicator, MACDIndicator, SMAIndicator}
+import eu.verdelhan.ta4j.{BaseStrategy, Strategy, TimeSeriesManager}
+import eu.verdelhan.ta4j.indicators.helpers.ClosePriceIndicator
+import eu.verdelhan.ta4j.indicators.{EMAIndicator, MACDIndicator}
 import eu.verdelhan.ta4j.trading.rules.{CrossedDownIndicatorRule, CrossedUpIndicatorRule}
 
 /**
@@ -49,10 +49,11 @@ class MACDStrategy(var category: String) extends TAStrategy {
           /////////////////////////////////////////////////////////////////
 
           // Running the strategy
-          val strategy = new Strategy(entryRule, exitRule)
+          val strategy = new BaseStrategy(entryRule, exitRule)
           strategy.setUnstablePeriod(7)
 
-          val tradingRecord = series.run(strategy)
+          val seriesManager = new TimeSeriesManager(series)
+          val tradingRecord = seriesManager.run(strategy)
           printTradingRecord(series, tradingRecord)
         }
     catch {

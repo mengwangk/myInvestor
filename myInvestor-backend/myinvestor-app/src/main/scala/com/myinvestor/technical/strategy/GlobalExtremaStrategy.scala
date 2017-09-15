@@ -1,9 +1,8 @@
 package com.myinvestor.technical.strategy
 
-import eu.verdelhan.ta4j.{Decimal, Rule, Strategy}
-import eu.verdelhan.ta4j.indicators.helpers.{HighestValueIndicator, LowestValueIndicator}
-import eu.verdelhan.ta4j.indicators.simple.{ClosePriceIndicator, MaxPriceIndicator, MinPriceIndicator, MultiplierIndicator}
+import eu.verdelhan.ta4j.indicators.helpers._
 import eu.verdelhan.ta4j.trading.rules.{OverIndicatorRule, UnderIndicatorRule}
+import eu.verdelhan.ta4j._
 
 /**
   * Global extrema strategy.
@@ -37,10 +36,11 @@ class GlobalExtremaStrategy(var category: String) extends TAStrategy {
           val upWeek: MultiplierIndicator = new MultiplierIndicator(weekMaxPrice, Decimal.valueOf("0.996"))
           val sellingRule: Rule = new OverIndicatorRule(closePrices, upWeek)
 
-          val strategy = new Strategy(buyingRule, sellingRule)
+          val strategy = new BaseStrategy(buyingRule, sellingRule)
 
           // Running the strategy
-          val tradingRecord = series.run(strategy)
+          val seriesManager = new TimeSeriesManager(series)
+          val tradingRecord = seriesManager.run(strategy)
           printTradingRecord(series, tradingRecord)
         }
     catch {

@@ -1,9 +1,9 @@
 package com.myinvestor.technical.strategy
 
-import eu.verdelhan.ta4j.{Decimal, Strategy}
-import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator
-import eu.verdelhan.ta4j.indicators.trackers.SMAIndicator
-import eu.verdelhan.ta4j.trading.rules.{CrossedDownIndicatorRule, CrossedUpIndicatorRule, StopGainRule, StopLossRule}
+import eu.verdelhan.ta4j.{BaseStrategy, Strategy, TimeSeriesManager}
+import eu.verdelhan.ta4j.indicators.SMAIndicator
+import eu.verdelhan.ta4j.indicators.helpers.ClosePriceIndicator
+import eu.verdelhan.ta4j.trading.rules.{CrossedDownIndicatorRule, CrossedUpIndicatorRule}
 
 /**
   * Moving average strategy.
@@ -39,8 +39,9 @@ class MovingAverageStrategy (var category: String) extends TAStrategy {
           val exitRule = new CrossedDownIndicatorRule(shortSma, longSma)
 
           // Running the strategy
-          val strategy = new Strategy(entryRule, exitRule)
-          val tradingRecord = series.run(strategy)
+          val strategy = new BaseStrategy(entryRule, exitRule)
+          val seriesManager = new TimeSeriesManager(series)
+          val tradingRecord = seriesManager.run(strategy)
 
           printTradingRecord(series, tradingRecord)
         }

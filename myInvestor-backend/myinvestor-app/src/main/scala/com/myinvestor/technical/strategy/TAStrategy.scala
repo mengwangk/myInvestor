@@ -38,9 +38,9 @@ trait TAStrategy {
     // ta4j required ticks
     val ticks = new util.ArrayList[Tick]()
     stockHistories.foreach { history =>
-      ticks.add(new Tick(history.historyDate, history.historyOpen, history.historyHigh, history.historyLow, history.historyClose, history.historyVolume))
+      ticks.add(new BaseTick(history.historyDate.toGregorianCalendar.toZonedDateTime, history.historyOpen, history.historyHigh, history.historyLow, history.historyClose, history.historyVolume))
     }
-    new TimeSeries(exchangeName + "-" + stockSymbol, ticks)
+    new BaseTimeSeries(exchangeName + "-" + stockSymbol, ticks)
   }
 
   def printTradingRecord(series: TimeSeries, tradingRecord: TradingRecord): Unit = {

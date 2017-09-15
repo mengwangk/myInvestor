@@ -1,11 +1,11 @@
 package com.myinvestor.technical.strategy
 
-import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator
+import eu.verdelhan.ta4j.indicators.SMAIndicator
+import eu.verdelhan.ta4j.indicators.bollinger.{BollingerBandsLowerIndicator, BollingerBandsMiddleIndicator, BollingerBandsUpperIndicator}
+import eu.verdelhan.ta4j.indicators.helpers.ClosePriceIndicator
 import eu.verdelhan.ta4j.indicators.statistics.StandardDeviationIndicator
-import eu.verdelhan.ta4j.indicators.trackers.SMAIndicator
-import eu.verdelhan.ta4j.indicators.trackers.bollinger.{BollingerBandsLowerIndicator, BollingerBandsMiddleIndicator, BollingerBandsUpperIndicator}
 import eu.verdelhan.ta4j.trading.rules.{CrossedDownIndicatorRule, CrossedUpIndicatorRule}
-import eu.verdelhan.ta4j.{Rule, Strategy}
+import eu.verdelhan.ta4j.{BaseStrategy, Rule, Strategy, TimeSeriesManager}
 
 /**
   * Lagging indicator.
@@ -51,8 +51,9 @@ class BollingerBandsStrategy(var category: String) extends TAStrategy {
         val exitRule: Rule = new CrossedUpIndicatorRule(closePrice, upBBand)
 
         // Running the strategy
-        val strategy = new Strategy(entryRule, exitRule)
-        val tradingRecord = series.run(strategy)
+        val strategy = new BaseStrategy(entryRule, exitRule)
+        val seriesManager = new TimeSeriesManager(series)
+        val tradingRecord = seriesManager.run(strategy)
         printTradingRecord(series, tradingRecord)
       }
     } catch {

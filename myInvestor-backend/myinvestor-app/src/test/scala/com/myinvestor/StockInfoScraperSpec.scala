@@ -1,6 +1,7 @@
 package com.myinvestor
 
 import com.myinvestor.generator.StockDataGenerator
+import com.myinvestor.scraper.google.StockScraper
 import com.myinvestor.scraper.yahoo.{DividendHistoryScraper, G2YStockMapper, G2YStockMapperByName, StockInfoScraper2}
 import com.typesafe.scalalogging.Logger
 import org.apache.spark.SparkContext
@@ -25,10 +26,10 @@ class StockInfoScraperSpec extends UnitTestSpec {
     //val scraper = new DividendHistoryScraper("KLSE",  Some(Array("YTLPOWR", "AASIA")))
     // val scraper = new DividendHistoryScraper("KLSE",  None)
     //val scraper = new DividendHistoryScraper("KLSE",  None)
-    //val scraper = new StockScraper("KLSE")
+    val scraper = new StockScraper("KLSE")
     //val scraper = new StockInfoScraper2("KLSE", None)
     // val scraper = new G2YStockMapperByName("KLSE", None)
-    val scraper = new StockDataGenerator("KLSE")
+    //val scraper = new StockDataGenerator("KLSE")
     scraper.run
   }
 
