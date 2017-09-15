@@ -18,11 +18,15 @@ CREATE TABLE exchange
     description TEXT,
     yahoo_finance_exchange_name TEXT,
     stock_count INT,
+    country_code TEXT,
     PRIMARY KEY(exchange_name)
 );
 
-INSERT INTO exchange(exchange_name, description, stock_count, yahoo_finance_exchange_name) VALUES('KLSE', 'Kuala Lumpur Stock Exchange', 0, 'KLS');
-INSERT INTO exchange(exchange_name, description, stock_count, yahoo_finance_exchange_name) VALUES('NASDAQ', 'NASDAQ', 0, 'NMS');
+INSERT INTO exchange(exchange_name, description, stock_count, yahoo_finance_exchange_name, country_code) VALUES('KLSE', 'FTSE Bursa Malaysia KLCI', 0, 'KLS', 'MY');
+INSERT INTO exchange(exchange_name, description, stock_count, yahoo_finance_exchange_name, country_code) VALUES('NASDAQ', 'Nasdaq Stock Market', 0, 'NMS', 'US');
+INSERT INTO exchange(exchange_name, description, stock_count, yahoo_finance_exchange_name, country_code) VALUES('NYSE', 'The New York Stock Exchange', 0, 'NYQ', 'US');
+INSERT INTO exchange(exchange_name, description, stock_count, yahoo_finance_exchange_name, country_code) VALUES('SGX', 'Singapore Exchange', 0, 'NMS', 'SES');
+INSERT INTO exchange(exchange_name, description, stock_count, yahoo_finance_exchange_name, country_code) VALUES('HKG', 'Hong Kong Exchange', 0, 'NMS', 'HKG');
 
 CREATE TABLE stock
 (
