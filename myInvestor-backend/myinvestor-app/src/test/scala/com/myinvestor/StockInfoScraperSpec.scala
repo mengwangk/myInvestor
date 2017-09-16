@@ -34,11 +34,11 @@ class StockInfoScraperSpec extends UnitTestSpec {
     //val scraper = new G2YStockMapperByName("NASDAQ")  // By name
     // val scraper = new G2YStockMapper("NASDAQ")          // By symbol
     // val scraper = new DividendHistoryScraper("NASDAQ",  None)
-    val scraper = new StockInfoScraper2("NASDAQ", None)
-    scraper.run
+    //val scraper = new StockInfoScraper2("NASDAQ", None)
+    //scraper.run
 
-    //val summarizer = new DividendSummarizer("KLSE", None)
-    //summarizer.run
+    val summarizer = new DividendSummarizer("NASDAQ", None)
+    summarizer.run
   }
 
 }

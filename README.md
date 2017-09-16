@@ -25,7 +25,7 @@ A personal investment app used for stock analysis, prediction and portfolio mana
 ![Architecture](https://raw.githubusercontent.com/mengwangk/myinvestor/master/design/architecture.png)
 
 ## Google Play Store
-To be released. [Current placeholder app in Play Store](https://play.google.com/store/apps/details?id=com.mylotto&hl=en).
+To be released. [Placeholder app in Play Store](https://play.google.com/store/apps/details?id=com.mylotto&hl=en).
 
 
 
