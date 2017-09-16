@@ -18,6 +18,11 @@ A personal investment app used for stock analysis, prediction and portfolio mana
 
 ## Design 
 ### Mobile Screen
+- FTSE Bursa Malaysia
+- Nasdaq Stock Market
+- The New York Stock Exchange
+- Singapore Exchange
+- Hong Kong Exchange
 
 ![Analytics](https://raw.githubusercontent.com/mengwangk/myinvestor/master/design/mobile_analytics.png)
 
