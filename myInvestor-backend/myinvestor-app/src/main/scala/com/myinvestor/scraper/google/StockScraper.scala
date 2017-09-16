@@ -48,7 +48,7 @@ class StockScraper(val exchangeName: String) extends ParserUtils with ParserImpl
         for (counter <- 1 to 8000) {
           val company = Option(stringValue(document.oneByCss("a#rc-" + counter)))
           val symbol = Option(stringValue(document.oneByCss("a#rct-" + counter)))
-          if (company.exists(_.trim.nonEmpty)) {
+          if (company.exists(_.trim.nonEmpty) && symbol.exists(_.trim.nonEmpty) ) {
             // Insert into stock table
             log.info(s"$counter - Saving $symbol.get - $company.get")
             stockCount += 1

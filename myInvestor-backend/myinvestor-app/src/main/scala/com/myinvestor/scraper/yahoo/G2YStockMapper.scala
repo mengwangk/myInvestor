@@ -73,6 +73,9 @@ class G2YStockMapper(val exchangeName: String) extends ParserUtils with ParserIm
         val jsonObject = JSON.parseFull(jsonResponse).get.asInstanceOf[Map[String, Any]]
         val resultSet = jsonObject.get("ResultSet").get.asInstanceOf[Map[String, Any]]
         val results = resultSet.get("Result").get.asInstanceOf[List[Map[String, Any]]]
+
+        // Search for exact symbol match first
+        var foundExact = false
         results.foreach { result =>
           val symbol = result.get("symbol").get.asInstanceOf[String]
           val name = result.get("name").get.asInstanceOf[String]
@@ -80,11 +83,28 @@ class G2YStockMapper(val exchangeName: String) extends ParserUtils with ParserIm
           val _type = result.get("type").get.asInstanceOf[String]
           val exchDisp = result.get("exchDisp").get.asInstanceOf[String]
           val typeDisp = result.get("typeDisp").get.asInstanceOf[String]
-          if (exch.equalsIgnoreCase(yahooExchangeName)) {
+          if (symbol.equalsIgnoreCase(stock.stockSymbol)) {
+            foundExact  = true
             // Save to Cassandra table
             val mappingTable = G2YFinanceMapping(gStockSymbol = stock.stockSymbol, yStockSymbol = symbol, gExchangeName = exchangeName, gStockName = stock.stockName,
-                                                  yExchangeName = yahooExchangeName, yStockName = name)
+              yExchangeName = yahooExchangeName, yStockName = name)
             sc.parallelize(Seq(mappingTable)).saveToCassandra(Keyspace, G2YFinanceMappingTable)
+          }
+        }
+        if (!foundExact) {
+          results.foreach { result =>
+            val symbol = result.get("symbol").get.asInstanceOf[String]
+            val name = result.get("name").get.asInstanceOf[String]
+            val exch = result.get("exch").get.asInstanceOf[String]
+            val _type = result.get("type").get.asInstanceOf[String]
+            val exchDisp = result.get("exchDisp").get.asInstanceOf[String]
+            val typeDisp = result.get("typeDisp").get.asInstanceOf[String]
+            if (exch.equalsIgnoreCase(yahooExchangeName)) {
+              // Save to Cassandra table
+              val mappingTable = G2YFinanceMapping(gStockSymbol = stock.stockSymbol, yStockSymbol = symbol, gExchangeName = exchangeName, gStockName = stock.stockName,
+                yExchangeName = yahooExchangeName, yStockName = name)
+              sc.parallelize(Seq(mappingTable)).saveToCassandra(Keyspace, G2YFinanceMappingTable)
+            }
           }
         }
       } catch {

@@ -21,8 +21,8 @@ import scala.Array._
 class DividendHistoryScraper(val exchangeName: String, val symbols: Option[Array[String]]) extends ParserUtils with ParserImplicits {
 
   val log = Logger(this.getClass.getName)
-  val cookie = "B=9gs0fjhcn8int&b=3&s=00; PRF=t%3D6742.KL"  // Get this from Fiddler
-  val crumb = "5DafqJTYX5y" // Get this from Fiddler
+  val cookie = "B=1r2e869cpd3n3&b=3&s=fh; PRF=%3D5099.KL%252BACGL%252BAMDS.KL%252B1007.KL%252B0388.HK%252B1137.HK%252BSGXOS.SI%252BNDAQ%252BYTLP.KL%252B6742.KL%252BYTLL.KL%252B%255EKLSE%252BNMS.AX"  // Get this from Fiddler
+  val crumb = "Am8B7m2wG3S" // Get this from Fiddler
   /*
    ## Capture by Fiddler
    GET /v7/finance/download/6742.KL?period1=1274803200&period2=1495728000&interval=1d&events=div&crumb=xZCgl1rxPCP HTTP/1.1

@@ -41,34 +41,45 @@ class StockInfoScraper2(val exchangeName: String, val symbols: Option[Array[Stri
     var current = 0
     stocks.foreach { stockSymbol =>
       current = current + 1
-      val mappedStocks = sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ? AND " + GoogleStockSymbolColumn + " = ?", exchangeName, stockSymbol).collect()
-      mappedStocks.foreach { mappedStock =>
-        log.info(s"Grabbing stock info for [$current/$total] ${mappedStock.yExchangeName}  - ${mappedStock.yStockSymbol}")
-        try {
-          // Grab stock information for each stock
-          val stock = YahooFinance.get(mappedStock.yStockSymbol)
-          var currentPrice: BigDecimal = 0
-          if (stock.getQuote(false).getPrice != null) {
-            currentPrice = stock.getQuote(false).getPrice
-          }
-          var pe: BigDecimal = 0
-          if (stock.getStats.getPe != null) {
-            pe = stock.getStats.getPe
-          }
-          log.info(s"currentPrice: $currentPrice, PE: $pe")
-          if (pe > 0 && currentPrice > 0) {
-            val stockInfo = StockInfo(stockSymbol = stockSymbol, exchangeName = exchangeName, infoCurrentPrice = currentPrice, infoPe = pe)
-            sc.parallelize(Seq(stockInfo)).saveToCassandra(Keyspace, StockInfoTable)
-          } else {
-            log.warn(s"Skipping symbol - $stockSymbol")
-          }
-        } catch {
-          case e: Exception => {
-            log.warn(s"Skipping symbol - $stockSymbol, cause: ${e.getMessage}")
-            status = false
-          }
+
+      if (stockSymbol.nonEmpty) {
+        var mappedStocks = sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ? AND " + GoogleStockSymbolColumn + "= ? AND " + YahooStockSymbolColumn + "= ?", exchangeName, stockSymbol, stockSymbol).collect()
+        if (mappedStocks.length == 0) {
+          // Get a list of mapped stocks from Yahoo Finance
+          mappedStocks = sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ? AND " + GoogleStockSymbolColumn + "= ?", exchangeName, stockSymbol).collect()
+          log.info(s"Multiple mappings for $stockSymbol")
+        } else {
+          log.info(s"1-1 mapping for $stockSymbol")
         }
 
+        mappedStocks.foreach { mappedStock =>
+          log.info(s"Grabbing stock info for [$current/$total] ${mappedStock.yExchangeName}  - ${mappedStock.yStockSymbol}")
+          try {
+            // Grab stock information for each stock
+            val stock = YahooFinance.get(mappedStock.yStockSymbol)
+            var currentPrice: BigDecimal = 0
+            if (stock.getQuote(false).getPrice != null) {
+              currentPrice = stock.getQuote(false).getPrice
+            }
+            var pe: BigDecimal = 0
+            if (stock.getStats.getPe != null) {
+              pe = stock.getStats.getPe
+            }
+            log.info(s"currentPrice: $currentPrice, PE: $pe")
+            if (pe >= 0 && currentPrice > 0) {
+              val stockInfo = StockInfo(stockSymbol = stockSymbol, exchangeName = exchangeName, infoCurrentPrice = currentPrice, infoPe = pe)
+              sc.parallelize(Seq(stockInfo)).saveToCassandra(Keyspace, StockInfoTable)
+            } else {
+              log.warn(s"Skipping symbol - $stockSymbol")
+            }
+          } catch {
+            case e: Exception => {
+              log.warn(s"Skipping symbol - $stockSymbol, cause: ${e.getMessage}")
+              status = false
+            }
+          }
+
+        }
       }
     }
     status

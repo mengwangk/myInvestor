@@ -11,7 +11,7 @@ import scala.util.Try
 /**
   * Get the dividend achievers.
   */
-class DividendSummarizer(val exchangeName: String, val symbols: Option[Array[String]])  {
+class DividendSummarizer(val exchangeName: String, val symbols: Option[Array[String]]) {
 
   val log = Logger(this.getClass.getName)
 
@@ -28,7 +28,7 @@ class DividendSummarizer(val exchangeName: String, val symbols: Option[Array[Str
     if (symbols.isDefined && symbols.get.length > 0) {
       stocks = symbols.get
     } else {
-      stocks = sc.cassandraTable[Stock](Keyspace, StockTable).where(ExchangeNameColumn + " = ?", exchangeName).map(stock=>stock.stockSymbol).collect()
+      stocks = sc.cassandraTable[Stock](Keyspace, StockTable).where(ExchangeNameColumn + " = ?", exchangeName).map(stock => stock.stockSymbol).collect()
     }
 
     val total = stocks.length
@@ -39,8 +39,17 @@ class DividendSummarizer(val exchangeName: String, val symbols: Option[Array[Str
         log.info(s"Summarizing stock dividend history for [$current/$total] $exchangeName - $stockSymbol")
 
         var summaries: Map[Int, Double] = Map[Int, Double]()
-        // Get a list of mapped stocks from Yahoo Finance
-        var mappedStocks = sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ? AND " + GoogleStockSymbolColumn + "= ?", exchangeName, stockSymbol).collect()
+
+        // Get exact match first
+        var mappedStocks = sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ? AND " + GoogleStockSymbolColumn + "= ? AND " + YahooStockSymbolColumn + "= ?", exchangeName, stockSymbol, stockSymbol).collect()
+        if (mappedStocks.length == 0) {
+          // Get a list of mapped stocks from Yahoo Finance
+          mappedStocks = sc.cassandraTable[G2YFinanceMapping](Keyspace, G2YFinanceMappingTable).where(GoogleExchangeNameColumn + " = ? AND " + GoogleStockSymbolColumn + "= ?", exchangeName, stockSymbol).collect()
+          log.info(s"Multiple mappings for $stockSymbol")
+        } else {
+          log.info(s"1-1 mapping for $stockSymbol")
+        }
+
         mappedStocks.foreach { stock =>
           // Get the stock dividend histories
           val dividendHistories = sc.cassandraTable[DividendHistory](Keyspace, DividendHistoryTable).where(YahooExchangeNameColumn + " = ? AND " + YahooStockSymbolColumn + "= ?", stock.yExchangeName, stock.yStockSymbol).collect()
@@ -68,7 +77,7 @@ class DividendSummarizer(val exchangeName: String, val symbols: Option[Array[Str
               val dividend = BigDecimal(summary._2).setScale(6, BigDecimal.RoundingMode.HALF_UP).toDouble
               sc.parallelize(
                 Seq(
-                  DividendSummary(gExchangeName = exchangeName, gStockSymbol = stockSymbol, dividendYear = summary._1, dividend = dividend ,
+                  DividendSummary(gExchangeName = exchangeName, gStockSymbol = stockSymbol, dividendYear = summary._1, dividend = dividend,
                     currentPrice = currentPrice.get, priceDate = stockInfo.infoExtractedTimestamp, dividendYield = dividendYield)
                 )
               ).saveToCassandra(Keyspace, DividendSummaryTable)

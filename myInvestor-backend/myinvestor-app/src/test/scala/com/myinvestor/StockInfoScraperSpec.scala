@@ -1,5 +1,7 @@
 package com.myinvestor
 
+import com.myinvestor.TradeSchema.DividendAchieverAnalysis
+import com.myinvestor.fundamental.DividendSummarizer
 import com.myinvestor.generator.StockDataGenerator
 import com.myinvestor.scraper.google.StockScraper
 import com.myinvestor.scraper.yahoo.{DividendHistoryScraper, G2YStockMapper, G2YStockMapperByName, StockInfoScraper2}
@@ -28,10 +30,15 @@ class StockInfoScraperSpec extends UnitTestSpec {
     //val scraper = new StockInfoScraper2("KLSE", None)
     //val scraper = new StockDataGenerator("KLSE")
 
-    val scraper = new StockScraper("HKG")
-    // val scraper = new G2YStockMapperByName("KLSE", None)
-    // val scraper = new DividendHistoryScraper("KLSE",  None)
+    //val scraper = new StockScraper("NASDAQ")
+    //val scraper = new G2YStockMapperByName("NASDAQ")  // By name
+    // val scraper = new G2YStockMapper("NASDAQ")          // By symbol
+    // val scraper = new DividendHistoryScraper("NASDAQ",  None)
+    val scraper = new StockInfoScraper2("NASDAQ", None)
     scraper.run
+
+    //val summarizer = new DividendSummarizer("KLSE", None)
+    //summarizer.run
   }
 
 }
