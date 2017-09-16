@@ -43,7 +43,7 @@ object TradeSchema {
 
   case class Request(requestId: UUID, success: Boolean, errorMsg: String, received: DateTime = DateTime.now())
 
-  case class Exchange(exchangeName: String, description: String, stockCount: Int, yahooFinanceExchangeName: String) extends ModelBase
+  case class Exchange(exchangeName: String, description: String, stockCount: Int, yahooFinanceExchangeName: String, countryCode: String) extends ModelBase
 
   case class Stock(stockSymbol: String, stockName: String, exchangeName: String) extends ModelBase
 

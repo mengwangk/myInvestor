@@ -21,21 +21,31 @@ class StockScraper(val exchangeName: String) extends ParserUtils with ParserImpl
 
     // https://stackoverflow.com/questions/21086263/how-to-insert-double-quotes-into-string-with-interpolation-in-scala
     val search =
-      s"""[(exchange == "$exchangeName")]"""
-    val GoogleFinanceUrl = "https://www.google.com/finance?q=" + search + "&restype=company&noIL=1&num=8000&ei=5YbOV4ieA9exugTRyZOoCw"
+      s"""[(exchange=="$exchangeName")]"""
+    // val GoogleFinanceUrl =
+    //  "https://finance.google.com/finance?q=" + search + "&restype=company&noIL=1&num=4304&ei=E5G8WbD7JdSougT33rS4DA"
 
+    val GoogleFinanceUrl =
+    //s"""https://finance.google.com/finance?q=[(exchange=="$exchangeName")]&ei=HKq8WdijMJm8uAT53o1g&restype=company&noIL=1&start=1&num=8000""".stripMargin
+      s"""https://finance.google.com/finance?q=[(exchange=="$exchangeName")]&restype=company&noIL=1&num=8000&ei=Ppu8Wfm0C8azuwSugpvABQ""".stripMargin
     try {
-      val response = Jsoup.connect(GoogleFinanceUrl).timeout(ConnectionTimeout)
-                      .userAgent(USER_AGENT)
-                      .execute()
+      // https://stackoverflow.com/questions/39555567/jsoup-returning-different-output-from-web-browser
+      // https://stackoverflow.com/questions/10640093/jsoup-getting-different-html-compared-to-firefox-and-other-browsers
+      // https://stackoverflow.com/questions/20019656/jsoup-returning-incomplete-html-document
+      val connection = Jsoup.connect(GoogleFinanceUrl)
+      connection.maxBodySize(0)
+      val response = connection.timeout(ConnectionTimeout)
+        .userAgent(USER_AGENT)
+        .execute()
       if (response.statusCode() == 200) {
         val document = response.parse()
+        //println(document.body().toString)
         var stockCount = 0
 
         // Delete all the symbols first
         sc.cassandraTable(Keyspace, StockTable).where(ExchangeNameColumn + " = ?", exchangeName).deleteFromCassandra(Keyspace, StockTable)
 
-        for (counter <- 1 to 10000) {
+        for (counter <- 1 to 8000) {
           val company = Option(stringValue(document.oneByCss("a#rc-" + counter)))
           val symbol = Option(stringValue(document.oneByCss("a#rct-" + counter)))
           if (company.exists(_.trim.nonEmpty)) {
@@ -49,7 +59,8 @@ class StockScraper(val exchangeName: String) extends ParserUtils with ParserImpl
         // Update exchange table
         val exchanges = sc.cassandraTable[Exchange](Keyspace, ExchangeTable).where(ExchangeNameColumn + " = ?", exchangeName).collect()
         if (exchanges.length > 0) {
-          val exchange = Exchange(exchangeName = exchanges.head.exchangeName, description = exchanges.head.description, stockCount = stockCount, yahooFinanceExchangeName = exchanges.head.yahooFinanceExchangeName)
+          val exchange = Exchange(exchangeName = exchanges.head.exchangeName, description = exchanges.head.description,
+            stockCount = stockCount, yahooFinanceExchangeName = exchanges.head.yahooFinanceExchangeName, countryCode = exchanges.head.countryCode)
           sc.parallelize(Seq(exchange)).saveToCassandra(Keyspace, ExchangeTable)
         }
         log.info("Completed")

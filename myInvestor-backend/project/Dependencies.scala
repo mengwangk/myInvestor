@@ -14,16 +14,16 @@ object Dependencies {
     def sparkExclusions: ModuleID =
       module
         .exclude("com.google.guava", "guava")
-        .exclude("org.slf4j", "slf4j-log4j12")
+       // .exclude("org.slf4j", "slf4j-log4j12")
 
     def cassandraExclusions: ModuleID =
       module
         .exclude("com.google.guava", "guava")
-        .excludeAll(ExclusionRule("org.slf4j"))
+        //.excludeAll(ExclusionRule("org.slf4j"))
 
     def kafkaExclusions: ModuleID =
       module
-        .excludeAll(ExclusionRule("org.slf4j"))
+        //.excludeAll(ExclusionRule("org.slf4j"))
         .exclude("com.sun.jmx", "jmxri")
         .exclude("com.sun.jdmk", "jmxtools")
         .exclude("net.sf.jopt-simple", "jopt-simple")

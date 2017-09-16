@@ -54,7 +54,7 @@ object TradeHelper {
     }
 
     implicit val batchJobFormat = jsonFormat3(BatchJob)
-    implicit val exchangeFormat = jsonFormat4(Exchange)
+    implicit val exchangeFormat = jsonFormat5(Exchange)
     implicit val stockFormat = jsonFormat3(Stock)
     implicit val stockHistoryFormat = jsonFormat8(StockHistory)
     implicit val g2YFinanceMappingFormat = jsonFormat6(G2YFinanceMapping)

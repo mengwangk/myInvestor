@@ -4,12 +4,11 @@ import java.util
 
 import com.datastax.spark.connector._
 import com.typesafe.scalalogging.Logger
+import eu.verdelhan.ta4j._
 import eu.verdelhan.ta4j.analysis.criteria.TotalProfitCriterion
-import eu.verdelhan.ta4j.indicators.oscillators.CCIIndicator
-import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator
-import eu.verdelhan.ta4j.indicators.trackers.{RSIIndicator, SMAIndicator}
+import eu.verdelhan.ta4j.indicators.helpers.ClosePriceIndicator
+import eu.verdelhan.ta4j.indicators.{CCIIndicator, RSIIndicator, SMAIndicator}
 import eu.verdelhan.ta4j.trading.rules.{CrossedDownIndicatorRule, CrossedUpIndicatorRule, OverIndicatorRule, UnderIndicatorRule}
-import eu.verdelhan.ta4j.{Decimal, Strategy, Tick, TimeSeries}
 import org.apache.spark.SparkContext
 
 /**
@@ -67,9 +66,9 @@ class TA4JSpec extends UnitTestSpec {
     val ticks = new util.ArrayList[Tick]()
 
     stockHistories.foreach { history =>
-      ticks.add(new Tick(history.historyDate, history.historyOpen, history.historyHigh, history.historyLow, history.historyClose, history.historyVolume))
+      ticks.add(new BaseTick(history.historyDate.toGregorianCalendar.toZonedDateTime, history.historyOpen, history.historyHigh, history.historyLow, history.historyClose, history.historyVolume))
     }
-    val series = new TimeSeries(symbol, ticks)
+    val series = new BaseTimeSeries(symbol, ticks)
 
     // Build the trading strategy
     val longCci = new CCIIndicator(series, 200)
@@ -83,11 +82,12 @@ class TA4JSpec extends UnitTestSpec {
     val exitRule = new UnderIndicatorRule(longCci, minus100) // Bear trend
       .and(new OverIndicatorRule(shortCci, plus100)); // Signal
 
-    val strategy = new Strategy(entryRule, exitRule)
+    val strategy = new BaseStrategy(entryRule, exitRule)
     strategy.setUnstablePeriod(5)
 
     // Running the strategy
-    val tradingRecord = series.run(strategy)
+    val seriesManager = new TimeSeriesManager(series)
+    val tradingRecord = seriesManager.run(strategy)
     println("Number of trades for the strategy: " + tradingRecord.getTradeCount)
     println("Trade size: " + tradingRecord.getTrades().size())
     println("Trade entry price: " + tradingRecord.getTrades().get(0).getEntry.getPrice)
@@ -118,10 +118,10 @@ class TA4JSpec extends UnitTestSpec {
       val ticks = new util.ArrayList[Tick]()
 
       stockHistories.foreach { history =>
-        ticks.add(new Tick(history.historyDate, history.historyOpen, history.historyHigh, history.historyLow, history.historyClose, history.historyVolume))
+        ticks.add(new BaseTick(history.historyDate.toGregorianCalendar.toZonedDateTime, history.historyOpen, history.historyHigh, history.historyLow, history.historyClose, history.historyVolume))
       }
 
-      val series = new TimeSeries(stock.stockSymbol, ticks)
+      val series = new BaseTimeSeries(stock.stockSymbol, ticks)
 
       // Build the trading strategy
       val longCci = new CCIIndicator(series, 200)
@@ -135,11 +135,12 @@ class TA4JSpec extends UnitTestSpec {
       val exitRule = new UnderIndicatorRule(longCci, minus100) // Bear trend
         .and(new OverIndicatorRule(shortCci, plus100)); // Signal
 
-      val strategy = new Strategy(entryRule, exitRule)
+      val strategy = new BaseStrategy(entryRule, exitRule)
       strategy.setUnstablePeriod(5)
 
       // Running the strategy
-      val tradingRecord = series.run(strategy)
+      val seriesManager = new TimeSeriesManager(series)
+      val tradingRecord = seriesManager.run(strategy)
       if (tradingRecord.getTradeCount > 0) {
         println("Number of trades for [" + stock.stockSymbol + "] - " + tradingRecord.getTradeCount)
         println("Total profit for the strategy: " + new TotalProfitCriterion().calculate(series, tradingRecord))
@@ -166,10 +167,10 @@ class TA4JSpec extends UnitTestSpec {
       val ticks = new util.ArrayList[Tick]()
 
       stockHistories.foreach { history =>
-        ticks.add(new Tick(history.historyDate, history.historyOpen, history.historyHigh, history.historyLow, history.historyClose, history.historyVolume))
+        ticks.add(new BaseTick(history.historyDate.toGregorianCalendar.toZonedDateTime, history.historyOpen, history.historyHigh, history.historyLow, history.historyClose, history.historyVolume))
       }
 
-      val series = new TimeSeries(stock.stockSymbol, ticks)
+      val series = new BaseTimeSeries(stock.stockSymbol, ticks)
 
       val closePrice = new ClosePriceIndicator(series)
       val shortSma = new SMAIndicator(closePrice, 5)
@@ -192,10 +193,11 @@ class TA4JSpec extends UnitTestSpec {
         .and(new UnderIndicatorRule(shortSma, closePrice)); // Signal 2
 
 
-      val strategy = new Strategy(entryRule, exitRule)
+      val strategy = new BaseStrategy(entryRule, exitRule)
 
       // Running the strategy
-      val tradingRecord = series.run(strategy)
+      val seriesManager = new TimeSeriesManager(series)
+      val tradingRecord = seriesManager.run(strategy)
       if (tradingRecord.getTradeCount > 0) {
         println("Number of trades for [" + stock.stockSymbol + "] - " + tradingRecord.getTradeCount)
         println("Total profit for the strategy: " + new TotalProfitCriterion().calculate(series, tradingRecord))
