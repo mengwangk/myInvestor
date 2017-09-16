@@ -2,35 +2,35 @@
   {
     "exchangeName": "KLSE",
     "description": "FTSE Bursa Malaysia",
-    "stockCount": 900,
+    "stockCount": 979,
     "countryCode": "MY",
     "yahooFinanceExchangeName": "KLS"
   },
   {
     "exchangeName": "NASDAQ",
     "description": "Nasdaq Stock Market",
-    "stockCount": 900,
+    "stockCount": 3857,
     "countryCode": "US",
     "yahooFinanceExchangeName": "KLS"
   },
   {
     "exchangeName": "NYSE",
     "description": "The New York Stock Exchange",
-    "stockCount": 900,
+    "stockCount": 4301,
     "countryCode": "US",
     "yahooFinanceExchangeName": "KLS"
   },
   {
     "exchangeName": "SGX",
     "description": "Singapore Exchange",
-    "stockCount": 1000,
+    "stockCount": 1103,
     "countryCode": "SG",
     "yahooFinanceExchangeName": "KLS"
   },
   {
     "exchangeName": "HKEX",
     "description": "Hong Kong Exchange",
-    "stockCount": 1000,
+    "stockCount": 2667,
     "countryCode": "HK",
     "yahooFinanceExchangeName": "KLS"
   }
