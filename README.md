@@ -19,4 +19,9 @@ A personal investment app used for stock analysis, prediction and portfolio mana
 
 
 ### Conceptual Architecture
-![Architecture](https://raw.githubusercontent.com/mengwangk/myinvestor/master/design/img.png)
+![Architecture](https://raw.githubusercontent.com/mengwangk/myinvestor/master/design/architecture.png)
+
+### Mobile Screen
+![Analytics](https://raw.githubusercontent.com/mengwangk/myinvestor/master/design/mobile_analytics.png)
+
+
