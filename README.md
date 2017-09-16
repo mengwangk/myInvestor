@@ -16,12 +16,15 @@ A personal investment app used for stock analysis, prediction and portfolio mana
 ## Mobile
 - React Native
 
-
+## Design 
+### Mobile Screen
+![Analytics](https://raw.githubusercontent.com/mengwangk/myinvestor/master/design/mobile_analytics.png)
 
 ### Conceptual Architecture
 ![Architecture](https://raw.githubusercontent.com/mengwangk/myinvestor/master/design/architecture.png)
 
-### Mobile Screen
-![Analytics](https://raw.githubusercontent.com/mengwangk/myinvestor/master/design/mobile_analytics.png)
+## Google Play Store
+To be released. [Current placeholder app in Play Store](https://play.google.com/store/apps/details?id=com.mylotto&hl=en).
+
 
 
