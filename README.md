@@ -1,2 +1,22 @@
 # myInvestor
-A personal investment app used for stock analysis, prediction and portfolio management, leveraging Akka, Cassandra, Spark, Kafka, react-native, angular, Google Cloud Platform and the beautiful scala language.
+A personal investment app used for stock analysis, prediction and portfolio management, 
+
+## Backend
+- Akka
+- Cassandra
+- Docker
+- Scala
+- Spark
+
+## Cloud
+- Google App Engine
+- Angular
+- NodeJS
+
+## Mobile
+- React Native
+
+
+
+### Conceptual Architecture
+![Architecture](https://raw.githubusercontent.com/mengwangk/myinvestor/master/design/img.png)
