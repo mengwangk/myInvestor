@@ -28,17 +28,21 @@ class StockInfoScraperSpec extends UnitTestSpec {
     //val scraper = new DividendHistoryScraper("KLSE",  Some(Array("YTLPOWR", "AASIA")))
     //val scraper = new DividendHistoryScraper("KLSE",  None)
     //val scraper = new StockInfoScraper2("KLSE", None)
-    //val scraper = new StockDataGenerator("KLSE")
 
-    //val scraper = new StockScraper("NASDAQ")
-    //val scraper = new G2YStockMapperByName("NASDAQ")  // By name
-    // val scraper = new G2YStockMapper("NASDAQ")          // By symbol
-    // val scraper = new DividendHistoryScraper("NASDAQ",  None)
-    //val scraper = new StockInfoScraper2("NASDAQ", None)
+    //val scraper = new StockDataGenerator("KLSE")
+    //val scraper = new StockScraper("SGX")
+    // val scraper = new G2YStockMapperByName("SGX")  // By name
+    //val scraper = new G2YStockMapper("SGX")          // By symbol
+    // val scraper = new DividendHistoryScraper("SGX",  None)
+
+    //val scraper = new StockInfoScraper2("SGX", None)
     //scraper.run
 
-    val summarizer = new DividendSummarizer("NASDAQ", None)
-    summarizer.run
+    //val summarizer = new DividendSummarizer("SGX", None)
+    //summarizer.run
+
+    val scraper = new StockDataGenerator("NYSE")
+    scraper.run
   }
 
 }

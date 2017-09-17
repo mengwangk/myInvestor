@@ -6,16 +6,18 @@ import akka.actor.ActorSystem
 import com.datastax.spark.connector._
 import com.myinvestor.TradeHelper.JsonApiProtocol
 import com.myinvestor.generator.TradeDataGenerator.JsonGeneratorProtocol._
-import com.myinvestor.generator.TradeDataGenerator.Message
+import com.myinvestor.generator.TradeDataGenerator.{Message, StockDetails}
 import com.myinvestor.{AppSettings, SparkContextUtils, TradeSchema}
 import com.typesafe.scalalogging.Logger
 import org.apache.spark.SparkContext
+import org.joda.time.DateTime
 import spray.can.Http
 import spray.client.pipelining._
 import spray.http.{HttpRequest, HttpResponse}
 import spray.httpx.SprayJsonSupport
 import spray.json.{AdditionalFormats, _}
 
+import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import scala.util.Try
@@ -46,6 +48,15 @@ class StockDataGenerator(val exchangeName: String) extends JsonApiProtocol with 
     // implicit val message = messageFormat
     val sc: SparkContext = SparkContextUtils.sparkContext
 
+    // Generate market.json
+    /*
+    log.info("Generating market file")
+    var exchanges = sc.cassandraTable[Exchange](Keyspace, ExchangeTable).collect()
+    val exchangeFile = settings.DataGeneratorOutput + "market.json"
+    writeFile(exchangeFile, exchanges.toJson.toString)
+    */
+
+
     /*
     val stocks = sc.cassandraTable[Stock](Keyspace, StockTable).where(ExchangeNameColumn + " = ?", exchangeName).collect()
     val total = stocks.length
@@ -73,7 +84,7 @@ class StockDataGenerator(val exchangeName: String) extends JsonApiProtocol with 
     val stockFile = settings.DataGeneratorOutput + exchangeName + ".json"
     log.info(s"Generating $stockFile")
     writeFile(stockFile, stockArray.toList.toJson.toString)
-    */
+
 
     // Generate stock mapping file
     log.info("Generating stock mapping file")
@@ -81,12 +92,18 @@ class StockDataGenerator(val exchangeName: String) extends JsonApiProtocol with 
     val mapperFile = settings.DataGeneratorOutput + exchangeName + "_mapper.json"
     writeFile(mapperFile, mappedStocks.toJson.toString)
 
+    */
+
+
     // Generate dividend history file
     log.info("Generating stock dividend file")
     var dividends = sc.cassandraTable[DividendSummary](Keyspace, DividendSummaryTable).where(GoogleExchangeNameColumn + " = ?", exchangeName).collect()
     val dividendFile = settings.DataGeneratorOutput + exchangeName + "_dividend.json"
     writeFile(dividendFile, dividends.toJson.toString)
 
+
+
+    /** Commented for now Sept 17 2017
     // Send to server
     import scala.concurrent.ExecutionContext.Implicits.global
     implicit val system = ActorSystem()
@@ -94,7 +111,7 @@ class StockDataGenerator(val exchangeName: String) extends JsonApiProtocol with 
     //httpPost(settings.AppServerUrl + "/investor/v1/stock", stockArray.toList.toJson.toString)
     httpPost(pipeline, settings.AppServerUrl + "/investor/v1/mapping", mappedStocks.toJson.toString)
     httpPost(pipeline, settings.AppServerUrl + "/investor/v1/dividend", dividends.toJson.toString)
-
+    */
     status
 
   }

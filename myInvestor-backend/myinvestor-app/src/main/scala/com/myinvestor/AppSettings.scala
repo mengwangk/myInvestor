@@ -48,7 +48,7 @@ final class AppSettings(conf: Option[Config] = None) extends Serializable {
 
   val SparkCleanerTtl: Int = withFallback[Int](Try(spark.getInt("cleaner.ttl")), "spark.cleaner.ttl") getOrElse (3600 * 2)
 
-  val SparkStreamingBatchInterval: Long = withFallback[Long](Try(spark.getInt("streaming.batch.interval")), "spark.streaming.batch.interval") getOrElse 1000
+  val SparkStreamingBatchInterval: Long = withFallback[Long](Try(spark.getInt("streaming.batch.interval")), "spark.streaming.batch.interval") getOrElse 10000
 
   val SparkCheckpointDir: String = spark.getString("spark.checkpoint.dir")
 
