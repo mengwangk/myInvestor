@@ -33,7 +33,5 @@ A personal investment app used for stock analysis, prediction and portfolio mana
 To be released. [Placeholder app in Play Store](https://play.google.com/store/apps/details?id=com.mylotto&hl=en).
 
 ## Note
-An app to learn and use cloud computing and big data analytics to solve common investment issues I faced.
-
-
+An app to learn and use cloud computing and big data analytics to solve common investment challenges that I faced.
 
