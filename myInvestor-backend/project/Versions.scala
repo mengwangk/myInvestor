@@ -12,7 +12,7 @@ object Versions {
 
   // Compiler versions
   val JDK = "1.8"
-  val Scala = "2.11.8"
+  val Scala = "2.11.11"
 
   // Library version
   val Akka = "2.4.18"
