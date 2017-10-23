@@ -1,7 +1,7 @@
 import { filter, sortBy } from "lodash";
 
 const KLSE = "KLSE";
-const HKEX = "HKEX";
+const HKEX = "HKG";
 const NASDAQ = "NASDAQ";
 const NYSE = "NYSE";
 const SGX = "SGX";
@@ -15,24 +15,26 @@ export default {
     };
   },
   getStocks: market => {
+    console.log("market --" + JSON.stringify(market));
     var data = [];
-    switch (market) {
+    switch (market.exchangeName) {
       case KLSE:
-        data = require("../Fixtures/KLSE/KLSE.json");
+        data = require("../Fixtures/KLSE.json");
         break;
       case HKEX:
-        data = require("../Fixtures/KLSE/KLSE.json");
+        data = require("../Fixtures/KLSE.json");
         break;
       case NASDAQ:
-        data = require("../Fixtures/KLSE/KLSE.json");
+        data = require("../Fixtures/KLSE.json");
         break;
       case NYSE:
-        data = require("../Fixtures/KLSE/KLSE.json");
+        data = require("../Fixtures/KLSE.json");
         break;
       case SGX:
-        data = require("../Fixtures/KLSE/KLSE.json");
+        data = require("../Fixtures/KLSE.json");
         break;
     }
+    console.log('data -- ' + JSON.stringify(data));
     return {
       ok: true,
       data: data
@@ -40,21 +42,21 @@ export default {
   },
   getDividends: (market, symbol) => {
     var dividends = [];
-    switch (market) {
+    switch (market.exchangeName) {
       case KLSE:
-        dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
+        dividends = require("../Fixtures/KLSE_dividend.json");
         break;
       case HKEX:
-        dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
+        dividends = require("../Fixtures/KLSE_dividend.json");
         break;
       case NASDAQ:
-        dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
+        dividends = require("../Fixtures/KLSE_dividend.json");
         break;
       case NYSE:
-        dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
+        dividends = require("../Fixtures/KLSE_dividend.json");
         break;
       case SGX:
-        dividends = require("../Fixtures/KLSE/KLSE_dividend.json");
+        dividends = require("../Fixtures/KLSE_dividend.json");
         break;
     }
     var stockDividends = filter(dividends, function(d) {
@@ -68,21 +70,21 @@ export default {
   },
   getMappedStocks: (market, symbol) => {
     var stocks = [];
-    switch (market) {
+    switch (market.exchangeName) {
       case KLSE:
-        stocks = require("../Fixtures/KLSE/KLSE_mapper.json");
+        stocks = require("../Fixtures/KLSE_mapper.json");
         break;
       case HKEX:
-        stocks = require("../Fixtures/KLSE/KLSE_mapper.json");
+        stocks = require("../Fixtures/KLSE_mapper.json");
         break;
       case NASDAQ:
-        stocks = require("../Fixtures/KLSE/KLSE_mapper.json");
+        stocks = require("../Fixtures/KLSE_mapper.json");
         break;
       case NYSE:
-        stocks = require("../Fixtures/KLSE/KLSE_mapper.json");
+        stocks = require("../Fixtures/KLSE_mapper.json");
         break;
       case SGX:
-        stocks = require("../Fixtures/KLSE/KLSE_mapper.json");
+        stocks = require("../Fixtures/KLSE_mapper.json");
         break;
     }
     var mappedStocks = filter(stocks, function(d) {

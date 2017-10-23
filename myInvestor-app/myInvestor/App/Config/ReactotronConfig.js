@@ -14,7 +14,8 @@ if (Config.useReactotron) {
   
   // https://github.com/infinitered/reactotron/issues/431
   // https://github.com/infinitered/reactotron for more options!
-  Reactotron.configure({  host: 'localhost', name: "myInvestor" })
+  //Reactotron.configure({  host: 'localhost', name: "myInvestor" })
+  Reactotron
     .useReactNative()
     .use(reduxPlugin({ onRestore: Immutable }))
     .use(sagaPlugin())

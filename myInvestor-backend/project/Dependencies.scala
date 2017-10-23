@@ -78,7 +78,7 @@ object Dependencies {
     val akkaTestKit: ModuleID = "com.typesafe.akka" %% "akka-testkit" % Akka % "test"
     val scalatest: ModuleID = "org.scalatest" %% "scalatest" % ScalaTest % "test"
     val scalactic: ModuleID = "org.scalactic" %% "scalactic" % ScalaTest % "test"
-    val supersafe: ModuleID = "com.artima.supersafe" % "supersafe_2.11.8" % SuperSafe % "test"
+    val supersafe: ModuleID = "com.artima.supersafe" % "supersafe_2.12.3" % SuperSafe % "test"
     val log4j: ModuleID = "log4j" % "log4j" % Log4j % "test"
   }
 
