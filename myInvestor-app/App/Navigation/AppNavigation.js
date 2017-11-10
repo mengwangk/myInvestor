@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-01 14:14:24 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-09-11 16:40:34
- */
 import React, { Component } from "react";
 import { StackNavigator, DrawerItems } from "react-navigation";
 import { ScrollView, Image } from "react-native";

@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-08 16:28:08 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-08 16:43:55
- */
 import React from "react";
 import * as ReactNavigation from "react-navigation";
 import { connect } from "react-redux";

@@ -1,16 +1,7 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-02 16:57:48 
- * @Last Modified by:   mwk 
- * @Last Modified time: 2017-08-02 16:57:48 
- */
 import React, { Component } from "react";
 import { View, ListView, Text, Image } from "react-native";
 import { connect } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
-
-// For empty lists
-// import AlertMessage from '../Components/AlertMessage'
 
 // Styles
 import styles from "./Styles/HomeScreenStyle";
