@@ -1,0 +1,159 @@
+{
+  "paragraphs": [
+    {
+      "text": "println(\u0027myInvestor notebook\u0027)",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 11:36:48 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala"
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u003cconsole\u003e:1: error: unclosed character literal\nprintln(\u0027myInvestor notebook\u0027)\n                            ^\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510457780182_-367677011",
+      "id": "20171112-113620_1108877947",
+      "dateCreated": "Nov 12, 2017 11:36:20 AM",
+      "dateStarted": "Nov 12, 2017 11:36:48 AM",
+      "dateFinished": "Nov 12, 2017 11:37:12 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "println(\u0027myInvestor\u0027)",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 11:37:17 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {}
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u003cconsole\u003e:1: error: unclosed character literal\nprintln(\u0027myInvestor\u0027)\n                   ^\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510457808961_458225636",
+      "id": "20171112-113648_564039545",
+      "dateCreated": "Nov 12, 2017 11:36:48 AM",
+      "dateStarted": "Nov 12, 2017 11:37:17 AM",
+      "dateFinished": "Nov 12, 2017 11:37:17 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1510457837422_-2136474973",
+      "id": "20171112-113717_2082491235",
+      "dateCreated": "Nov 12, 2017 11:37:17 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "print(\"myInvestor\")",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 11:37:39 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala"
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "myInvestor"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510457845572_-978750209",
+      "id": "20171112-113725_2003459884",
+      "dateCreated": "Nov 12, 2017 11:37:25 AM",
+      "dateStarted": "Nov 12, 2017 11:37:39 AM",
+      "dateFinished": "Nov 12, 2017 11:37:39 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1510457859136_-1666681242",
+      "id": "20171112-113739_681901611",
+      "dateCreated": "Nov 12, 2017 11:37:39 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "myInvestor",
+  "id": "2CYPU5MTH",
+  "angularObjects": {
+    "2CYV844GV:shared_process": [],
+    "2CYHFG6PV:shared_process": [],
+    "2CXXPZN6T:shared_process": [],
+    "2CWV7P6WY:shared_process": [],
+    "2D1A16ZG9:shared_process": [],
+    "2CXGA9CUR:shared_process": [],
+    "2CXXFK4PT:shared_process": [],
+    "2CXK1V1VB:shared_process": [],
+    "2CYZHCR4X:shared_process": [],
+    "2D1QBEWRP:shared_process": [],
+    "2CZUATTH7:shared_process": [],
+    "2CXB379NA:shared_process": [],
+    "2D1PYRP2S:shared_process": [],
+    "2CX551DWP:shared_process": [],
+    "2D1F2MC4N:shared_process": [],
+    "2CWTKX5YJ:shared_process": [],
+    "2CZS4EJBR:shared_process": [],
+    "2CZQSTU4U:shared_process": [],
+    "2D1FP6YE7:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}
