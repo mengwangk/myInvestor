@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-09-13 00:16:21 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-09-14 00:35:06
- */
 import React, { Component } from "react";
 import { View, Text } from "react-native";
 import styles from "./Styles/StockMarketInfoStyle";

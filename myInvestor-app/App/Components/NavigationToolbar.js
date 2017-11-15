@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-03 17:31:29 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-16 17:07:20
- */
 import React, { Component } from "react";
 // import PropTypes from 'prop-types';
 import { View, Text } from "react-native";
@@ -12,7 +6,7 @@ import { Fonts, Colors, Metrics } from "../Themes/";
 import styles from "./Styles/NavigationToolbarStyle";
 
 export default class NavigationToolbar extends Component {
-  // // Prop type warnings
+  // Prop type warnings
   // static propTypes = {
   //   someProperty: PropTypes.object,
   //   someSetting: PropTypes.bool.isRequired,

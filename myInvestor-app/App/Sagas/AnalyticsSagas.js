@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-09 17:39:53 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-09-04 22:03:25
- */
 import { delay } from "redux-saga";
 import { call, put } from "redux-saga/effects";
 import { path } from "ramda";

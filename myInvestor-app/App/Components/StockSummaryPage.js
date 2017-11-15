@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-25 17:12:47 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-25 17:41:05
- */
 import React, { Component } from "react";
 // import PropTypes from 'prop-types';
 import { View, Text } from "react-native";

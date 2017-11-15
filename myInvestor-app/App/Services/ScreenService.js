@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-09 16:10:10 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-09 17:35:17
- */
 import { Dimensions } from "react-native";
 import Orientation from "react-native-orientation";
 

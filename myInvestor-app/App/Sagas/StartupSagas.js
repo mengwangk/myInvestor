@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-10 12:25:31 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-20 23:30:21
- */
 import { put, select } from "redux-saga/effects";
 import { is } from "ramda";
 import AnalyticsActions from "../Redux/AnalyticsRedux";

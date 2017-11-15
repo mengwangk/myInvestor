@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-08 23:51:36 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-09-13 15:47:04
- */
 import { Dimensions, Platform } from "react-native";
 import { Colors } from "./Colors";
 

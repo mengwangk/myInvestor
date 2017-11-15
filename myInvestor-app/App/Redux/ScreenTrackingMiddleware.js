@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-11 22:17:35 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-12 10:22:47
- */
 import { NavigationActions } from "react-navigation";
 import Config from "../Config/DebugConfig";
 

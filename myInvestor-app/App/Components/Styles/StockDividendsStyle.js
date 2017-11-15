@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-29 09:20:45 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-29 09:37:26
- */
 import { StyleSheet } from "react-native";
 import { ApplicationStyles, Metrics, Colors, Fonts } from "../../Themes";
 

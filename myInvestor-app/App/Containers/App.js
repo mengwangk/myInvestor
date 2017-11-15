@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-30 23:55:51 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-31 00:12:42
- */
 import "../Config";
 import DebugConfig from "../Config/DebugConfig";
 import React, { Component } from "react";

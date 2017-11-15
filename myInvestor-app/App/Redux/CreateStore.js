@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-05 11:50:59 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-12 23:01:29
- */
 import { createStore, applyMiddleware, compose } from "redux";
 import R from "ramda";
 import { createLogger } from "redux-logger";

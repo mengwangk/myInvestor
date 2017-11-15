@@ -1,10 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-07-31 23:58:29 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-03 16:26:09
- */
-
 import React, { Component } from "react";
 import { DrawerNavigator, DrawerItems } from "react-navigation";
 import { Button, ScrollView, Picker } from "react-native";

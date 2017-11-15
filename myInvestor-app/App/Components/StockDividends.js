@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-27 14:58:15 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-29 09:48:59
- */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { View, Text, ListView, RefreshControl, ScrollView } from "react-native";

@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-09-12 16:27:16 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-09-13 23:44:34
- */
 import React, { Component } from "react";
 import {
   View,

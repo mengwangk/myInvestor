@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-05 11:52:40 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-08 11:38:14
- */
 import Config from "../Config/DebugConfig";
 import Immutable from "seamless-immutable";
 import Reactotron from "reactotron-react-native";
@@ -11,7 +5,9 @@ import { reactotronRedux as reduxPlugin } from "reactotron-redux";
 import sagaPlugin from "reactotron-redux-saga";
 
 if (Config.useReactotron) {
+  
   console.log("connecting to reactotron");
+  
   // https://github.com/infinitered/reactotron/issues/431
   // https://github.com/infinitered/reactotron for more options!
   // https://github.com/infinitered/reactotron/issues/162g
