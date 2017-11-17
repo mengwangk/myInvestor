@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-11 23:47:50 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-27 00:47:56
- */
 import React, { Component } from "react";
 import { View, Text, ListView, RefreshControl } from "react-native";
 import { connect } from "react-redux";

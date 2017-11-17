@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-13 14:17:38 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-09-04 22:12:50
- */
 import React, { Component } from "react";
 import {
   ListView,

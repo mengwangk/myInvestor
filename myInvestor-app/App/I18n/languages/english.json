@@ -1,7 +1,8 @@
 {
   "appName": "myInvestor",
   "homeScreen": "Smart Investor",
-  "analyticsScreen": "Analytics",
+  "analyticsScreen": "Market Watch",
+  "portfolioScreen": "Portfolio",
   "stockListScreen": "Stocks",
   "launchScreen": "Test",
   "stockDetailsScreen": "Stock Details",

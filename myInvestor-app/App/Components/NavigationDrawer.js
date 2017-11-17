@@ -16,6 +16,7 @@ import HomeScreen from "../Containers/HomeScreen";
 import AnalyticsScreen from "../Containers/AnalyticsScreen";
 import StockDetailsScreen from "../Containers/StockDetailsScreen";
 import LaunchScreen from "../Containers/LaunchScreen";
+import PortfolioScreen from "../Containers/PortfolioScreen";
 
 const getDrawerItem = navigation =>
   <NavBarItem
@@ -54,6 +55,13 @@ const analyticsNavOptions = getDrawerNavigationOptions(
   analyticsDrawerIcon
 );
 
+const portfolioNavOptions = getDrawerNavigationOptions(
+  I18n.t("portfolioScreen"),
+  Colors.background,
+  Colors.text,
+  analyticsDrawerIcon
+);
+
 const launchNavOptions = getDrawerNavigationOptions(
   I18n.t("launchScreen"),
   Colors.background,
@@ -80,6 +88,10 @@ const NavigationDrawer = DrawerNavigator(
     AnalyticsScreen: {
       screen: AnalyticsScreen,
       navigationOptions: analyticsNavOptions
+    },
+    PortfolioScreen: {
+      screen: PortfolioScreen,
+      navigationOptions: portfolioNavOptions
     },
     LaunchScreen: { screen: LaunchScreen, navigationOptions: launchNavOptions }
   },

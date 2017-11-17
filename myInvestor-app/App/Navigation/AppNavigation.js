@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StackNavigator, DrawerItems } from "react-navigation";
+import { StackNavigator, DrawerItems } from 'react-navigation';
 import { ScrollView, Image } from "react-native";
 import NavigationDrawer from "../Components/NavigationDrawer";
 import StockListScreen from "../Containers/StockListScreen";

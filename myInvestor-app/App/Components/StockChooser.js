@@ -1,9 +1,3 @@
-/*
- * @Author: mwk 
- * @Date: 2017-08-12 13:23:18 
- * @Last Modified by: mwk
- * @Last Modified time: 2017-08-26 14:49:16
- */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { View, Text, TouchableOpacity } from "react-native";
