@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { View, ListView, Text, Image } from "react-native";
 import { connect } from "react-redux";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { TabNavigator } from "react-navigation";
 
 // Styles
 import styles from "./Styles/HomeScreenStyle";
@@ -9,8 +10,6 @@ import styles from "./Styles/HomeScreenStyle";
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
-
-   
   }
 
   render() {

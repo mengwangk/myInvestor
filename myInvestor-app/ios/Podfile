@@ -1,0 +1,41 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'myInvestor' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for myInvestor
+  pod 'AppCenterReactNativeShared', '~> 1.0.1'
+  pod 'AppCenter/Push', '~> 1.0.1'
+  pod 'MobileCenter/Crashes', '~> 0.14.1'
+  pod 'RNMobileCenterShared', '~> 0.11.2'
+  pod 'MobileCenter/Analytics', '~> 0.14.1'
+
+  
+
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
+
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+  target 'myInvestorTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'myInvestor-tvOS' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for myInvestor-tvOS
+
+  target 'myInvestor-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

@@ -88,6 +88,7 @@ import com.android.build.OutputFile
  */
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -106,7 +107,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "25.0.3"
+    buildToolsVersion "26.0.2"
     
     defaultConfig {
         applicationId "com.mylotto"
@@ -167,6 +168,12 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-code-push')
+    compile project(':appcenter-push')
+    compile project(':react-native-smart-splash-screen')
+    compile project(':react-native-config')
+    compile project(':mobile-center-crashes')
+    compile project(':mobile-center-analytics')
     compile project(':react-native-orientation')
     compile project(':react-native-device-info')
     compile project(':react-native-i18n')

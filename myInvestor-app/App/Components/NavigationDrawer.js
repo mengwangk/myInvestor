@@ -1,7 +1,7 @@
 import I18n from "react-native-i18n";
 import React, { Component } from "react";
 import { Button, DrawerNavigator, DrawerItems } from "react-navigation";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScrollView, Image } from "react-native";
 import {
   getNavigationOptionsWithAction,
@@ -36,8 +36,8 @@ const getDrawerIcon = (iconName, tintColor) =>
   <Icon name={iconName} size={Metrics.icons.small} color={tintColor} />;
 
 const homeDrawerIcon = ({ tintColor }) => getDrawerIcon("home", tintColor);
-const analyticsDrawerIcon = ({ tintColor }) =>
-  getDrawerIcon("trending-up", tintColor);
+const analyticsDrawerIcon = ({ tintColor }) =>getDrawerIcon("trending-up", tintColor);
+const portfolioDrawerIcon = ({ tintColor }) =>getDrawerIcon("briefcase", tintColor);
 const launchDrawerIcon = ({ tintColor }) => getDrawerIcon("android", tintColor);
 
 const homeNavOptions = getDrawerNavigationOptions(
@@ -59,7 +59,7 @@ const portfolioNavOptions = getDrawerNavigationOptions(
   I18n.t("portfolioScreen"),
   Colors.background,
   Colors.text,
-  analyticsDrawerIcon
+  portfolioDrawerIcon
 );
 
 const launchNavOptions = getDrawerNavigationOptions(

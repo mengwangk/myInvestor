@@ -3,6 +3,12 @@ package com.mylotto;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.microsoft.appcenter.reactnative.push.AppCenterReactNativePushPackage;
+import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+import com.microsoft.codepush.react.CodePush;
+import com.microsoft.azure.mobile.react.crashes.RNCrashesPackage;
+import com.microsoft.azure.mobile.react.analytics.RNAnalyticsPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
@@ -20,6 +26,12 @@ import java.util.List;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+
+        @Override
+        protected String getJSBundleFile() {
+          return CodePush.getJSBundleFile();
+        }
+    
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
@@ -29,6 +41,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new AppCenterReactNativePushPackage(MainApplication.this),
+            new RCTSplashScreenPackage(),
+            new ReactNativeConfigPackage(),
+            new CodePush(null, getApplicationContext(), BuildConfig.DEBUG),
+            new RNCrashesPackage(MainApplication.this, getResources().getString(R.string.mobileCenterCrashes_whenToSendCrashes)),
+            new RNAnalyticsPackage(MainApplication.this, getResources().getString(R.string.mobileCenterAnalytics_whenToEnableAnalytics)),
             new OrientationPackage(),
             new RNDeviceInfo(),
             new RNI18nPackage(),
