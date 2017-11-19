@@ -1,6 +1,6 @@
 import I18n from "react-native-i18n";
 import React, { Component } from "react";
-import { Button, DrawerNavigator, DrawerItems } from "react-navigation";
+import { Button, DrawerNavigator, DrawerItems, SafeAreaView } from "react-navigation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScrollView, Image } from "react-native";
 import {
@@ -36,8 +36,8 @@ const getDrawerIcon = (iconName, tintColor) =>
   <Icon name={iconName} size={Metrics.icons.small} color={tintColor} />;
 
 const homeDrawerIcon = ({ tintColor }) => getDrawerIcon("home", tintColor);
-const analyticsDrawerIcon = ({ tintColor }) =>getDrawerIcon("trending-up", tintColor);
-const portfolioDrawerIcon = ({ tintColor }) =>getDrawerIcon("briefcase", tintColor);
+const analyticsDrawerIcon = ({ tintColor }) => getDrawerIcon("trending-up", tintColor);
+const portfolioDrawerIcon = ({ tintColor }) => getDrawerIcon("briefcase", tintColor);
 const launchDrawerIcon = ({ tintColor }) => getDrawerIcon("android", tintColor);
 
 const homeNavOptions = getDrawerNavigationOptions(
@@ -71,7 +71,9 @@ const launchNavOptions = getDrawerNavigationOptions(
 
 const ScrollDrawerContentComponent = props =>
   <ScrollView style={styles.scrollView}>
-    <DrawerItems {...props} />
+    <SafeAreaView style={styles.drawerContainer} forceInset={{ top: 'always', horizontal: 'never' }}>
+      <DrawerItems {...props} />
+    </SafeAreaView>
   </ScrollView>;
 
 const navigationDrawerContentOptions = {

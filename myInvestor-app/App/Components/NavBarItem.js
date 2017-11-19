@@ -10,8 +10,7 @@ class NavBarItem extends Component {
     return (
       <TouchableOpacity
         style={{ paddingHorizontal: 20 }}
-        onPress={() => onPress()}
-      >
+        onPress={() => onPress()}>
         <Icon name={iconName} size={Metrics.icons.small} color={Colors.snow} />
       </TouchableOpacity>
     );
