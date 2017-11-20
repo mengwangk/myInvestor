@@ -1,34 +1,24 @@
-import React, { Component } from "react";
-import { View, ListView, Text, Image } from "react-native";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {View, ListView, Text, Image} from "react-native";
+import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { TabNavigator } from "react-navigation";
+import {TabNavigator} from "react-navigation";
+import HighlightScreen from "../Containers/HighlightScreen";
+import TrendingScreen from "../Containers/TrendingScreen";
 
-// Styles
 import styles from "./Styles/HomeScreenStyle";
 
-class HomeScreen extends Component {
-  constructor(props) {
-    super(props);
+var HomeScreen = TabNavigator({
+  HighlightScreen: {
+    screen: HighlightScreen
+  },
+  TrendingScreen: {
+    screen: TrendingScreen
   }
+});
 
-  render() {
-    return (
-      <View style={styles.container}>
-        
-      </View>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  return {
-    // ...redux state to props here
-  };
+HomeScreen.navigationOptions = {
+  title: 'Home1'
 };
 
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default HomeScreen;

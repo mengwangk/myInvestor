@@ -1,35 +1,37 @@
-import React, { Component } from 'react'
-import { ScrollView, Text } from 'react-native'
-import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import React, {Component} from 'react';
+import {ScrollView, Text} from 'react-native';
+import {connect} from 'react-redux';
+import {TabNavigator} from 'react-navigation';
 
-// Styles
-import styles from './Styles/TrendingScreenStyle'
+// Add Actions - replace 'Your' with whatever your reducer is called :) import
+// YourActions from '../Redux/YourRedux' Styles
+import styles from './Styles/TrendingScreenStyle';
 
 class TrendingScreen extends Component {
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {}
-  // }
+  static navigationOptions = {
+    tabBarLabel: 'Trending'
+  }
 
-  render () {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
     return (
       <ScrollView style={styles.container}>
         <Text>TrendingScreen Container</Text>
       </ScrollView>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
-  return {
-  }
+  return {};
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-  }
+  return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrendingScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(TrendingScreen);
