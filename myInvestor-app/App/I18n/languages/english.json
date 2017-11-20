@@ -7,7 +7,6 @@
   "launchScreen": "Test",
   "stockDetailsScreen": "Stock Details",
   "stockCount": "stocks",
-  
   "signIn": "Sign In",
   "logOut": "Log Out",
   "loginLogoutExampleTitle": "Login/Logout Redux + Sagas Example",

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, Text} from 'react-native';
+import {ScrollView, Text, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {TabNavigator} from 'react-navigation';
 
@@ -8,8 +8,12 @@ import {TabNavigator} from 'react-navigation';
 import styles from './Styles/TrendingScreenStyle';
 
 class TrendingScreen extends Component {
+
   static navigationOptions = {
-    tabBarLabel: 'Trending'
+    tabBarLabel: 'Trending',
+    tabBarIcon: ( {tintColor} ) => (
+        <Image></Image>
+    )
   }
 
   constructor(props) {

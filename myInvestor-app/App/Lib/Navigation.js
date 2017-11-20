@@ -1,44 +1,21 @@
-import React, { Component } from "react";
-import { DrawerNavigator, DrawerItems } from "react-navigation";
-import { Button, ScrollView, Picker } from "react-native";
-import { Fonts, Colors, Metrics } from "../Themes/";
+import React, {Component} from "react";
+import {DrawerNavigator, DrawerItems} from "react-navigation";
+import {Button, ScrollView, Picker} from "react-native";
+import {Fonts, Colors, Metrics} from "../Themes/";
 
-export const getNavigationOptions = (title, backgroundColor, color) => ({
-  title,
-  headerTitle: title,
-  headerStyle: {
+export const getNavigationOptions = (title, backgroundColor, color) => ({title, headerTitle: title, headerStyle: {
     backgroundColor
-  },
-  headerTitleStyle: {
+  }, headerTitleStyle: {
     color
-  },
-  headerTintColor: color
-});
+  }, headerTintColor: color});
 
-export const getNavigationOptionsWithAction = (
-  title,
-  backgroundColor,
-  color,
-  headerLeft
-) => ({
-  title,
-  headerStyle: {
+export const getNavigationOptionsWithAction = (title, backgroundColor, color, headerLeft) => ({title, headerStyle: {
     backgroundColor
-  },
-  headerTitleStyle: {
+  }, headerTitleStyle: {
     color
-  },
-  headerTintColor: color,
-  headerLeft
-});
+  }, headerTintColor: color, headerLeft});
 
-export const getDrawerNavigationOptions = (
-  title,
-  backgroundColor,
-  titleColor,
-  drawerIcon,
-  headerRightComponent
-) => ({
+export const getDrawerNavigationOptions = (title, backgroundColor, titleColor, drawerIcon, headerRightComponent) => ({
   title,
   headerTitle: title,
   headerStyle: {
@@ -54,15 +31,8 @@ export const getDrawerNavigationOptions = (
 });
 
 export const getDrawerConfig = (
-  drawerWidth,
-  drawerPosition,
-  initialRouteName,
-  contentComponent,
-  contentOptions
-) => ({
-  drawerWidth,
-  drawerPosition,
-  initialRouteName,
-  contentComponent: contentComponent,
-  contentOptions: contentOptions
-});
+  drawerWidth, drawerPosition, initialRouteName, contentComponent, contentOptions
+) => 
+(
+  { drawerWidth, drawerPosition, initialRouteName, contentComponent: contentComponent, contentOptions: contentOptions }
+);
