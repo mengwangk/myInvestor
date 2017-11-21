@@ -2,15 +2,17 @@ import React, {Component} from 'react';
 import {ScrollView, Text, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {TabNavigator} from 'react-navigation';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import I18n from "react-native-i18n";
 
-// Add Actions - replace 'Your' with whatever your reducer is called :) import
-// YourActions from '../Redux/YourRedux' Styles
+// Add Actions - replace 'Your' with whatever your reducer is called :) 
+// import YourActions from '../Redux/YourRedux' Styles
 import styles from './Styles/TrendingScreenStyle';
 
 class TrendingScreen extends Component {
 
   static navigationOptions = {
-    tabBarLabel: 'Trending',
+    tabBarLabel: I18n.t("trendingScreen"),
     tabBarIcon: ( {tintColor} ) => (
         <Image></Image>
     )

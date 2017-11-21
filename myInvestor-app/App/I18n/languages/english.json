@@ -6,6 +6,8 @@
   "stockListScreen": "Stocks",
   "launchScreen": "Test",
   "stockDetailsScreen": "Stock Details",
+  "trendingScreen": "Trending",
+  "highlightScreen": "Highlight",
   "stockCount": "stocks",
   "signIn": "Sign In",
   "logOut": "Log Out",

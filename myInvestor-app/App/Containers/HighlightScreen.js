@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
 import {ScrollView, Text, View, Image, Button} from 'react-native';
 import {connect} from 'react-redux';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import I18n from "react-native-i18n";
 
-// Add Actions - replace 'Your' with whatever your reducer is called :) import
-// YourActions from '../Redux/YourRedux' Styles
+// Add Actions - replace 'Your' with whatever your reducer is called :) 
+// import YourActions from '../Redux/YourRedux' Styles
 import styles from './Styles/HighlightScreenStyle';
 
 class HighlightScreen extends Component {
+
   static navigationOptions = {
-    tabBarLabel: 'Highlight'
+    tabBarLabel:  I18n.t("highlightScreen")
   }
 
   constructor(props) {
