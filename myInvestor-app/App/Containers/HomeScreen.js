@@ -23,7 +23,8 @@ var HomeScreen = TabNavigator({
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: Colors.black,
+      upperCaseLabel: true,
+      activeTintColor: Colors.snow,
       activeBackgroundColor: Colors.purpleShadow1,
       inactiveTintColor: Colors.black,
       inactiveBackgroundColor: Colors.purpleShadow2,
