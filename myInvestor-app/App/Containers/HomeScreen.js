@@ -5,6 +5,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {TabNavigator} from "react-navigation";
 import HighlightScreen from "../Containers/HighlightScreen";
 import TrendingScreen from "../Containers/TrendingScreen";
+import I18n from "react-native-i18n";
+import { ApplicationStyles, Metrics, Colors, Fonts } from '../Themes'
 
 import styles from "./Styles/HomeScreenStyle";
 
@@ -21,20 +23,23 @@ var HomeScreen = TabNavigator({
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: 'white',
-      activeBackgroundColor: 'darkgreen',
-      inactiveTintColor: 'black',
-      inactiveBackgroundColor: 'green',
+      activeTintColor: Colors.black,
+      activeBackgroundColor: Colors.purpleShadow1,
+      inactiveTintColor: Colors.black,
+      inactiveBackgroundColor: Colors.purpleShadow2,
       labelStyle: {
-        fontSize: 16,
-        padding: 0
-      }
+        fontSize: Fonts.size.small,
+        padding: Metrics.tinyMargin
+      },
+      style: {
+        backgroundColor: Colors.headerPurple,
+      },
     }
   }
 );
 
 HomeScreen.navigationOptions = {
-  title: 'Home'
+  title: I18n.t("homeScreen")
 };
 
 export default HomeScreen;
